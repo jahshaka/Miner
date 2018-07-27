@@ -66,6 +66,22 @@ else()
     endif()
 endif(BUILD_AS_LIB)
 
+set (MINER_ENABLED OFF CACHE BOOL "Enable Mining (OpenCL required)")
+set (MINER_MHTTPD_LIB "NONE" CACHE BOOL "path to libmicrohttpd .lib file")
+set (MINER_MHTTPD_INCLUDE "NONE" CACHE BOOL "path to libmicrohttpd ")
+
+    #XMR-STAK
+    set(OpenSSL_ENABLE OFF)
+    set(HWLOC_ENABLE OFF)
+    set(CUDA_ENABLE OFF)
+    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/xmr-stak)
+    set_target_properties(xmr-stak PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/xmr-stak)
+    set_target_properties(xmr-stak PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/xmr-stak)
+    set_target_properties(xmr-stak PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/xmr-stak)
+    set_target_properties(xmr-stak PROPERTIES OpenSSL_ENABLE OFF)
+    set_target_properties(xmr-stak PROPERTIES HWLOC_ENABLE OFF)
+    set_target_properties(xmr-stak PROPERTIES CUDA_ENABLE OFF)
+
 if(NOT CMAKE_BUILD_TYPE)
     message(STATUS "Setting build type to 'Debug' as none was specified.")
     set(CMAKE_BUILD_TYPE Debug CACHE STRING "Choose the type of build." FORCE)
