@@ -82,6 +82,12 @@ set (MINER_MHTTPD_INCLUDE "NONE" CACHE BOOL "path to libmicrohttpd ")
     set_target_properties(xmr-stak PROPERTIES HWLOC_ENABLE OFF)
     set_target_properties(xmr-stak PROPERTIES CUDA_ENABLE OFF)
 
+
+if(BUILD_AS_LIB)
+add_definitions("-DBUILD_AS_LIB")
+endif(BUILD_AS_LIB)
+
+
 if(NOT CMAKE_BUILD_TYPE)
     message(STATUS "Setting build type to 'Debug' as none was specified.")
     set(CMAKE_BUILD_TYPE Debug CACHE STRING "Choose the type of build." FORCE)

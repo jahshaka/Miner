@@ -28,13 +28,21 @@ For more information see the LICENSE file
 #include <QGraphicsDropShadowEffect>
 #include <QStackedWidget>
 #include <QComboBox>
-#include "mswitch.h"
-#include "QtAwesome.h"
+#include "settingsmanager.h"
+#include "constants.h"
 #include "minerprocess.h"
 #include "minerchart.h"
 
-#include "switch.h"
 
+
+#ifdef BUILD_AS_LIB
+#include "../../src/misc/QtAwesome.h"
+#include "../../src/subclass/switch.h"
+#else
+#include "switch.h"
+#include "QtAwesome.h"
+
+#endif
 
 class QtAwesome;
 class Dot : public QWidget {

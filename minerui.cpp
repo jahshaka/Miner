@@ -21,8 +21,7 @@ For more information see the LICENSE file
 #include <QMessageBox>
 #include <QApplication>
 #include "minerprocess.h"
-#include "settingsmanager.h"
-#include "constants.h"
+
 
 MinerUI::MinerUI(QWidget *parent)
 	: QWidget(parent)
