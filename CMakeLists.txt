@@ -52,11 +52,40 @@ set(CMAKE_AUTOMOC ON)
     else()
         message(FATAL_ERROR "OpenCL NOT found: use `-DOpenCL_ENABLE=OFF` to build without OpenCL support for AMD gpu's")
     endif()
+    
+# This will allow a .lib to be built alongside the dll, ((needed)) for MSVC
+if(WIN32 AND MSVC)
+    set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS 1)
+    set(USE_MSVC_RUNTIME_LIBRARY_DLL 1)
+endif()
 
 option (BUILD_AS_LIB "if the miner is in jahshaka")
 if(BUILD_AS_LIB)
-    set(HEADERS autominer.h cuda_gpu_list.h minerchart.h minerui.h switch.h  minerprocess.h)
-    add_library(JahMiner main.cpp autominer.cpp cuda_gpu_list.cu minerchart.cpp minerui.cpp switch.cpp minerprocess.cpp ${HEADERS_moc})
+    set(HEADERS 
+        autominer.h 
+        cuda_gpu_list.h 
+        minerchart.h 
+        minerui.h  
+         minerprocess.h 
+        ../../src/misc/QtAwesome.h
+        ../../src/misc/QtAwesomeAnim.h
+        ../../src/subclass/switch.h
+        ../../src/constants.h
+        ../../src/core/settingsmanager.h
+         )
+    add_library(JahMiner 
+        main.cpp 
+        autominer.cpp 
+        cuda_gpu_list.cu 
+        minerchart.cpp 
+        minerui.cpp 
+        minerprocess.cpp 
+        ../../src/misc/QtAwesome.cpp
+        ../../src/misc/QtAwesomeAnim.cpp
+        ../../src/subclass/switch.cpp
+        ../../src/constants.cpp
+        ../../src/core/settingsmanager.cpp
+        ${HEADERS_moc})
 else()
     set(HEADERS autominer.h constants.h cuda_gpu_list.h minerchart.h minerui.h qtawesome.h qtawesomeanim.h switch.h settingsmanager.h minerprocess.h)
     add_executable(JahMiner WIN32 main.cpp autominer.cpp constants.cpp cuda_gpu_list.cu minerchart.cpp minerui.cpp qtawesome.cpp qtawesomeanim.cpp switch.cpp settingsmanager.cpp minerprocess.cpp ${HEADERS_moc})
@@ -107,4 +136,4 @@ endif()
 
 target_link_libraries(JahMiner Qt5::Widgets Qt5::Network)
 target_link_libraries(JahMiner ${LIBS})
-
+target_compile_options(JahMiner PUBLIC)

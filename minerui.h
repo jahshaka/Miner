@@ -28,8 +28,7 @@ For more information see the LICENSE file
 #include <QGraphicsDropShadowEffect>
 #include <QStackedWidget>
 #include <QComboBox>
-#include "settingsmanager.h"
-#include "constants.h"
+
 #include "minerprocess.h"
 #include "minerchart.h"
 
@@ -38,13 +37,16 @@ For more information see the LICENSE file
 #ifdef BUILD_AS_LIB
 #include "../../src/misc/QtAwesome.h"
 #include "../../src/subclass/switch.h"
+#include "../../src/constants.h"
+#include "../../src/core/settingsmanager.h"
 #else
 #include "switch.h"
 #include "QtAwesome.h"
+#include "settingsmanager.h"
+#include "constants.h"
 
 #endif
 
-class QtAwesome;
 class Dot : public QWidget {
 
 	Q_OBJECT

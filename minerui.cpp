@@ -54,7 +54,7 @@ MinerUI::MinerUI(QWidget *parent)
 
 	// setWindowFlag(Qt::SubWindow);
 	setAttribute(Qt::WA_QuitOnClose, false);
-	setWindowModality(Qt::ApplicationModal);
+	//setWindowModality(Qt::ApplicationModal);
 
 	// add cards
 	/*

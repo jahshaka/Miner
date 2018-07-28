@@ -19,7 +19,9 @@ For more information see the LICENSE file
 #include <QApplication>
 #include <QDebug>
 
-//#include "../globals.h"
+#ifdef BUILD_AS_LIB
+#include "../../src/globals.h"
+#endif
 
 class SettingsManager
 {
