@@ -516,7 +516,7 @@ void MinerUI::restartMining()
 
 void MinerUI::startMining()
 {
-	foreach(card, list) card->setStarted(!mining);
+	foreach(card, list) card->startMining();
 
 	startBtn->setText("Stop");
 	mining = true;
@@ -524,7 +524,7 @@ void MinerUI::startMining()
 
 void MinerUI::stopMining()
 {
-	foreach(card, list) card->setStarted(!mining);
+	foreach(card, list) card->stopMining();
 
 	startBtn->setText("Start");
 	mining = false;
@@ -680,12 +680,14 @@ void GraphicsCardUI::startMining()
 {
 	if (armed) {
 		process->startMining();
+		setHighlight(true);
 	}
 }
 
 void GraphicsCardUI::stopMining()
 {
 	process->stopMining();
+	setHighlight(false);
 }
 
 void GraphicsCardUI::setColor(MinerConnection status) {

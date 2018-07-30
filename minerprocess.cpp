@@ -298,9 +298,10 @@ void MinerProcess::startMining()
 void MinerProcess::stopMining()
 {
 	timer->stop();
-	if (!process ) {
+	if (process != nullptr) {
 		//process->terminate();
 		process->kill();
+		//delete process;
 		//process->close();
 		//delete process;
 		//process = nullptr;
