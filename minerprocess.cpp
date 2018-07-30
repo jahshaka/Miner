@@ -23,6 +23,12 @@ For more information see the LICENSE file
 #include "cuda_gpu_list.h"
 #include "minerchart.h"
 
+#ifdef BUILD_AS_LIB
+#include "../../src/constants.h"
+#else
+#include "constants.h"
+#endif
+
 
 float RandomFloat(float a, float b) {
 	float random = ((float)rand()) / (float)RAND_MAX;
