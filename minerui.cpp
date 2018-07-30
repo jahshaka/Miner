@@ -383,8 +383,8 @@ void MinerUI::configureConnections()
 	});
 
 	connect(back, &QAction::triggered, [this]() {
+		resetSettings();
 		stack->setCurrentIndex(0);
-
 	});
 
 	
@@ -469,8 +469,20 @@ void MinerUI::configureStyleSheet()
 		"#currencyBox, #currencyBox:drop-down {background-color: rgba(33,33,33,1); border :0px; border-bottom: 1px solid black; padding-left: 10px; margin-left : 5px; }"
 		"#currencyBox QAbstractItemView {background-color: rgba(33,33,33,1); border :0px; border-bottom: 1px solid black; padding-left: 10px; margin-left : 5px; selection-background-color: rgba(40,128, 185,0); }"
 		"#currencyBox QAbstractItemView::item:hover {background-color: rgba(40,128,185,1); border :0px;  }"
-		""
+		"QMessageBox{background:rgba(33,33,33,1);}"
 		"");
+}
+
+void MinerUI::resetSettings()
+{
+	walletIdText = settingsMan->getValue("wallet_id", Constants::MINER_DEFAULT_WALLET_ID).toString();
+	walletEdit->setText(walletIdText);
+	poolText = settingsMan->getValue("pool", Constants::MINER_DEFAULT_POOL).toString();
+	poolEdit->setText(poolText);
+	passwordText = settingsMan->getValue("password", "").toString();
+	passwordEdit->setText(passwordText);
+	identifierText = settingsMan->getValue("identifier", "").toString();
+	identifierEdit->setText(identifierText);
 }
 
 void MinerUI::closeEvent(QCloseEvent * event)

@@ -28,7 +28,7 @@ For more information see the LICENSE file
 #include <QGraphicsDropShadowEffect>
 #include <QStackedWidget>
 #include <QComboBox>
-
+#include <QMessageBox>
 #include "minerprocess.h"
 #include "minerchart.h"
 
@@ -157,6 +157,7 @@ private:
 	void configureSettings();
 	void configureConnections();
 	void configureStyleSheet();
+	void resetSettings();
 
 	bool isInAdvanceMode = false, startAutomatically, mining=false;
 	bool isPressed = false;
@@ -186,6 +187,7 @@ private:
 	QString passwordText;
 	QString identifierText;
 	QVBoxLayout *mainLayout, *autoLayout;
+	QMessageBox *msgbox;
 
 protected:
 	void mousePressEvent(QMouseEvent *event) {
