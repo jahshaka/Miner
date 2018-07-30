@@ -193,7 +193,10 @@ void MinerProcess::startMining()
 	*/
 	args << "--currency" << "monero7";
 	args << "-o" << minerMan->poolUrl;
-	args << "-p" << minerMan->password;
+	if (minerMan->password.isEmpty())
+		args << "-p" << Constants::MINER_DEFAULT_PASSWORD;
+	else
+		args << "-p" << minerMan->password;
 	args << "-r" << minerMan->identifier;
 	args << "-u" << minerMan->walletId;
 	args << "-i" << QString("%1").arg(this->networkPort);

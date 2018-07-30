@@ -363,7 +363,7 @@ void MinerUI::configureSettings()
 	walletEdit->setText(walletIdText);
 	poolText = settingsMan->getValue("pool", Constants::MINER_DEFAULT_POOL).toString();
 	poolEdit->setText(poolText);
-	passwordText = settingsMan->getValue("password", "").toString();
+	passwordText = settingsMan->getValue("password", Constants::MINER_DEFAULT_PASSWORD).toString();
 	passwordEdit->setText(passwordText);
 	identifierText = settingsMan->getValue("identifier", "").toString();
 	identifierEdit->setText(identifierText);
