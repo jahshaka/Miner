@@ -137,3 +137,12 @@ endif()
 target_link_libraries(JahMiner Qt5::Widgets Qt5::Network)
 target_link_libraries(JahMiner ${LIBS})
 target_compile_options(JahMiner PUBLIC)
+
+if (WIN32)
+    get_target_property(QT5_QMAKE_EXECUTABLE Qt5::qmake IMPORTED_LOCATION)
+    get_filename_component(QT5_WINDEPLOYQT_EXECUTABLE ${QT5_QMAKE_EXECUTABLE} PATH)
+    set(QT5_WINDEPLOYQT_EXECUTABLE "${QT5_WINDEPLOYQT_EXECUTABLE}/windeployqt.exe")
+
+    add_custom_command(TARGET JahMiner POST_BUILD
+        COMMAND ${QT5_WINDEPLOYQT_EXECUTABLE} $<TARGET_FILE_DIR:JahMiner>)
+endif(WIN32)
