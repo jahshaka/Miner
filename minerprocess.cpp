@@ -53,11 +53,11 @@ QList<GPU> get_amd_devices() {
 	clGetPlatformIDs(sizeof platforms / sizeof(*platforms), platforms, &platforms_used);
 
 	QList<GPU> ret;
+	int gpuIndex = 0;
 	for (auto i = 0; i < platforms_used; ++i) {
 		cl_device_id devices[64];
 		cl_uint devices_used;
 		clGetDeviceIDs(platforms[i], CL_DEVICE_TYPE_GPU, sizeof devices / sizeof(*devices), devices, &devices_used);
-
 
 		for (auto j = 0u; j < devices_used; ++j) {
 			char name[256];
@@ -70,7 +70,7 @@ QList<GPU> get_amd_devices() {
 			clGetDeviceInfo(devices[j], CL_DEVICE_VENDOR, sizeof vendorname, &vendorname, nullptr);
 			clGetDeviceInfo(devices[j], CL_DEVICE_NAME, sizeof name, &name, nullptr);
 			if (parse_vendor(vendorname) == "AMD")
-				ret.push_back({ i, parse_vendor(vendorname), name, GPUType::AMD });
+				ret.push_back({ gpuIndex++, parse_vendor(vendorname), name, GPUType::AMD });
 		}
 	}
 
@@ -83,6 +83,7 @@ QList<GPU> get_cuda_devices() {
 	clGetPlatformIDs(sizeof platforms / sizeof(*platforms), platforms, &platforms_used);
 
 	QList<GPU> ret;
+	int gpuIndex = 0;
 	for (auto i = 0; i < platforms_used; ++i) {
 		cl_device_id devices[64];
 		cl_uint devices_used;
@@ -100,7 +101,7 @@ QList<GPU> get_cuda_devices() {
 			clGetDeviceInfo(devices[j], CL_DEVICE_VENDOR, sizeof vendorname, &vendorname, nullptr);
 			clGetDeviceInfo(devices[j], CL_DEVICE_NAME, sizeof name, &name, nullptr);
 			if (parse_vendor(vendorname) == "NVIDIA")
-				ret.push_back({ i, parse_vendor(vendorname), name, GPUType::NVidia });
+				ret.push_back({ gpuIndex++, parse_vendor(vendorname), name, GPUType::NVidia });
 		}
 	}
 
