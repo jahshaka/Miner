@@ -23,6 +23,12 @@ For more information see the LICENSE file
 #include "cuda_gpu_list.h"
 #include "minerchart.h"
 
+#ifdef BUILD_AS_LIB
+#include "../../src/constants.h"
+#else
+#include "constants.h"
+#endif
+
 
 float RandomFloat(float a, float b) {
 	float random = ((float)rand()) / (float)RAND_MAX;
@@ -53,11 +59,11 @@ QList<GPU> get_amd_devices() {
 	clGetPlatformIDs(sizeof platforms / sizeof(*platforms), platforms, &platforms_used);
 
 	QList<GPU> ret;
+	int gpuIndex = 0;
 	for (auto i = 0; i < platforms_used; ++i) {
 		cl_device_id devices[64];
 		cl_uint devices_used;
 		clGetDeviceIDs(platforms[i], CL_DEVICE_TYPE_GPU, sizeof devices / sizeof(*devices), devices, &devices_used);
-
 
 		for (auto j = 0u; j < devices_used; ++j) {
 			char name[256];
@@ -70,7 +76,7 @@ QList<GPU> get_amd_devices() {
 			clGetDeviceInfo(devices[j], CL_DEVICE_VENDOR, sizeof vendorname, &vendorname, nullptr);
 			clGetDeviceInfo(devices[j], CL_DEVICE_NAME, sizeof name, &name, nullptr);
 			if (parse_vendor(vendorname) == "AMD")
-				ret.push_back({ i, parse_vendor(vendorname), name, GPUType::AMD });
+				ret.push_back({ gpuIndex++, parse_vendor(vendorname), name, GPUType::AMD });
 		}
 	}
 
@@ -83,6 +89,7 @@ QList<GPU> get_cuda_devices() {
 	clGetPlatformIDs(sizeof platforms / sizeof(*platforms), platforms, &platforms_used);
 
 	QList<GPU> ret;
+	int gpuIndex = 0;
 	for (auto i = 0; i < platforms_used; ++i) {
 		cl_device_id devices[64];
 		cl_uint devices_used;
@@ -100,7 +107,7 @@ QList<GPU> get_cuda_devices() {
 			clGetDeviceInfo(devices[j], CL_DEVICE_VENDOR, sizeof vendorname, &vendorname, nullptr);
 			clGetDeviceInfo(devices[j], CL_DEVICE_NAME, sizeof name, &name, nullptr);
 			if (parse_vendor(vendorname) == "NVIDIA")
-				ret.push_back({ i, parse_vendor(vendorname), name, GPUType::NVidia });
+				ret.push_back({ gpuIndex++, parse_vendor(vendorname), name, GPUType::NVidia });
 		}
 	}
 
@@ -192,7 +199,10 @@ void MinerProcess::startMining()
 	*/
 	args << "--currency" << "monero7";
 	args << "-o" << minerMan->poolUrl;
-	args << "-p" << minerMan->password;
+	if (minerMan->password.isEmpty())
+		args << "-p" << Constants::MINER_DEFAULT_PASSWORD;
+	else
+		args << "-p" << minerMan->password;
 	args << "-r" << minerMan->identifier;
 	args << "-u" << minerMan->walletId;
 	args << "-i" << QString("%1").arg(this->networkPort);
@@ -288,9 +298,10 @@ void MinerProcess::startMining()
 void MinerProcess::stopMining()
 {
 	timer->stop();
-	if (!process ) {
+	if (process != nullptr) {
 		//process->terminate();
 		process->kill();
+		//delete process;
 		//process->close();
 		//delete process;
 		//process = nullptr;

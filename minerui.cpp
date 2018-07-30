@@ -363,10 +363,16 @@ void MinerUI::configureSettings()
 	walletEdit->setText(walletIdText);
 	poolText = settingsMan->getValue("pool", Constants::MINER_DEFAULT_POOL).toString();
 	poolEdit->setText(poolText);
-	passwordText = settingsMan->getValue("password", "").toString();
+	passwordText = settingsMan->getValue("password", Constants::MINER_DEFAULT_PASSWORD).toString();
 	passwordEdit->setText(passwordText);
 	identifierText = settingsMan->getValue("identifier", "").toString();
 	identifierEdit->setText(identifierText);
+
+	minerMan->walletId = walletIdText;
+	minerMan->poolUrl = poolText;
+	minerMan->password = passwordText;
+	minerMan->identifier = identifierText;
+	
 }
 
 void MinerUI::configureConnections()
@@ -522,7 +528,7 @@ void MinerUI::restartMining()
 
 void MinerUI::startMining()
 {
-	foreach(card, list) card->setStarted(!mining);
+	foreach(card, list) card->startMining();
 
 	startBtn->setText("Stop");
 	mining = true;
@@ -530,7 +536,7 @@ void MinerUI::startMining()
 
 void MinerUI::stopMining()
 {
-	foreach(card, list) card->setStarted(!mining);
+	foreach(card, list) card->stopMining();
 
 	startBtn->setText("Start");
 	mining = false;
@@ -686,12 +692,14 @@ void GraphicsCardUI::startMining()
 {
 	if (armed) {
 		process->startMining();
+		setHighlight(true);
 	}
 }
 
 void GraphicsCardUI::stopMining()
 {
 	process->stopMining();
+	setHighlight(false);
 }
 
 void GraphicsCardUI::setColor(MinerConnection status) {
