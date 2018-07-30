@@ -68,7 +68,7 @@ MinerUI::MinerUI(QWidget *parent)
 
 MinerUI::~MinerUI()
 {
-
+	if (isMining()) stopMining();
 }
 
 GraphicsCardUI* MinerUI::addGraphicsCard(QString string)
