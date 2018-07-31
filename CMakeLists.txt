@@ -59,8 +59,8 @@ if(WIN32 AND MSVC)
     set(USE_MSVC_RUNTIME_LIBRARY_DLL 1)
 endif()
 
-option (BUILD_AS_LIB "if the miner is in jahshaka")
-if(BUILD_AS_LIB)
+option (BUILD_MINER_AS_LIB "if the miner is in jahshaka")
+if(BUILD_MINER_AS_LIB)
     set(HEADERS 
         autominer.h 
         cuda_gpu_list.h 
@@ -93,7 +93,7 @@ else()
     if(WIN32 AND CMAKE_BUILD_TYPE STREQUAL Release)
         set(CMAKE_WIN32_EXECUTABLE ON)
     endif()
-endif(BUILD_AS_LIB)
+endif(BUILD_MINER_AS_LIB)
 
 set (MINER_ENABLED OFF CACHE BOOL "Enable Mining (OpenCL required)")
 set (MINER_MHTTPD_LIB "NONE" CACHE BOOL "path to libmicrohttpd .lib file")
@@ -112,9 +112,9 @@ set (MINER_MHTTPD_INCLUDE "NONE" CACHE BOOL "path to libmicrohttpd ")
     set_target_properties(xmr-stak PROPERTIES CUDA_ENABLE OFF)
 
 
-if(BUILD_AS_LIB)
+if(BUILD_MINER_AS_LIB)
 add_definitions("-DBUILD_AS_LIB")
-endif(BUILD_AS_LIB)
+endif(BUILD_MINER_AS_LIB)
 
 
 if(NOT CMAKE_BUILD_TYPE)
