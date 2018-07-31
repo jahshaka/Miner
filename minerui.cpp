@@ -601,6 +601,10 @@ void GraphicsCardUI::setSpeed(double rate) {
 
 void GraphicsCardUI::setArmed(bool armed) {
 	this->armed = armed;
+	if (!armed) {
+		process->stopMining();
+		setDotColor(MinerConnection::Notconnected);
+	}
 }
 
 void GraphicsCardUI::setDotColor(MinerConnection con) {
