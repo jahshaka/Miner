@@ -703,6 +703,7 @@ void GraphicsCardUI::startMining()
 void GraphicsCardUI::stopMining()
 {
 	process->stopMining();
+	setColor(MinerConnection::Inactive);
 	setHighlight(false);
 }
 
@@ -860,6 +861,7 @@ void GraphicsCardUI::configureConnections() {
 		emit switchIsOn(val);
 		armed = val;
 		//	logo->setChecked(val);
+		if (!val) stopMining();
 		displayLabel->setText(val ? "GPU set to mine" : "GPU is not set to mine");
 		oldString = displayLabel->text();
 	});
