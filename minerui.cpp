@@ -422,9 +422,11 @@ void MinerUI::configureConnections()
 				return;
 			}
 			startMining();
+			startButtonStatus = true;
 		}
 		else {
 			stopMining();
+			startButtonStatus = false;
 		}
 
 	});
@@ -437,6 +439,7 @@ void MinerUI::configureConnections()
 	foreach(card, list) {
 		connect(card, &GraphicsCardUI::switchIsOn, [this](bool val) {
 			//do something;
+			checkList();
 		});
 	}
 }
@@ -528,6 +531,7 @@ void MinerUI::restartMining()
 
 void MinerUI::startMining()
 {
+	foreach(card, list) card->setOn(true);
 	foreach(card, list) card->startMining();
 
 	startBtn->setText("Stop");
@@ -536,6 +540,7 @@ void MinerUI::startMining()
 
 void MinerUI::stopMining()
 {
+	foreach(card, list) card->setOn(false);
 	foreach(card, list) card->stopMining();
 
 	startBtn->setText("Start");
@@ -587,6 +592,11 @@ void GraphicsCardUI::setCardName(QString name) {
 	repaint();
 }
 
+void GraphicsCardUI::setOn(bool value)
+{
+	on = value;
+}
+
 void GraphicsCardUI::expand() {
 	additional->show();
 }
@@ -603,13 +613,12 @@ void GraphicsCardUI::setArmed(bool armed) {
 	this->armed = armed;
 	if (!armed) {
 		process->stopMining();
-		setDotColor(MinerConnection::Notconnected);
+		setMinerStatus(MinerConnection::Notconnected);
 	}
 }
 
-void GraphicsCardUI::setDotColor(MinerConnection con) {
+void GraphicsCardUI::setMinerStatus(MinerConnection con) {
 	setColor(con);
-	dot->setColor(color);
 }
 
 void GraphicsCardUI::hideLabel() {
@@ -643,7 +652,7 @@ void GraphicsCardUI::setStarted(bool val) {
 void GraphicsCardUI::setHighlight(bool val) {
 	logo->setCheckable(true);
 	logo->setChecked(val);
-	displayLabel->setText(val ? "--Mining--" : oldString);
+	//displayLabel->setText(val ? "--Mining--" : oldString);
 }
 
 void GraphicsCardUI::setMinerProcess(MinerProcess* process)
@@ -659,9 +668,9 @@ void GraphicsCardUI::setMinerProcess(MinerProcess* process)
 			// if hps is 0 then it must be connecting
 			// set pool color to orange
 			if (data.connected)
-				this->setDotColor(MinerConnection::Connected);
+				this->setMinerStatus(MinerConnection::Connected);
 			else
-				this->setDotColor(MinerConnection::Connecting);
+				this->setMinerStatus(MinerConnection::Connecting);
 
 			if (data.hps != 0) {
 				if (this->info->data.size() > 100)
@@ -676,16 +685,20 @@ void GraphicsCardUI::setMinerProcess(MinerProcess* process)
 			switch (status)
 			{
 			case MinerStatus::Idle:
-				this->setDotColor(MinerConnection::Inactive);
+				this->setMinerStatus(MinerConnection::Inactive);
+				displayLabel->setText("Inactive");
 				break;
 			case MinerStatus::Starting:
-				this->setDotColor(MinerConnection::Connecting);
+				this->setMinerStatus(MinerConnection::Connecting);
+				displayLabel->setText("Connecting");
 				break;
 			case MinerStatus::Mining:
-				this->setDotColor(MinerConnection::Connected);
+				this->setMinerStatus(MinerConnection::Connected);
+				displayLabel->setText("Connected");
 				break;
 			case MinerStatus::Stopping:
-				this->setDotColor(MinerConnection::Notconnected);
+				this->setMinerStatus(MinerConnection::Notconnected);
+				displayLabel->setText("Not Connected");
 				break;
 			}
 		});
@@ -703,7 +716,7 @@ void GraphicsCardUI::startMining()
 void GraphicsCardUI::stopMining()
 {
 	process->stopMining();
-	setColor(MinerConnection::Inactive);
+	setMinerStatus(MinerConnection::Inactive);
 	setHighlight(false);
 }
 
@@ -711,18 +724,34 @@ void GraphicsCardUI::setColor(MinerConnection status) {
 	switch (status) {
 	case MinerConnection::Connected:
 		color.setRgb(0, 120, 0, 255);
+		displayLabel->setText(tr("Connected"));
 		break;
 	case MinerConnection::Connecting:
 		color.setRgb(255, 120, 70, 255);
+		displayLabel->setText(tr("Connecting"));
 		break;
 	case MinerConnection::Notconnected:
 		color.setRgb(170, 1, 2, 255);
+		displayLabel->setText(tr("Not Connected"));
 		break;
 	case MinerConnection::Inactive:
 		color.setRgb(240, 240, 240, 255);
+		displayLabel->setText(tr("Inactive"));
 		break;
 	}
 
+	dot->setColor(color);
+
+}
+
+bool GraphicsCardUI::isMining()
+{
+	return process->isMining();
+}
+
+bool GraphicsCardUI::getSwitchStatus()
+{
+	return switchBtn->on();
 }
 
 void GraphicsCardUI::configureCard() {
@@ -739,6 +768,7 @@ void GraphicsCardUI::configureCard() {
 	card->setLayout(cardLayout);
 	card->setObjectName(QStringLiteral("card"));
 	card->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+	displayLabel = new QLabel("");
 
 	auto toolBar = new QWidget;
 	toolBar->setObjectName(QStringLiteral("cardBar"));
@@ -762,7 +792,7 @@ void GraphicsCardUI::configureCard() {
 	poolDotLayout->addWidget(pool);
 	poolDotLayout->addWidget(dot);
 	poolDotLayout->setSpacing(2);
-	setDotColor(MinerConnection::Notconnected);
+	setMinerStatus(MinerConnection::Notconnected);
 
 	speed = new QLabel("Speed: ");
 	speed->setAlignment(Qt::AlignLeft);
@@ -808,7 +838,6 @@ void GraphicsCardUI::configureCard() {
 	additional->setMinimumHeight(80);
 	additional->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-	displayLabel = new QLabel("GPU is not set to mine");
 	displayLabel->setAlignment(Qt::AlignHCenter);
 	displayLabel->setObjectName(QStringLiteral("gpuLabel"));
 	font.setBold(true);
@@ -852,25 +881,43 @@ void GraphicsCardUI::configureCard() {
 	effect->setXOffset(0);
 	effect->setYOffset(0);
 	effect->setColor(QColor(0, 0, 0));
-	setDotColor(MinerConnection::Inactive);
+	setMinerStatus(MinerConnection::Inactive);
 }
 
 void GraphicsCardUI::configureConnections() {
 
 	connect(switchBtn, &Switch::onChanged, [this](bool val) {
-		emit switchIsOn(val);
 		armed = val;
+		
 		//	logo->setChecked(val);
-		if (!val) stopMining();
-		displayLabel->setText(val ? "GPU set to mine" : "GPU is not set to mine");
+		if (!val && process->isMining() && process) stopMining(); // if card witch is toggled off and is mining
+
+		if (val && on) startMining(); // if card switch is toggled on and start button pressed
+
+//		displayLabel->setText(val ? "GPU set to mine" : "GPU is not set to mine");
 		oldString = displayLabel->text();
+		emit switchIsOn(val);
+
 	});
+
+
 
 	connect(logo, &QPushButton::clicked, [=]() {
-		logo->setChecked(!switchBtn->on());
+	/*	logo->setChecked(!switchBtn->on());
 		qDebug() << switchBtn->on();
-		switchBtn->simulateClick();
+		switchBtn->simulateClick();*/
 	});
 
 
+}
+
+void MinerUI::checkList()
+{
+	if (!isMining()) return;
+	for(int i = 0; i < list.size(); i++){
+		if (list.at(i)->getSwitchStatus()) {
+			return;
+		}
+	}
+	if(startButtonStatus)startBtn->animateClick();
 }

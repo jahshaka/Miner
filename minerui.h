@@ -76,7 +76,7 @@ public:
 	GraphicsCardUI(QWidget *parent = Q_NULLPTR);
 
 	void setCardName(QString name);
-
+	void setOn(bool value);
 	void expand();
 
 	void contract();
@@ -85,7 +85,7 @@ public:
 
 	void setArmed(bool armed);
 
-	void setDotColor(MinerConnection con);
+	void setMinerStatus(MinerConnection con);
 
 	void hideLabel();
 
@@ -103,7 +103,9 @@ public:
 	void stopMining();
 
 	void setColor(MinerConnection status);
-
+	bool isMining();
+	bool getSwitchStatus();
+	bool  on = false;
 private:
 	MinerChart * info;
 	QWidget *additional;
@@ -113,7 +115,7 @@ private:
 	Dot *dot;
 	QPushButton *logo;
 	QString oldString;
-	bool armed=false, mining=false;
+	bool armed = false, mining = false;
 	MinerProcess* process;	
 
 	void configureCard();
@@ -149,6 +151,7 @@ public:
 	{
 		return mining;
 	}
+	bool startButtonStatus = false;
 private slots:
 	void switchToAdvanceMode();
 
@@ -158,8 +161,10 @@ private:
 	void configureConnections();
 	void configureStyleSheet();
 	void resetSettings();
+	void checkList();
 
-	bool isInAdvanceMode = false, startAutomatically, mining=false;
+
+	bool isInAdvanceMode = false, startAutomatically, mining=false, isOn=false;
 	bool isPressed = false;
 	QStackedWidget *stack;
 	QList<GraphicsCardUI *> list;
