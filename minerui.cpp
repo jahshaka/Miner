@@ -222,7 +222,17 @@ void MinerUI::configureUI()
 	groupBoxLayout->addWidget(bottomWidget);
 	//  groupBoxLayout->setSizeConstraint(QLayout::SetFixedSize);
 	groupBoxLayout->setSpacing(0);
-	groupBoxLayout->addWidget(new QSizeGrip(this), 0, Qt::AlignBottom | Qt::AlignRight);
+
+	auto warningLabel = new QLabel("    If miner behaves unexpectedly, restart application in admin mode");
+
+	auto gripLayout = new QHBoxLayout;
+	auto gripWidget = new QWidget;
+	gripWidget->setLayout(gripLayout);
+	gripLayout->addWidget(warningLabel);
+	gripLayout->addWidget(new QSizeGrip(this), 0, Qt::AlignBottom | Qt::AlignRight);
+
+
+	groupBoxLayout->addWidget(gripWidget);
 
 }
 
@@ -264,11 +274,11 @@ void MinerUI::configureSettings()
 	CancelBtn->setObjectName(QStringLiteral("bottomBtn"));
 
 	connect(confirm, &QPushButton::clicked, [=]() {
-		back->trigger();
+		stack->setCurrentIndex(0);
 		this->saveAndApplySettings();
 	});
 	connect(CancelBtn, &QPushButton::clicked, [=]() {
-		back->trigger();
+		stack->setCurrentIndex(0);
 		this->restoreSettings();
 	});
 
@@ -351,7 +361,7 @@ void MinerUI::configureSettings()
 	settingsLaout->addLayout(poolLayout);
 	settingsLaout->addLayout(passwordLayout);
 	settingsLaout->addLayout(identifierLayout);
-	settingsLaout->addLayout(currencyLayout);
+//	settingsLaout->addLayout(currencyLayout);  
 	settingsLaout->addStretch();
 	settingsLaout->addLayout(buttonLayout);
 

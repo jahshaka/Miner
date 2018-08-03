@@ -87,8 +87,11 @@ if(BUILD_MINER_AS_LIB)
         ../../src/core/settingsmanager.cpp
         ${HEADERS_moc})
 else()
+    qt5_add_resources(QRCS
+    ${CMAKE_SOURCE_DIR}/fonts.qrc   
+)
     set(HEADERS autominer.h constants.h cuda_gpu_list.h minerchart.h minerui.h qtawesome.h qtawesomeanim.h switch.h settingsmanager.h minerprocess.h)
-    add_executable(JahMiner WIN32 main.cpp autominer.cpp constants.cpp cuda_gpu_list.cu minerchart.cpp minerui.cpp qtawesome.cpp qtawesomeanim.cpp switch.cpp settingsmanager.cpp minerprocess.cpp ${HEADERS_moc})
+    add_executable(JahMiner WIN32 ${QRCS} main.cpp autominer.cpp constants.cpp cuda_gpu_list.cu minerchart.cpp minerui.cpp qtawesome.cpp qtawesomeanim.cpp switch.cpp settingsmanager.cpp minerprocess.cpp  ${HEADERS_moc})
 
     if(WIN32 AND CMAKE_BUILD_TYPE STREQUAL Release)
         set(CMAKE_WIN32_EXECUTABLE ON)
