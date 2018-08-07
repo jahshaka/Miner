@@ -67,7 +67,7 @@ class GraphicsCardUI : public QWidget
 	Q_OBJECT
 public:
 	enum class MinerConnection {
-		Connected = 1,
+		Mining = 1,
 		Connecting = 2,
 		Notconnected = 3,
 		Inactive = 4

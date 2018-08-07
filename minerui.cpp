@@ -677,8 +677,8 @@ void GraphicsCardUI::setMinerProcess(MinerProcess* process)
 
 			// if hps is 0 then it must be connecting
 			// set pool color to orange
-			if (data.connected)
-				this->setMinerStatus(MinerConnection::Connected);
+			if (data.connected && data.hps > 0)
+				this->setMinerStatus(MinerConnection::Mining);
 			else
 				this->setMinerStatus(MinerConnection::Connecting);
 
@@ -703,8 +703,8 @@ void GraphicsCardUI::setMinerProcess(MinerProcess* process)
 				displayLabel->setText("Connecting");
 				break;
 			case MinerStatus::Mining:
-				this->setMinerStatus(MinerConnection::Connected);
-				displayLabel->setText("Connected");
+				this->setMinerStatus(MinerConnection::Mining);
+				displayLabel->setText("Mining");
 				break;
 			case MinerStatus::Stopping:
 				this->setMinerStatus(MinerConnection::Notconnected);
@@ -732,9 +732,9 @@ void GraphicsCardUI::stopMining()
 
 void GraphicsCardUI::setColor(MinerConnection status) {
 	switch (status) {
-	case MinerConnection::Connected:
+	case MinerConnection::Mining:
 		color.setRgb(0, 120, 0, 255);
-		displayLabel->setText(tr("Connected"));
+		displayLabel->setText(tr("Mining"));
 		break;
 	case MinerConnection::Connecting:
 		color.setRgb(255, 120, 70, 255);
