@@ -224,7 +224,10 @@ void MinerUI::configureUI()
 	//  groupBoxLayout->setSizeConstraint(QLayout::SetFixedSize);
 	groupBoxLayout->setSpacing(0);
 
-	auto warningLabel = new QLabel("    If miner behaves unexpectedly, restart application in admin mode");
+	auto warningLabel = new QLabel("    If miner behaves unexpectedly, restart application in admin mode. For <a href='https://jahfx.com/mining'>help</a> check out our <a href='https://jahfx.com/mining'>website</a>.");
+	warningLabel->setTextFormat(Qt::RichText);
+	warningLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
+	warningLabel->setOpenExternalLinks(true);
 
 	auto gripLayout = new QHBoxLayout;
 	auto gripWidget = new QWidget;
