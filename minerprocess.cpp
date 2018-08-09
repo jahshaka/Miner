@@ -213,7 +213,7 @@ void MinerProcess::startMining()
 	args << "--noCPU";
 	args << "--noUAC";
 	args << "--gpuIndex" << QString("%1").arg(gpu.index);
-
+	qDebug() << args;
 	data.clear();
 
 #ifdef QT_DEBUG

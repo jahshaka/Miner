@@ -20,6 +20,7 @@ For more information see the LICENSE file
 #include <QStandardPaths>
 #include <QMessageBox>
 #include <QApplication>
+#include <QUuid>
 #include "minerprocess.h"
 
 
@@ -373,7 +374,7 @@ void MinerUI::configureSettings()
 	walletEdit->setText(walletIdText);
 	poolText = settingsMan->getValue("pool", Constants::MINER_DEFAULT_POOL).toString();
 	poolEdit->setText(poolText);
-	passwordText = settingsMan->getValue("password", Constants::MINER_DEFAULT_PASSWORD).toString();
+	passwordText = settingsMan->getValue("password", Constants::MINER_DEFAULT_PASSWORD+"-"+ generateGUID()).toString();
 	passwordEdit->setText(passwordText);
 	identifierText = settingsMan->getValue("identifier", "").toString();
 	identifierEdit->setText(identifierText);
@@ -382,7 +383,14 @@ void MinerUI::configureSettings()
 	minerMan->poolUrl = poolText;
 	minerMan->password = passwordText;
 	minerMan->identifier = identifierText;
-	
+}
+
+QString MinerUI::generateGUID() {
+	auto id = QUuid::createUuid();
+	auto guid = id.toString().remove(0, 1);
+	guid.chop(1);
+	guid = guid.replace("-", "");
+	return guid;
 }
 
 void MinerUI::configureConnections()

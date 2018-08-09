@@ -162,6 +162,7 @@ private:
 	void configureStyleSheet();
 	void resetSettings();
 	void checkList();
+	QString MinerUI::generateGUID();
 
 
 	bool isInAdvanceMode = false, startAutomatically, mining=false, isOn=false;
