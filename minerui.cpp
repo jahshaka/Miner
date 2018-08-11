@@ -21,6 +21,7 @@ For more information see the LICENSE file
 #include <QMessageBox>
 #include <QApplication>
 #include <QUuid>
+#include <QDesktopServices>
 #include "minerprocess.h"
 
 
@@ -203,12 +204,20 @@ void MinerUI::configureUI()
 	autoLayout->addWidget(autostart);
 	autoLayout->addStretch();
 
+	auto helpBtn = new QPushButton("Help");
+	connect(helpBtn, &QPushButton::pressed, []()
+	{
+		QDesktopServices::openUrl(QUrl("https://www.jahfx.com/mining"));
+	});
+	helpBtn->setObjectName(QStringLiteral("startBtn"));
+
 	bottomLayout->addSpacing(10);
 	bottomLayout->addWidget(startBtn);
-	bottomLayout->addSpacing(23);
+	//bottomLayout->addSpacing(23);
 	//bottomLayout->addWidget(coinType);
 	bottomLayout->addStretch();
 	bottomLayout->addLayout(autoLayout);
+	bottomLayout->addWidget(helpBtn);
 	bottomLayout->addSpacing(10);
 
 	auto bottomWidget = new QWidget;
@@ -224,7 +233,7 @@ void MinerUI::configureUI()
 	//  groupBoxLayout->setSizeConstraint(QLayout::SetFixedSize);
 	groupBoxLayout->setSpacing(0);
 
-	auto warningLabel = new QLabel("    If miner behaves unexpectedly, restart application in admin mode. For <a href='https://jahfx.com/mining'>help</a> check out our <a href='https://jahfx.com/mining'>website</a>.");
+	auto warningLabel = new QLabel("    If miner behaves unexpectedly, restart application in admin mode.");
 	warningLabel->setTextFormat(Qt::RichText);
 	warningLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
 	warningLabel->setOpenExternalLinks(true);
@@ -393,6 +402,7 @@ QString MinerUI::generateGUID() {
 	auto guid = id.toString().remove(0, 1);
 	guid.chop(1);
 	guid = guid.replace("-", "");
+	guid = guid.left(8);
 	return guid;
 }
 
