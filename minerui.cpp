@@ -50,9 +50,10 @@ MinerUI::MinerUI(QWidget *parent)
 	setContentsMargins(0, 0, 0, 0);
 	mainLayout->setContentsMargins(0, 0, 0, 0);
 	setGraphicsEffect(0);
+#endif
+
 	autoStartSwitch->hide();
 	autostart->hide();
-#endif
 
 	// setWindowFlag(Qt::SubWindow);
 	setAttribute(Qt::WA_QuitOnClose, false);
