@@ -148,4 +148,4 @@ if (WIN32 AND !BUILD_MINER_AS_LIB)
 
     add_custom_command(TARGET JahMiner POST_BUILD
         COMMAND ${QT5_WINDEPLOYQT_EXECUTABLE} $<TARGET_FILE_DIR:JahMiner>)
-endif(WIN32)
+endif()
