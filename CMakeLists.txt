@@ -1,5 +1,11 @@
 cmake_minimum_required(VERSION 3.3 FATAL_ERROR)
-project(JahMiner)
+foreach(p CMP0071) # 3.10: Let AUTOMOC and AUTOUIC process GENERATED files
+    if(POLICY ${p})
+        cmake_policy(SET ${p} NEW)
+    endif()
+endforeach()
+project(Miner)
+set(APP_OUTPUT_NAME "Jahshaka Miner")
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
@@ -73,7 +79,7 @@ if(BUILD_MINER_AS_LIB)
         ../../src/constants.h
         ../../src/core/settingsmanager.h
          )
-    add_library(JahMiner 
+    add_library(Miner 
         main.cpp 
         autominer.cpp 
         cuda_gpu_list.cu 
@@ -91,7 +97,8 @@ else()
     ${CMAKE_SOURCE_DIR}/fonts.qrc   
 )
     set(HEADERS autominer.h constants.h cuda_gpu_list.h minerchart.h minerui.h qtawesome.h qtawesomeanim.h switch.h settingsmanager.h minerprocess.h)
-    add_executable(JahMiner WIN32 ${QRCS} main.cpp autominer.cpp constants.cpp cuda_gpu_list.cu minerchart.cpp minerui.cpp qtawesome.cpp qtawesomeanim.cpp switch.cpp settingsmanager.cpp minerprocess.cpp winapp.rc ${HEADERS_moc})
+    add_executable(${PROJECT_NAME}  WIN32 ${QRCS} main.cpp autominer.cpp constants.cpp cuda_gpu_list.cu minerchart.cpp minerui.cpp qtawesome.cpp qtawesomeanim.cpp switch.cpp settingsmanager.cpp minerprocess.cpp winapp.rc ${HEADERS_moc})
+	set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME ${APP_OUTPUT_NAME})
 
     if(WIN32 AND CMAKE_BUILD_TYPE STREQUAL Release)
         set(CMAKE_WIN32_EXECUTABLE ON)
@@ -137,15 +144,16 @@ endif()
 
   #  qt5_wrap_cpp(HEADERS_moc autominer.h constants.h cuda_gpu_list.h minerchart.h minerui.h qtawesome.h qtawesomeanim.h switch.h settingsmanager.h minerprocess.h)
 
-target_link_libraries(JahMiner Qt5::Widgets Qt5::Network)
-target_link_libraries(JahMiner ${LIBS})
-target_compile_options(JahMiner PUBLIC)
+target_link_libraries(Miner Qt5::Widgets Qt5::Network)
+target_link_libraries(Miner ${LIBS})
+target_compile_options(Miner PUBLIC)
 
 if (WIN32 AND !BUILD_MINER_AS_LIB)
     get_target_property(QT5_QMAKE_EXECUTABLE Qt5::qmake IMPORTED_LOCATION)
     get_filename_component(QT5_WINDEPLOYQT_EXECUTABLE ${QT5_QMAKE_EXECUTABLE} PATH)
     set(QT5_WINDEPLOYQT_EXECUTABLE "${QT5_WINDEPLOYQT_EXECUTABLE}/windeployqt.exe")
 
-    add_custom_command(TARGET JahMiner POST_BUILD
-        COMMAND ${QT5_WINDEPLOYQT_EXECUTABLE} $<TARGET_FILE_DIR:JahMiner>)
+
+    add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
+        COMMAND ${QT5_WINDEPLOYQT_EXECUTABLE} $<TARGET_FILE:${CMAKE_PROJECT_NAME}>)
 endif()
