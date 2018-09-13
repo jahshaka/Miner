@@ -106,11 +106,12 @@ if(BUILD_MINER_AS_LIB)
     add_library(${PROJECT_NAME} ${HEADERS_moc} ${SRCS} ${QRCS})
 
 else()
+	if(WIN32 AND CMAKE_BUILD_TYPE STREQUAL Release)
+        set(CMAKE_WIN32_EXECUTABLE ON)
+    endif()
     add_executable(${PROJECT_NAME} WIN32 ${QRCS} ${SRCS} ${HEADERS} winapp.rc)
 	set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME ${APP_OUTPUT_NAME})
-    if(WIN32 AND CMAKE_BUILD_TYPE STREQUAL Release)
-            set(CMAKE_WIN32_EXECUTABLE ON)
-    endif()
+    
 
 endif(BUILD_MINER_AS_LIB)
 
@@ -121,12 +122,14 @@ endif(BUILD_MINER_AS_LIB)
 	#XMR-STAK
     set(OpenSSL_ENABLE OFF)
     set(HWLOC_ENABLE OFF)
+	#set(CMAKE_WIN32_EXECUTABLE OFF)
     add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/xmr-stak)
     set_target_properties(xmr-stak PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/xmr-stak)
     set_target_properties(xmr-stak PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/xmr-stak)
     set_target_properties(xmr-stak PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/xmr-stak)
     set_target_properties(xmr-stak PROPERTIES OpenSSL_ENABLE OFF)
     set_target_properties(xmr-stak PROPERTIES HWLOC_ENABLE OFF)
+    set_target_properties(xmr-stak PROPERTIES WIN32_EXECUTABLE OFF)
 
 if(NOT CMAKE_BUILD_TYPE)
     message(STATUS "Setting build type to 'Debug' as none was specified.")
