@@ -9,7 +9,8 @@ and/or modify it under the terms of the GPLv3 License
 For more information see the LICENSE file
 *************************************************************************/
 
-#include <CL/cl.h>
+#include <cl/cl.h>
+
 #include <QTimer>
 #include <QJsonDocument>
 #include <QJsonObject>
@@ -21,14 +22,7 @@ For more information see the LICENSE file
 
 #include "minerprocess.h"
 #include "cuda_gpu_list.h"
-#include "minerchart.h"
-
-#ifdef BUILD_AS_LIB
-#include "../../src/constants.h"
-#else
-#include "constants.h"
-#endif
-
+#include "dataprovider.h"
 
 float RandomFloat(float a, float b) {
 	float random = ((float)rand()) / (float)RAND_MAX;
@@ -155,21 +149,151 @@ QList<GPU> get_cuda_devices() {
 	return ret;
 }
 */
+MinerManager::MinerManager( QObject *parent) :QObject(parent){
+    settingsManager = new SettingsManager();
+    resetSettingsToDefault();
+}
+
+Q_INVOKABLE QString MinerManager::getWalletId() const
+{
+    return walletIdText;
+}
+
+Q_INVOKABLE void MinerManager::setWalletId(const QString &value)
+{
+    walletIdText = value;
+}
+
+void MinerManager::resetSettings()
+{
+    emit walletIdChanged(walletIdText);
+    emit poolUrlChanged(poolUrlText);
+    emit passwordChanged(passwordText);
+    emit identifierChanged(identifierText);
+}
+
+Q_INVOKABLE void MinerManager::resetSettingsToDefault()
+{
+    walletIdText = settingsManager->getValue("wallet_id", walletId).toString();
+    poolUrlText = settingsManager->getValue("pool", poolUrl).toString();
+    passwordText = settingsManager->getValue("password", password).toString();
+    identifierText =  settingsManager->getValue("identifier", identifier).toString();
+
+    emit walletIdChanged(walletId);
+    emit poolUrlChanged(poolUrl);
+    emit passwordChanged(password);
+    emit identifierChanged(identifier);
+}
+
+Q_INVOKABLE void MinerManager::saveAndApplySettings()
+{
+        settingsManager->setValue("wallet_id", walletIdText);
+        settingsManager->setValue("pool", poolUrlText);
+        settingsManager->setValue("password", passwordText);
+        settingsManager->setValue("identifier", identifierText);
+
+
+            for( auto pro : dataProviderList){
+                if(pro->isProcessMining())
+                    pro->restartProcesses();
+            }
+}
+
+Q_INVOKABLE void MinerManager::restoreSettings()
+{
+         settingsManager->setValue("wallet_id", walletId);
+        settingsManager->setValue("pool", poolUrl);
+        settingsManager->setValue("password", password);
+         settingsManager->setValue("identifier", identifier);
+
+         resetSettingsToDefault();
+}
+
+Q_INVOKABLE QString MinerManager::getPassword() const
+{
+    return passwordText;
+}
+
+Q_INVOKABLE void MinerManager::setPassword(const QString &value)
+{
+    passwordText = value;
+}
+
+Q_INVOKABLE QString MinerManager::getIdentifier() const
+{
+    return identifierText;
+}
+
+Q_INVOKABLE void MinerManager::setIdentifier(const QString &value)
+{
+    identifierText = value;
+}
+
+Q_INVOKABLE QString MinerManager::getPoolUrl() const
+{
+    return poolUrlText;
+}
+
+Q_INVOKABLE void MinerManager::setPoolUrl(const QString &value)
+{
+    poolUrlText = value;
+}
+
+Q_INVOKABLE QVector<int> MinerManager::providerlist()
+{
+    return somenumber;
+}
+
+//Q_INVOKABLE QQmlListProperty<DataProvider*> MinerManager::dataHolderLists()
+//{
+//	return providerList;
+//}
+
+Q_INVOKABLE void MinerManager::startMining()
+{
+	for (auto card : dataProviderList) {
+		card->startProcess();
+	}
+}
+
+Q_INVOKABLE void MinerManager::stopMining()
+{
+	for (auto card : dataProviderList) {
+		card->stopProcess();
+    }
+}
+
+void MinerManager::setShouldMining(bool val)
+{
+    for(auto pro : dataProviderList){
+        pro->setShouldMine(val);
+    }
+}
+
+
+
 bool MinerManager::initialize()
 {
 	// get nvidia devices
 	auto list = get_cuda_devices();
 
-	// get amd devices
-	list.append(get_amd_devices());
+    // get amd devices
+    list.append(get_amd_devices());
 
 	// create processes for each
 	int portNum = 9310;
+	int i = 0;
 	for (auto gpu : list) {
 		auto proc = new MinerProcess(this);
+		auto dataprovider = new DataProvider();
+		i++;
 		proc->setGpu(gpu);
 		proc->setNetworkPort(portNum);
+		dataprovider->setMinerProcess(proc);
+		dataprovider->setIndex(i);
+        emit processCreated(dataprovider);
 		processes.append(proc);
+		dataProviderList.append(dataprovider);
 		portNum += 1;
 	}
 
@@ -187,7 +311,7 @@ void MinerProcess::startMining()
 {
 	QDir basePath = QDir(QCoreApplication::applicationDirPath());
 	auto xmrPath = QDir::cleanPath(basePath.absolutePath() + QDir::separator() + "xmr-stak/xmr-stak.exe");
-
+	qDebug() << "start xmrstack called";
 	process = new QProcess();
 	QStringList args;
 	/*
@@ -198,13 +322,13 @@ void MinerProcess::startMining()
 	args << "-u" << "43QGgipcHvNLBX3nunZLwVQpF6VbobmGcQKzXzQ5xMfJgzfRBzfXcJHX1tUHcKPm9bcjubrzKqTm69JbQSL4B3f6E3mNCbU";
 	*/
 	args << "--currency" << "monero7";
-	args << "-o" << minerMan->poolUrl;
+    args << "-o" << minerMan->poolUrlText;
 	if (minerMan->password.isEmpty())
-		args << "-p" << Constants::MINER_DEFAULT_PASSWORD;
-	else
 		args << "-p" << minerMan->password;
-	args << "-r" << minerMan->identifier;
-	args << "-u" << minerMan->walletId;
+	else
+        args << "-p" << minerMan->passwordText;
+    args << "-r" << minerMan->identifierText;
+    args << "-u" << minerMan->walletIdText;
 	args << "-i" << QString("%1").arg(this->networkPort);
 	if (gpu.type == GPUType::AMD)
 		args << "--noNVIDIA";
@@ -282,7 +406,7 @@ void MinerProcess::startMining()
 				auto hashArray = hashObj["total"].toArray();
 				auto hps = (float)hashArray[0].toDouble(0);
 
-				// emit status changed
+				// emit status changed    
 				emit onMinerChartData({ poolConnected,uptime, hps });
 			}
 		}, [this](QNetworkReply::NetworkError error)

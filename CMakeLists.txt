@@ -10,7 +10,7 @@ set(APP_OUTPUT_NAME "Jahshaka Miner")
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-find_package(Qt5 REQUIRED COMPONENTS Widgets Network)
+find_package(Qt5 REQUIRED COMPONENTS Widgets Network Quick Qml QuickWidgets)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 set(CMAKE_AUTOMOC ON)
@@ -66,66 +66,60 @@ if(WIN32 AND MSVC)
 endif()
 
 option (BUILD_MINER_AS_LIB "if the miner is in jahshaka")
+
+
+set(HEADERS 
+	cuda_gpu_list.h
+	dataprovider.h
+	literals.h
+	minerProcess.h
+        constants.h
+        settingsmanager.h
+        minerfrontend.h
+        literal.h
+        )
+set(SRCS
+	dataprovider.cpp
+	main.cpp
+	minerprocess.cpp
+	constants.cpp
+        settingsmanager.cpp
+        cuda_gpu_list.cu
+        minerfrontend.cpp
+        literal.cpp
+        )
+
+
+qt5_add_resources(QRCS
+	qml.qrc)
+
 if(BUILD_MINER_AS_LIB)
-    set(HEADERS 
-        autominer.h 
-        cuda_gpu_list.h 
-        minerchart.h 
-        minerui.h  
-         minerprocess.h 
-        ../../src/misc/QtAwesome.h
-        ../../src/misc/QtAwesomeAnim.h
-        ../../src/subclass/switch.h
-        ../../src/constants.h
-        ../../src/core/settingsmanager.h
-         )
-    add_library(Miner 
-        main.cpp 
-        autominer.cpp 
-        cuda_gpu_list.cu 
-        minerchart.cpp 
-        minerui.cpp 
-        minerprocess.cpp 
-        ../../src/misc/QtAwesome.cpp
-        ../../src/misc/QtAwesomeAnim.cpp
-        ../../src/subclass/switch.cpp
-        ../../src/constants.cpp
-        ../../src/core/settingsmanager.cpp
-        ${HEADERS_moc})
+    add_library(${PROJECT_NAME} ${HEADERS_moc} ${SRCS} ${QRCS})
+
 else()
-    qt5_add_resources(QRCS
-    ${CMAKE_SOURCE_DIR}/fonts.qrc   
-)
-    set(HEADERS autominer.h constants.h cuda_gpu_list.h minerchart.h minerui.h qtawesome.h qtawesomeanim.h switch.h settingsmanager.h minerprocess.h)
-    add_executable(${PROJECT_NAME}  WIN32 ${QRCS} main.cpp autominer.cpp constants.cpp cuda_gpu_list.cu minerchart.cpp minerui.cpp qtawesome.cpp qtawesomeanim.cpp switch.cpp settingsmanager.cpp minerprocess.cpp winapp.rc ${HEADERS_moc})
+    add_executable(${PROJECT_NAME} WIN32 ${QRCS} ${SRCS} ${HEADERS} winapp.rc)
 	set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME ${APP_OUTPUT_NAME})
-
     if(WIN32 AND CMAKE_BUILD_TYPE STREQUAL Release)
-        set(CMAKE_WIN32_EXECUTABLE ON)
+            set(CMAKE_WIN32_EXECUTABLE ON)
     endif()
+
 endif(BUILD_MINER_AS_LIB)
-
-set (MINER_ENABLED OFF CACHE BOOL "Enable Mining (OpenCL required)")
-set (MINER_MHTTPD_LIB "NONE" CACHE BOOL "path to libmicrohttpd .lib file")
-set (MINER_MHTTPD_INCLUDE "NONE" CACHE BOOL "path to libmicrohttpd ")
-
-    #XMR-STAK
-    set(OpenSSL_ENABLE OFF)
-    set(HWLOC_ENABLE OFF)
-    set(CUDA_ENABLE OFF)
-    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/xmr-stak)
-    set_target_properties(xmr-stak PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/xmr-stak)
-    set_target_properties(xmr-stak PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/xmr-stak)
-    set_target_properties(xmr-stak PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/xmr-stak)
-    set_target_properties(xmr-stak PROPERTIES OpenSSL_ENABLE OFF)
-    set_target_properties(xmr-stak PROPERTIES HWLOC_ENABLE OFF)
-    set_target_properties(xmr-stak PROPERTIES CUDA_ENABLE OFF)
-
 
 if(BUILD_MINER_AS_LIB)
-add_definitions("-DBUILD_AS_LIB")
+    add_definitions("-DBUILD_AS_LIB")
 endif(BUILD_MINER_AS_LIB)
 
+#XMR-STAK
+    #set(OpenSSL_ENABLE OFF)
+    #set(HWLOC_ENABLE OFF)
+    #set(CUDA_ENABLE OFF)
+    #add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/xmr-stak)
+    #set_target_properties(xmr-stak PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/xmr-stak)
+    #set_target_properties(xmr-stak PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/xmr-stak)
+    #set_target_properties(xmr-stak PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/xmr-stak)
+    #set_target_properties(xmr-stak PROPERTIES OpenSSL_ENABLE OFF)
+    #set_target_properties(xmr-stak PROPERTIES HWLOC_ENABLE OFF)
+    #set_target_properties(xmr-stak PROPERTIES CUDA_ENABLE OFF)
 
 if(NOT CMAKE_BUILD_TYPE)
     message(STATUS "Setting build type to 'Debug' as none was specified.")
@@ -140,21 +134,23 @@ if(MSVC)
     add_definitions("-D_CRT_SECURE_NO_WARNINGS" "-DNOMINMAX")
     # Disable ZERO_CHECK if need be
     # set(CMAKE_SUPPRESS_REGENERATION true)
-endif()
+endif(MSVC)
 
-  #  qt5_wrap_cpp(HEADERS_moc autominer.h constants.h cuda_gpu_list.h minerchart.h minerui.h qtawesome.h qtawesomeanim.h switch.h settingsmanager.h minerprocess.h)
 
-target_link_libraries(Miner Qt5::Widgets Qt5::Network)
-target_link_libraries(Miner ${LIBS})
-target_compile_options(Miner PUBLIC)
-add_dependencies(Miner xmr-stak)
 
-if (WIN32 AND !BUILD_MINER_AS_LIB)
+target_link_libraries(${PROJECT_NAME} Qt5::Widgets Qt5::Network Qt5::Qml Qt5::Quick Qt5::QuickWidgets)
+target_link_libraries(${PROJECT_NAME} ${LIBS})
+target_compile_options(${PROJECT_NAME} PUBLIC)
+
+if (WIN32 AND NOT BUILD_MINER_AS_LIB)
     get_target_property(QT5_QMAKE_EXECUTABLE Qt5::qmake IMPORTED_LOCATION)
     get_filename_component(QT5_WINDEPLOYQT_EXECUTABLE ${QT5_QMAKE_EXECUTABLE} PATH)
     set(QT5_WINDEPLOYQT_EXECUTABLE "${QT5_WINDEPLOYQT_EXECUTABLE}/windeployqt.exe")
 
 
-    add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
-        COMMAND ${QT5_WINDEPLOYQT_EXECUTABLE} $<TARGET_FILE:${CMAKE_PROJECT_NAME}>)
+    add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+        COMMAND ${QT5_WINDEPLOYQT_EXECUTABLE} $<TARGET_FILE:${PROJECT_NAME}>)
+
+        add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+        COMMAND ${QT5_WINDEPLOYQT_EXECUTABLE} --qmldir ${CMAKE_CURRENT_SOURCE_DIR} $<TARGET_FILE:${PROJECT_NAME}>)
 endif()

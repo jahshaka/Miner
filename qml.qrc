@@ -1,0 +1,30 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>images/chart-40.png</file>
+        <file>images/jahminer icon.png</file>
+        <file>images/lock-40.png</file>
+        <file>images/settings-40.png</file>
+        <file>subclass/ToolBarButton.qml</file>
+        <file>literals.h</file>
+        <file>main.cpp</file>
+        <file>subclass/BlueButton.qml</file>
+        <file>Banner.qml</file>
+        <file>subclass/GraphicsCard.qml</file>
+        <file>subclass/HorizontalSpacer.qml</file>
+        <file>GraphicsCardPage.qml</file>
+        <file>subclass/SimpleLabel.qml</file>
+        <file>subclass/GraphItem.qml</file>
+        <file>subclass/charts/Chart.js</file>
+        <file>subclass/charts/Chart.qml</file>
+        <file>subclass/charts/MChart.qml</file>
+        <file>subclass/CustomBorder.qml</file>
+        <file>subclass/CustomSwitch.qml</file>
+        <file>SettingsPage.qml</file>
+        <file>subclass/SettingsNode.qml</file>
+        <file>subclass/BasePage.qml</file>
+        <file>subclass/CustomGraph.qml</file>
+        <file>subclass/CustomToolBar.qml</file>
+        <file>mainStandalone.qml</file>
+    </qresource>
+</RCC>
