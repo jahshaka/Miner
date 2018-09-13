@@ -147,6 +147,7 @@ endif()
 target_link_libraries(Miner Qt5::Widgets Qt5::Network)
 target_link_libraries(Miner ${LIBS})
 target_compile_options(Miner PUBLIC)
+add_dependencies(Miner xmr-stak)
 
 if (WIN32 AND !BUILD_MINER_AS_LIB)
     get_target_property(QT5_QMAKE_EXECUTABLE Qt5::qmake IMPORTED_LOCATION)
