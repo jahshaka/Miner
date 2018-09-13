@@ -67,6 +67,15 @@ endif()
 
 option (BUILD_MINER_AS_LIB "if the miner is in jahshaka")
 
+if(${CMAKE_CXX_COMPILER_ID} STREQUAL MSVC)
+    set(DestDir ${CMAKE_BINARY_DIR}/bin/${CMAKE_BUILD_TYPE})
+else()
+    set(DestDir ${CMAKE_BINARY_DIR}/bin)
+endif()
+
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 set(HEADERS 
 	cuda_gpu_list.h
@@ -109,17 +118,17 @@ if(BUILD_MINER_AS_LIB)
     add_definitions("-DBUILD_AS_LIB")
 endif(BUILD_MINER_AS_LIB)
 
-#XMR-STAK
-    #set(OpenSSL_ENABLE OFF)
-    #set(HWLOC_ENABLE OFF)
-    #set(CUDA_ENABLE OFF)
-    #add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/xmr-stak)
-    #set_target_properties(xmr-stak PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/xmr-stak)
-    #set_target_properties(xmr-stak PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/xmr-stak)
-    #set_target_properties(xmr-stak PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/xmr-stak)
-    #set_target_properties(xmr-stak PROPERTIES OpenSSL_ENABLE OFF)
-    #set_target_properties(xmr-stak PROPERTIES HWLOC_ENABLE OFF)
-    #set_target_properties(xmr-stak PROPERTIES CUDA_ENABLE OFF)
+	#XMR-STAK
+    set(OpenSSL_ENABLE OFF)
+    set(HWLOC_ENABLE OFF)
+    set(CUDA_ENABLE OFF)
+    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/xmr-stak)
+    set_target_properties(xmr-stak PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/xmr-stak)
+    set_target_properties(xmr-stak PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/xmr-stak)
+    set_target_properties(xmr-stak PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/xmr-stak)
+    set_target_properties(xmr-stak PROPERTIES OpenSSL_ENABLE OFF)
+    set_target_properties(xmr-stak PROPERTIES HWLOC_ENABLE OFF)
+    set_target_properties(xmr-stak PROPERTIES CUDA_ENABLE OFF)
 
 if(NOT CMAKE_BUILD_TYPE)
     message(STATUS "Setting build type to 'Debug' as none was specified.")
@@ -141,6 +150,7 @@ endif(MSVC)
 target_link_libraries(${PROJECT_NAME} Qt5::Widgets Qt5::Network Qt5::Qml Qt5::Quick Qt5::QuickWidgets)
 target_link_libraries(${PROJECT_NAME} ${LIBS})
 target_compile_options(${PROJECT_NAME} PUBLIC)
+add_dependencies(Miner xmr-stak)
 
 if (WIN32 AND NOT BUILD_MINER_AS_LIB)
     get_target_property(QT5_QMAKE_EXECUTABLE Qt5::qmake IMPORTED_LOCATION)

@@ -10,7 +10,7 @@ ApplicationWindow {
     visible: true
     width: 640
     height: 480
-    title: qsTr("JahMiner")
+    title: qsTr("Jahminer")
     minimumHeight: 350
     minimumWidth: 450
     id: app
