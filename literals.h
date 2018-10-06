@@ -8,30 +8,6 @@
 
 class Literals : public QObject{
     Q_OBJECT
-    Q_PROPERTY(QVariant fontWeight READ fontWeight CONSTANT)
-    Q_PROPERTY(QVariant fontWeightLighter READ fontWeightLighter CONSTANT)
-    Q_PROPERTY(QVariant fontWeightLarger READ fontWeightLarger CONSTANT)
-    Q_PROPERTY(QVariant borderWidth READ borderWidth CONSTANT)
-    Q_PROPERTY(QVariant fontcolor READ fontColor CONSTANT)
-    Q_PROPERTY(QVariant blueButtonColor READ blueButtonColor CONSTANT)
-    Q_PROPERTY(QVariant darkBackgroundColor READ darkBackgroundColor CONSTANT)
-    Q_PROPERTY(QVariant chartBackgroundColor READ chartBackgroundColor CONSTANT)
-    Q_PROPERTY(QVariant transparent READ transparent CONSTANT)
-    Q_PROPERTY(QVariant borderColor READ borderColor CONSTANT)
-
-    Q_PROPERTY(QVariant buttonColor READ borderColor CONSTANT)
-    Q_PROPERTY(QVariant buttonColorHovered READ buttonColorHovered CONSTANT)
-    Q_PROPERTY(QVariant buttonColorPressed READ buttonColorPressed CONSTANT)
-    Q_PROPERTY(QVariant blueButtonColorHovered READ blueButtonColorHovered CONSTANT)
-    Q_PROPERTY(QVariant blueButtonColorPressed READ blueButtonColorPressed CONSTANT)
-    Q_PROPERTY(QVariant switchOffColor READ switchOffColor CONSTANT)
-    Q_PROPERTY(QVariant switchOnColor READ switchOnColor CONSTANT)
-
-    Q_PROPERTY(QVariant animationLengthShort READ animationLengthShort CONSTANT)
-    Q_PROPERTY(QVariant animationLengthMedium READ animationLengthMedium CONSTANT)
-    Q_PROPERTY(QVariant animationLengthLong READ animationLengthLong CONSTANT)
-
-
 public:
 //    explicit Literals(QObject *parent = Q_NULLPTR): QObject(parent){
 

@@ -26,5 +26,6 @@
         <file>subclass/CustomGraph.qml</file>
         <file>subclass/CustomToolBar.qml</file>
         <file>mainStandalone.qml</file>
+        <file>images/icon.ico</file>
     </qresource>
 </RCC>
