@@ -17,9 +17,16 @@ Pane {
 
                 Image {
                     id: bannerImage
-                    source: "images/jahminer icon.png"
-                    sourceSize.width: 25
-                    rotation: 180
+                //    source: "images/jahminer icon.png"
+                    source: "images/icon.ico"
+                    sourceSize.width: 48
+                    sourceSize.height: 48
+                    rotation: 0
+                    Item {
+                        implicitHeight: 50
+                        implicitWidth: 50
+                    }
+
                 }
 
 

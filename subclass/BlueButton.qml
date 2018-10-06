@@ -38,7 +38,7 @@ Rectangle {
 
         color: Literals.blueButtonColor
         implicitWidth: 120
-        // implicitHeight:  parent.height
+        implicitHeight:  implicitHeight+30
         Behavior on color {
 
             ColorAnimation {
@@ -61,6 +61,7 @@ Rectangle {
             color: Literals.fontcolor
             horizontalAlignment: Text.AlignHCenter
             Layout.fillWidth: true
+            font.pixelSize: Qt.application.font.pixelSize * 1.4
         }
     }
 }

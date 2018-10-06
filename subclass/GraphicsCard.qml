@@ -13,9 +13,11 @@ Page {
     property alias mean: mean.textValue
     property alias latest: latest.textValue
     property int cardIndex: 0
+    property bool maximized: true
 
     property DataProvider provider: null
 
+    id: page
 
     Component.onCompleted: {
         graph.provider = provider
@@ -24,6 +26,40 @@ Page {
     Component.onDestruction: {
         provider.finished()
     }
+
+    onMaximizedChanged: {
+        page.state= maximized==true? "maximize" : "minimize"
+    }
+
+    state: "maximize"
+    states: [
+        State {
+            name: "maximize"
+            PropertyChanges {
+                target: statistics
+            //    visible: true
+                opacity: 1.0
+
+            }
+        }, State {
+            name: "minimize"
+            PropertyChanges {
+                target: statistics
+           //     visible: false
+                opacity: 0.0
+                implicitHeight: 60
+                implicitWidth: 0
+
+            }
+            PropertyChanges {
+                target: graphRowLayout
+
+                Layout.margins: {
+                    topMargin: -15
+                }
+            }
+        }
+    ]
 
     padding: 15
     topPadding: 10
@@ -50,69 +86,100 @@ Page {
                 right: parent.right
             }
 
-           CustomSwitch{
+            CustomSwitch {
                 id: armedSwitch
                 //Layout.alignment: Qt.AlignBottom
                 widthValue: 35
                 onClicked: {
                     provider.setArmed(on)
-                    if(!on) status.textValue = "Status : Offline"
-                    else status.textValue = "Status : "+provider.getStatus() ;
+                    if (!on)
+                        status.textValue = "Status : Offline"
+                    else
+                        status.textValue = "Status : " + provider.getStatus()
                 }
-           }
+            }
 
             Label {
                 id: minerIndex
-                text: "Miner "+ cardIndex
+                text: "Miner " + cardIndex
                 font.pixelSize: Qt.application.font.pixelSize * 1.9
                 color: Literals.fontcolor
                 font.weight: Literals.fontWeightLarger
                 verticalAlignment: Text.AlignBottom
-
             }
-
-
 
             HorizontalSpacer {
             }
 
-            Rectangle {
-                    implicitHeight: 16
-                    implicitWidth: 16
+            Button {
+                implicitHeight: 16
+                implicitWidth: 16
+
+                Layout.rightMargin: -1
+                Layout.topMargin: -5
+                background: Rectangle {
+
                     color: Literals.transparent
                     border.color: Literals.borderColor
                     border.width: Literals.borderWidth
                     radius: 2
-                    Layout.rightMargin: -1
-                    Layout.topMargin: -5
-
-                    Text {
-                        id: name
-                        text: qsTr( "▲")
-                        anchors.centerIn: parent
-                        font.pixelSize: Qt.application.font.pixelSize * .6
-                        color: Literals.borderColor
-                    }
                 }
 
-
-              //  text: "▲"
+                Text {
+                    id: name
+                    text: qsTr("▲")
+                    anchors.centerIn: parent
+                    font.pixelSize: Qt.application.font.pixelSize * .6
+                    color: Literals.borderColor
+                }
+                onClicked: {
+                    maximized = maximized==true? false:true;
+                }
             }
+        }
 
-        Item{
+        Item {
             implicitHeight: 20
             width: 2
         }
         ///////////////////////////////////////////////////////////////////////////////  top row
         ///////////////////////////////////////////////////////////////////////////////  card Content
         RowLayout {
-
+            id: graphRowLayout
             Layout.fillWidth: true
+
+            Behavior on Layout.margins {
+                NumberAnimation{
+                    duration: 400
+                }
+            }
+
             Pane {
+                id: statistics
+
+                Behavior on opacity {
+                    NumberAnimation{
+                        duration: 220
+                    }
+                }
+
+                Behavior on implicitHeight{
+                    NumberAnimation{
+                        duration: 420
+                    }
+                }
+                Behavior on implicitWidth {
+                    NumberAnimation{
+                        duration: 420
+                    }
+                }
+
+
                 padding: 0
-                Layout.preferredWidth: 120
+              //  Layout.preferredWidth: 120
                 background: Rectangle {
-                    color: "transparent"
+                    color: Literals.transparent
+                    implicitWidth: 120
                 }
 
                 ColumnLayout {
@@ -178,13 +245,18 @@ Page {
                 GraphItem {
                     id: graph
                     myIndex: cardIndex
-                    onCardnameChanged: cardName.textValue = graph.cardname;
-                    onStatusChanged: armedSwitch.on? status.textValue = "Status : "+provider.getStatus() : status.textValue = "Status : Offline" ;
-                    onHighChanged: high.textValue = "High ("+graph.currentTime+") : "+graph.high.toString()
-                    onLowChanged: low.textValue = "Low ("+currentTime+") : "+graph.low.toString()
-                    onMeanChanged: mean.textValue = "Mean : "+graph.mean.toString()
-                    onLatestChanged: latest.textValue = "Latest : "+ graph.latest.toString()
-                    onArmedChanged: graph.armed == true? armedSwitch.checked = true : armedSwitch.checked = false;
+                    onCardnameChanged: cardName.textValue = graph.cardname
+                    onStatusChanged: armedSwitch.on ? status.textValue = "Status : "
+                                                      + provider.getStatus(
+                                                          ) : status.textValue = "Status : Offline"
+                    onHighChanged: high.textValue = "High (" + graph.currentTime
+                                   + ") : " + graph.high.toString()
+                    onLowChanged: low.textValue = "Low (" + currentTime + ") : "
+                                  + graph.low.toString()
+                    onMeanChanged: mean.textValue = "Mean : " + graph.mean.toString()
+                    onLatestChanged: latest.textValue = "Latest : " + graph.latest.toString()
+                    onArmedChanged: graph.armed == true ? armedSwitch.checked
+                                                          = true : armedSwitch.checked = false
                 }
             }
         }

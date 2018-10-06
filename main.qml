@@ -72,7 +72,7 @@ Page {
             }
             ToolBarButton {
                 id: poolBtn
-                textValue: "Pool"
+                textValue: "Settings"
                 imageSource: "images/settings-40.png"
                 onClicked: {
                     swipe.state = "settings"
@@ -84,6 +84,7 @@ Page {
                 id: accountBtn
                 textValue: "Account"
                 imageSource: "images/lock-40.png"
+                visible: false
                 onClicked: {
 
                 }
@@ -182,12 +183,33 @@ Page {
                     }
                 }
                 Label {
+                    id: jahshakaLabel
                     Layout.fillWidth: true
                     text: "Support Jahshaka\nwww.jahshaka.com"
                     horizontalAlignment: Text.AlignHCenter
                     color: Literals.fontcolor
-                    font.pixelSize: Qt.application.font.pixelSize * .8
+                    font.pixelSize: Qt.application.font.pixelSize * 1.4
                     font.weight: Literals.fontWeight
+                    MouseArea{
+
+                        anchors.fill: parent
+                        hoverEnabled:  true
+                        onClicked: {
+                            Qt.openUrlExternally("https://www.jahshaka.com/")
+                        }
+                        onEntered: {
+                            jahshakaLabel.color = Literals.blueButtonColor
+                        }
+                        onExited: {
+                            jahshakaLabel.color = "#eeffffff"
+                        }
+
+                    }
+                    Behavior on color {
+                        ColorAnimation {
+                            duration: 200
+                        }
+                    }
                 }
                 BlueButton {
                     id: helpBtn
