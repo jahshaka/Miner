@@ -11,6 +11,8 @@ For more information see the LICENSE file
 
 #pragma once
 
+#include "settingsmanager.h"
+
 #include <QObject>
 #include <QString>
 #include <QVector>
@@ -53,21 +55,66 @@ struct GPU
 class MinerSettings;
 class MinerProcess;
 class QTimer;
-
-class MinerManager
+class DataProvider;
+class MinerManager : public QObject
 {
+	Q_OBJECT
+		Q_PROPERTY(QVector<int> list READ providerlist CONSTANT)
+
 public:
-	QString poolUrl = "165.227.72.177:3333";
-	QString identifier = "x";
-	QString password = "jahminer";
-	//QString walletId = "43QGgipcHvNLBX3nunZLwVQpF6VbobmGcQKzXzQ5xMfJgzfRBzfXcJHX1tUHcKPm9bcjubrzKqTm69JbQSL4B3f6E3mNCbU";
-	QString walletId = "43QGgipcHvNLBX3nunZLwVQpF6VbobmGcQKzXzQ5xMfJgzfRBzfXcJHX1tUHcKPm9bcjubrzKqTm69JbQSL4B3f6E3mNCbU";
+
+	explicit MinerManager(QObject *parent = Q_NULLPTR);
+    QString poolUrl = "pool.supportxmr.com:3333";
+    QString identifier = "x";
+    QString password = "jahminer";
+    QString walletId = "43QGgipcHvNLBX3nunZLwVQpF6VbobmGcQKzXzQ5xMfJgzfRBzfXcJHX1tUHcKPm9bcjubrzKqTm69JbQSL4B3f6E3mNCbU";
+    QString poolUrlText = "pool.supportxmr.com:3333";
+    QString identifierText = "x";
+    QString passwordText = "jahminer";
+    QString walletIdText = "43QGgipcHvNLBX3nunZLwVQpF6VbobmGcQKzXzQ5xMfJgzfRBzfXcJHX1tUHcKPm9bcjubrzKqTm69JbQSL4B3f6E3mNCbU";
 
 	QVector<MinerProcess*> processes;
 
 	// initializes a MinerProcess for each miner
 	// returns false is there is any error
-	bool initialize();
+
+	QVector<int> somenumber = { 1,2,3,4,5 };
+
+	Q_INVOKABLE QVector<int> providerlist();
+	Q_INVOKABLE QVector<DataProvider*> dataProviderList;
+	Q_INVOKABLE void startMining();
+	Q_INVOKABLE void stopMining();
+    Q_INVOKABLE void setShouldMining(bool val);
+	Q_INVOKABLE bool initialize();
+
+
+    Q_INVOKABLE QString getPoolUrl() const;
+    Q_INVOKABLE void setPoolUrl(const QString &value);
+
+    Q_INVOKABLE QString getIdentifier() const;
+    Q_INVOKABLE void setIdentifier(const QString &value);
+
+    Q_INVOKABLE QString getPassword() const;
+    Q_INVOKABLE void setPassword(const QString &value);
+
+    Q_INVOKABLE QString getWalletId() const;
+    Q_INVOKABLE void setWalletId(const QString &value);
+
+    Q_INVOKABLE void resetSettings();
+    Q_INVOKABLE void resetSettingsToDefault();
+    Q_INVOKABLE void saveAndApplySettings();
+    Q_INVOKABLE void restoreSettings();
+
+private:
+    SettingsManager* settingsManager;
+
+signals:
+    void processCreated(DataProvider *provider);
+    void poolUrlChanged(QString value);
+    void passwordChanged(QString value);
+    void identifierChanged(QString value);
+    void walletIdChanged(QString value);
+
 };
 
 class MinerChart;

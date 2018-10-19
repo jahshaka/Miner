@@ -1,1 +1,1 @@
-# Miner
+Miner
