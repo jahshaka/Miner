@@ -20,8 +20,12 @@ Pane {
     property int animate: 0
     property int canvasXStartPosition: 29
     property int canvasHeight : height - 20
+    property int currentHeight : height
 
     property int graphHeightOffset : 7
+    property bool drawText : true
+
+
 
 
     padding: 0
@@ -93,7 +97,7 @@ Pane {
             ctx.clearRect(0, 0, width, height)
 
             //draw outline
-            ctx.strokeStyle = "#44ffffff"
+            ctx.strokeStyle = "#bbffffff"
             ctx.strokeRect(canvasXStartPosition, 0 , width- canvasXStartPosition, canvasHeight)
 
             //draw grid
@@ -104,7 +108,7 @@ Pane {
             drawPoints(list)
 
             //draw values
-            drawValues()
+            if(drawText)   drawValues()
         }
 
         function drawGrid() {
@@ -189,16 +193,14 @@ Pane {
         function drawYValues(){
             var ctx = canvas.getContext("2d")
             var offset = 3
-            var min = provider.getLow()
             var max = provider.getHigh()
-            var diff = max - min
             var interval = max / 2
-
-            console.log(min , max)
+                ctx.font = "9px arial"
+            ctx.fillStyle = "#99ffffff"
             for (var i = 1; i <= yaxiscount ; i++)
             {
-                ctx.font = "7px ariel"
-                var text = (interval * (5 - i) ).toFixed(1)
+
+                var text = (interval * (5 - i) ).toFixed(0)
                 var fontWidth =  ctx.measureText(text ).width
                 console.log(fontWidth)
                 ctx.fillText(text , 23 - fontWidth, i * (canvasHeight) / yaxiscount +offset)

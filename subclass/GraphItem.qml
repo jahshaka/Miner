@@ -12,6 +12,10 @@ import "charts/Chart.js" as Charts
 Pane {
     id: pane
     property int myIndex: 0
+    property alias drawText: cg.drawText
+    property alias customheight: cg.canvasHeight
+    property alias currentheight: cg.currentHeight
+    property int spaceHeight : 20
 
     property DataProvider provider: null
 
@@ -119,6 +123,7 @@ Pane {
                 xAxisMaxMultiplier: 2
                 skipgraph: false
                 backgroundColor: "#777"
+                drawText: true
             }
         }
         Item {
@@ -128,8 +133,6 @@ Pane {
         ColumnLayout {
             id: colL
             spacing: 0
-
-		
 
                     Label {
 
@@ -167,7 +170,7 @@ Pane {
                     }
                     implicitHeight: (parent.height - Literals.borderWidth * 2) * average / 2
                     implicitWidth: 21
-                    x: Literals.borderWidth
+                    x: Literals.borderWidth + 1
                     y: Literals.borderWidth
 
                     anchors {
@@ -177,6 +180,16 @@ Pane {
 
                     color: Literals.blueButtonColor
                     //anchors.fill: parent
+                }
+            }
+
+            Rectangle{
+                id: space
+                implicitHeight:  spaceHeight
+                Behavior on height {
+                    NumberAnimation{
+                        duration: 400
+                    }
                 }
             }
         }

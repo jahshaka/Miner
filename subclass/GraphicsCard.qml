@@ -41,6 +41,8 @@ Page {
                 opacity: 1.0
 
             }
+
+
         }, State {
             name: "minimize"
             PropertyChanges {
@@ -58,8 +60,17 @@ Page {
                     topMargin: -15
                 }
             }
+
+            PropertyChanges {
+                target: graph
+                drawText :false
+                customheight : graph.currentheight
+                spaceHeight : 0
+            }
         }
     ]
+
+
 
     padding: 15
     topPadding: 10
@@ -254,10 +265,13 @@ Page {
                     onStatusChanged: armedSwitch.on ? status.textValue = "Status : "
                                                       + provider.getStatus(
                                                           ) : status.textValue = "Status : Offline"
-                    onHighChanged: high.textValue = "High (" + graph.currentTime
-                                   + ") : " + graph.high.toString()
-                    onLowChanged: low.textValue = "Low (" + currentTime + ") : "
-                                  + graph.low.toString()
+
+//                    onHighChanged: high.textValue = "High (" + graph.currentTime + ") : " + graph.high.toString()
+//                    onLowChanged: low.textValue = "Low (" + currentTime + ") : " + graph.low.toString()
+
+                    onHighChanged: high.textValue = "High " + graph.high.toString()
+                    onLowChanged: low.textValue = "Low " + graph.low.toString()
+
                     onMeanChanged: mean.textValue = "Mean : " + graph.mean.toString()
                     onLatestChanged: latest.textValue = "Latest : " + graph.latest.toString()
                     onArmedChanged: graph.armed == true ? armedSwitch.checked
