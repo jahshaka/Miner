@@ -67,7 +67,7 @@ void DataProvider::addToSeries(qreal yValue, QString xValue)
 {
 
 	auto num = QString::number(yValue, 'f', 2).toDouble();
-	qDebug() << num;
+
 
 	if (first_run && num <= 0.00) return;
 	
@@ -122,8 +122,6 @@ Q_INVOKABLE void DataProvider::setArmed(bool value)
     if(getShouldMine() && armed())
         startProcess();
 
-
-    qDebug() << getShouldMine() << value;
 }
 
 QString DataProvider::time()
@@ -147,7 +145,7 @@ Q_INVOKABLE void DataProvider::startProcess()
 
 Q_INVOKABLE void DataProvider::stopProcess()
 {
-	qDebug() << "called";
+
 
 	if (this->process->isMining()) {
 		this->process->stopMining();

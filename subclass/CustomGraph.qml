@@ -8,7 +8,7 @@ Pane {
 
     id: control
     property int xaxiscount: 15
-    property int yaxiscount: 6
+    property int yaxiscount: 5
     property int numOfValues: 0
     property string graphAxisColor: "#22ffffff"
     property string graphFillColor: "#33ffffff"
@@ -18,13 +18,17 @@ Pane {
     property string backgroundColor: "#777"
     property DataProvider provider: null
     property int animate: 0
+    property int canvasXStartPosition: 29
+    property int canvasHeight : height - 20
+
+    property int graphHeightOffset : 7
 
 
     padding: 0
 
     background: Rectangle {
         color: "#06888888"
-        border.color: Literals.borderColor
+        border.color: Literals.transparent
         border.width: Literals.borderWidth
 
     }
@@ -86,8 +90,14 @@ Pane {
             var ctx = canvas.getContext("2d")
             var list = provider.getValues()
             ctx.lineWidth = .5
-            //draw grid
             ctx.clearRect(0, 0, width, height)
+
+            //draw outline
+            ctx.strokeStyle = "#44ffffff"
+            ctx.strokeRect(canvasXStartPosition, 0 , width- canvasXStartPosition, canvasHeight)
+
+            //draw grid
+
             drawGrid()
 
             //draw points
@@ -104,61 +114,59 @@ Pane {
             ctx.lineCap = "round"
             ctx.strokeStyle = graphAxisColor
 
-            for (var i = 0; i < yaxiscount + 1; i++) {
+            for (var i = 1; i < yaxiscount ; i++) {
                 ctx.beginPath()
-                ctx.moveTo(0, i * height / yaxiscount)
-                ctx.lineTo(width, i * height / yaxiscount)
+                ctx.moveTo(canvasXStartPosition, i * canvasHeight / yaxiscount)
+                ctx.lineTo(width, i * canvasHeight / yaxiscount)
                 ctx.stroke()
             }
 
             for (var i = 0; i < xaxiscount + 1; i++) {
                 ctx.beginPath()
-                ctx.moveTo(i * width / xaxiscount-animate, 0)
-                ctx.lineTo(i * width / xaxiscount-animate, height)
+                ctx.moveTo(i * width / xaxiscount-animate + canvasXStartPosition, 0)
+                ctx.lineTo(i * width / xaxiscount-animate + canvasXStartPosition, canvasHeight)
+                if(i*width/xaxiscount-animate + canvasXStartPosition > canvasXStartPosition)
                 ctx.stroke()
             }
-            animate+= 3;
-            if(animate>=(width/xaxiscount)) animate =0;
-            ctx.strokeStyle = graphAxisColor
 
-            ctx.moveTo(0,0)
+            if(false) animate += 2;
+            if(animate>=(width/xaxiscount)+canvasXStartPosition) animate =0;
+            ctx.strokeStyle = graphAxisColor
 
         }
         function drawPoints(list) {
             var ctx = canvas.getContext("2d")
 
-            ctx.moveTo(-3, height)
+            ctx.moveTo(canvasXStartPosition, canvasHeight)
 
 
-            var ytop = height/2
-            var ybottom = height-5
+            var ytop = canvasHeight/2 + graphHeightOffset
+            var ybottom = canvasHeight + 2
             var ydiff = ytop - ybottom;
             var min = provider.getLow()
             var max = provider.getHigh() //* control.xAxisMaxMultiplier
             var diff = max - min
+            var offset = 3
             if(diff <.5) diff = .5;
 
             for (var i = 0; i < list.length; i++) {
                 var d1 = list[i]
-                var x1 = i * width / (numOfValues + 1)
-             //   var y1 = (1.0 - d1 / max) * height
-             //   ctx.lineTo(x1, y1)
+                var x1 = (i * (width - canvasXStartPosition) / (numOfValues + 1 )) + canvasXStartPosition
 
-                var yr = 1.0 - ((d1 - min) / diff);
+                var yr = ((d1 - min) / diff);
                 var y1 =ybottom + yr * ydiff;
 
-                ctx.lineTo(x1,y1)
+                ctx.lineTo(x1,y1 - offset)
 
             }
-      //      ctx.strokeStyle = "#bb45da67"
             ctx.stroke()
             ctx.shadowBlur = 0.0
             ctx.shadowColor = "#00333888"
 
             //fill path under graph
             ctx.strokeStyle = "#223344"
-            ctx.lineTo(x1, height)
-            ctx.lineTo(list[0], height)
+            ctx.lineTo(x1, canvasHeight)
+            ctx.lineTo(list[0], canvasHeight)
             ctx.fillStyle = "#bb45da67"
             ctx.fill()
         }
@@ -180,7 +188,21 @@ Pane {
 
         function drawYValues(){
             var ctx = canvas.getContext("2d")
-            ctx.moveTo(0,height)
+            var offset = 3
+            var min = provider.getLow()
+            var max = provider.getHigh()
+            var diff = max - min
+            var interval = max / 2
+
+            console.log(min , max)
+            for (var i = 1; i <= yaxiscount ; i++)
+            {
+                ctx.font = "7px ariel"
+                var text = (interval * (5 - i) ).toFixed(1)
+                var fontWidth =  ctx.measureText(text ).width
+                console.log(fontWidth)
+                ctx.fillText(text , 23 - fontWidth, i * (canvasHeight) / yaxiscount +offset)
+            }
 
         }
     }

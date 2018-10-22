@@ -102,7 +102,6 @@ Pane {
                         font.weight: Literals.fontWeight
                         font.pixelSize: Qt.application.font.pixelSize * 1.2
                     }
-
                 }
             }
 

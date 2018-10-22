@@ -180,7 +180,7 @@ Page {
               //  Layout.preferredWidth: 120
                 background: Rectangle {
                     color: Literals.transparent
-                    implicitWidth: 120
+                    implicitWidth: 80
                 }
 
                 ColumnLayout {
@@ -231,6 +231,10 @@ Page {
                                 opacityValue: .75
                                 font.weight: Literals.fontWeightLighter
                             }
+                            Label {
+                                /*space*/ }
+                            Label {
+                                /*space*/ }
                             Label {
                                 /*space*/ }
                             Label {
