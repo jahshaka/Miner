@@ -102,9 +102,8 @@ void DataProvider::randomSeries()
 {
     int l= 3;
 
-    if(countMax > 100) l = 100;
+    if(countMax > 10) l = 100;
     float r2 = static_cast <float>( (rand()) % l);
-   // auto value = float(qrand()%100);
     addToSeries(r2);
 
 }

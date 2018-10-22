@@ -117,7 +117,6 @@ Pane {
                 Layout.fillWidth: true
 
                 numOfValues: provider.chartMaxAmount()
-                max: high
                 xAxisMaxMultiplier: 2
                 skipgraph: false
                 backgroundColor: "#777"

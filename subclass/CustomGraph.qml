@@ -7,13 +7,12 @@ import DataProvider 1.0
 Pane {
 
     id: control
-    property int xaxiscount: 8
-    property int yaxiscount: 15
+    property int xaxiscount: 15
+    property int yaxiscount: 6
     property int numOfValues: 0
-    property string graphAxisColor: "#22000000"
-    property string graphFillColor: "#99000000"
-    property string graphLineColor: "#99000000"
-    property int max: 0
+    property string graphAxisColor: "#22ffffff"
+    property string graphFillColor: "#33ffffff"
+    property string graphLineColor: "#66ffffff"
     property int xAxisMaxMultiplier: 2
     property bool skipgraph: false
     property string backgroundColor: "#777"
@@ -24,7 +23,7 @@ Pane {
     padding: 0
 
     background: Rectangle {
-        color: Literals.transparent
+        color: "#06888888"
         border.color: Literals.borderColor
         border.width: Literals.borderWidth
 
@@ -93,6 +92,9 @@ Pane {
 
             //draw points
             drawPoints(list)
+
+            //draw values
+            drawValues()
         }
 
         function drawGrid() {
@@ -101,36 +103,40 @@ Pane {
             ctx.lineJoin = "round"
             ctx.lineCap = "round"
             ctx.strokeStyle = graphAxisColor
-            for (var i = 0; i < xaxiscount + 1; i++) {
-                ctx.beginPath()
-                ctx.moveTo(0, i * height / xaxiscount)
-                ctx.lineTo(width, i * height / xaxiscount)
-                ctx.stroke()
-            }
 
             for (var i = 0; i < yaxiscount + 1; i++) {
                 ctx.beginPath()
-                ctx.moveTo(i * width / yaxiscount-animate, 0)
-                ctx.lineTo(i * width / yaxiscount-animate, height)
+                ctx.moveTo(0, i * height / yaxiscount)
+                ctx.lineTo(width, i * height / yaxiscount)
+                ctx.stroke()
+            }
+
+            for (var i = 0; i < xaxiscount + 1; i++) {
+                ctx.beginPath()
+                ctx.moveTo(i * width / xaxiscount-animate, 0)
+                ctx.lineTo(i * width / xaxiscount-animate, height)
                 ctx.stroke()
             }
             animate+= 3;
-            if(animate>=(width/yaxiscount)) animate =0;
-            //    skipgraph = true;
+            if(animate>=(width/xaxiscount)) animate =0;
+            ctx.strokeStyle = graphAxisColor
+
+            ctx.moveTo(0,0)
+
         }
         function drawPoints(list) {
             var ctx = canvas.getContext("2d")
 
-            ctx.strokeStyle = "#222"
-            ctx.moveTo(0, height)
+            ctx.moveTo(-3, height)
+
 
             var ytop = height/2
-            var ybottom = height-20
+            var ybottom = height-5
             var ydiff = ytop - ybottom;
             var min = provider.getLow()
             var max = provider.getHigh() //* control.xAxisMaxMultiplier
             var diff = max - min
-            if(diff <3) diff = 3;
+            if(diff <.5) diff = .5;
 
             for (var i = 0; i < list.length; i++) {
                 var d1 = list[i]
@@ -143,10 +149,8 @@ Pane {
 
                 ctx.lineTo(x1,y1)
 
-
-
             }
-
+      //      ctx.strokeStyle = "#bb45da67"
             ctx.stroke()
             ctx.shadowBlur = 0.0
             ctx.shadowColor = "#00333888"
@@ -163,6 +167,21 @@ Pane {
             var ctx = canvas.getContext("2d")
             ctx.fillStyle = "#55333333"
             ctx.fillRect(x + 10, y + 5, 50, 30)
+        }
+
+        function drawValues(){
+            drawXValues()
+            drawYValues()
+        }
+
+        function drawXValues(){
+
+        }
+
+        function drawYValues(){
+            var ctx = canvas.getContext("2d")
+            ctx.moveTo(0,height)
+
         }
     }
 }

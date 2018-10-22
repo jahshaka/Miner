@@ -39,11 +39,11 @@ public:
     Q_INVOKABLE QVariant fontWeightLighter(){return 50;}
     Q_INVOKABLE QVariant fontWeightLarger(){return 85;}
     Q_INVOKABLE QVariant fontColor(){return "#eeffffff";}
-    Q_INVOKABLE QVariant darkBackgroundColor(){return QColor(38,38,38);}
+    Q_INVOKABLE QVariant darkBackgroundColor(){return QColor(28,28,28);}
     Q_INVOKABLE QVariant chartBackgroundColor(){return   QColor( 133,195,96)  ;}
     Q_INVOKABLE QVariant transparent(){return   QColor( 0,0,0, 0)  ;}
     Q_INVOKABLE QVariant borderColor(){return   QColor( 76,76,76)  ;}
-    Q_INVOKABLE QVariant borderWidth(){return  2 ;}
+    Q_INVOKABLE QVariant borderWidth(){return  1 ;}
     Q_INVOKABLE QVariant buttonColor(){return   QColor( 76,76,76)  ;}
     Q_INVOKABLE QVariant buttonColorHovered(){return   buttonColor().value<QColor>().darker(105)  ;}
     Q_INVOKABLE QVariant buttonColorPressed(){return   buttonColor().value<QColor>().darker(250)  ;}

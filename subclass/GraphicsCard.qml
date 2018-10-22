@@ -97,6 +97,7 @@ Page {
                     else
                         status.textValue = "Status : " + provider.getStatus()
                 }
+
             }
 
             Label {
