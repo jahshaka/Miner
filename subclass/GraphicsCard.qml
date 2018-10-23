@@ -14,6 +14,7 @@ Page {
     property alias latest: latest.textValue
     property int cardIndex: 0
     property bool maximized: true
+    property bool showLogs : true
 
     property DataProvider provider: null
 
@@ -29,6 +30,10 @@ Page {
 
     onMaximizedChanged: {
         page.state= maximized==true? "maximize" : "minimize"
+    }
+
+    onShowLogsChanged: {
+
     }
 
     state: "maximize"
@@ -244,12 +249,26 @@ Page {
                             }
                             Label {
                                 /*space*/ }
+                            RowLayout{
+                                Layout.fillWidth: true
+                                Item {
+                                    id: space1
+                                    Layout.fillWidth: true
+                                }
+                                LogButton {
+                                    id: logBtn
+                                    textValue: tr("Logs")
+                                    onClicked: {
+                                        graphRowLayout.state = "back"
+                                        showLogs = true
+                                    }
+                                }
+                            }
                             Label {
                                 /*space*/ }
                             Label {
                                 /*space*/ }
-                            Label {
-                                /*space*/ }
+
                         }
                     }
                 }
@@ -258,25 +277,59 @@ Page {
                 id: columnRight
                 Layout.fillWidth: true
 
-                GraphItem {
-                    id: graph
-                    myIndex: cardIndex
-                    onCardnameChanged: cardName.textValue = graph.cardname
-                    onStatusChanged: armedSwitch.on ? status.textValue = "Status : "
-                                                      + provider.getStatus(
-                                                          ) : status.textValue = "Status : Offline"
 
-//                    onHighChanged: high.textValue = "High (" + graph.currentTime + ") : " + graph.high.toString()
-//                    onLowChanged: low.textValue = "Low (" + currentTime + ") : " + graph.low.toString()
+                Flipable{
+                    id: flip
+                    anchors.fill: parent
+                    front: GraphItem {
+                        id: graph
+                        anchors.fill: parent
+                        myIndex: cardIndex
+                        onCardnameChanged: cardName.textValue = graph.cardname
+                        onStatusChanged: armedSwitch.on ? status.textValue = "Status : "
+                                                          + provider.getStatus(
+                                                              ) : status.textValue = "Status : Offline"
 
-                    onHighChanged: high.textValue = "High " + graph.high.toString()
-                    onLowChanged: low.textValue = "Low " + graph.low.toString()
+    //                    onHighChanged: high.textValue = "High (" + graph.currentTime + ") : " + graph.high.toString()
+    //                    onLowChanged: low.textValue = "Low (" + currentTime + ") : " + graph.low.toString()
 
-                    onMeanChanged: mean.textValue = "Mean : " + graph.mean.toString()
-                    onLatestChanged: latest.textValue = "Latest : " + graph.latest.toString()
-                    onArmedChanged: graph.armed == true ? armedSwitch.checked
-                                                          = true : armedSwitch.checked = false
+                        onHighChanged: high.textValue = "High " + graph.high.toString()
+                        onLowChanged: low.textValue = "Low " + graph.low.toString()
+
+                        onMeanChanged: mean.textValue = "Mean : " + graph.mean.toString()
+                        onLatestChanged: latest.textValue = "Latest : " + graph.latest.toString()
+                        onArmedChanged: graph.armed == true ? armedSwitch.checked
+                                                              = true : armedSwitch.checked = false
+
+                    }
+                    back: LogPage{
+                        id: log
+                        onGoback:{
+                            showLogs = false;
+                        }
+                    }
+
+                    // flippable continues
+
+                    transform: Rotation {
+                            id: rotation
+                            origin.x: columnRight.width/2
+                            origin.y: columnRight.height/2
+                            axis.x: 0; axis.y: 1; axis.z: 0     // set axis.y to 1 to rotate around y-axis
+                            angle: 0    // the default angle
+                        }
+
+                    states: State {
+                            name: "back"
+                            PropertyChanges { target: rotation; angle: 180 }
+                            when: showLogs
+                        }
+
+                        transitions: Transition {
+                            NumberAnimation { target: rotation; property: "angle"; duration: 200 }
+                        }
                 }
+
             }
         }
     }

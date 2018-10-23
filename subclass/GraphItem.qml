@@ -37,6 +37,18 @@ Pane {
         currentTime = provider.time()
     }
 
+    Behavior on opacity{
+        NumberAnimation{
+            duration: 300
+        }
+    }
+
+    Behavior on scale{
+        NumberAnimation{
+            duration: 300
+        }
+    }
+
     Connections {
         target: provider
         onMaxValueChanged: {
