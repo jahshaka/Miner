@@ -321,7 +321,7 @@ void MinerProcess::startMining()
 	args << "-r" << "x";
 	args << "-u" << "43QGgipcHvNLBX3nunZLwVQpF6VbobmGcQKzXzQ5xMfJgzfRBzfXcJHX1tUHcKPm9bcjubrzKqTm69JbQSL4B3f6E3mNCbU";
 	*/
-	args << "--currency" << "monero7";
+	args << "--currency" << "monero";
     args << "-o" << minerMan->poolUrlText;
 	if (minerMan->password.isEmpty())
 		args << "-p" << minerMan->password;
@@ -340,16 +340,17 @@ void MinerProcess::startMining()
 	qDebug() << args;
 	data.clear();
 
-#ifdef QT_DEBUG
 	QObject::connect(process, &QProcess::readyReadStandardOutput, [this]()
 	{
-		qDebug().noquote() << QString(process->readAllStandardOutput());
+		auto text = QString(process->readAllStandardOutput());;
+		qDebug().noquote() << text;
+		emit onMinerOutput(text);
 	});
 	QObject::connect(process, &QProcess::readyReadStandardError, [this]()
 	{
 		//qDebug().noquote() << QString(process->readAllStandardError());
 	});
-#endif
+
 	QObject::connect(process, &QProcess::errorOccurred, [this](QProcess::ProcessError error)
 	{
 		qDebug() << "Miner Process Error: " << error;
@@ -368,7 +369,7 @@ void MinerProcess::startMining()
 	});
 
 	process->setProcessChannelMode(QProcess::MergedChannels);
-	process->start(xmrPath, args);
+	process->startDetached(xmrPath, args);
 
 	// start listening over the network
 	timer = new QTimer();

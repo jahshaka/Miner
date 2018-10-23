@@ -111,6 +111,7 @@ signals:
 	void armedChanged(bool value);
 	void miningStarted();
 	void miningStopped();
+	void minerOutput(QString text);
 
 
 };

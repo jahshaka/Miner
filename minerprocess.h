@@ -182,6 +182,7 @@ signals:
 
 	// called as soon as new miner data comes in
 	void onMinerChartData(MinerChartData data);
+	void onMinerOutput(QString text);
 
 private:
 	void networkRequest(QString url, std::function<void(QString)> successCallback, std::function<void(QNetworkReply::NetworkError)> errorCallback);
