@@ -27,5 +27,7 @@
         <file>subclass/CustomToolBar.qml</file>
         <file>mainStandalone.qml</file>
         <file>images/icon.ico</file>
+        <file>subclass/LogButton.qml</file>
+        <file>subclass/LogPage.qml</file>
     </qresource>
 </RCC>

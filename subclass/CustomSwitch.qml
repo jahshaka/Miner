@@ -19,6 +19,10 @@ Rectangle {
     border.width: 1
     radius: height
 
+    Component.onCompleted: {
+        groove.clicked()
+    }
+
     Behavior on bgcolor{
         ColorAnimation {
             duration: 120
@@ -48,17 +52,48 @@ Rectangle {
 
         onClicked: {
             if(!on){
-                handle.x = groove.width - handle.width - offset
-                checked = true
-                on = true
+//                handle.x = groove.width - handle.width - offset
+//                checked = true
+//                on = true
+                groove.state = "on"
                 groove.clicked()
             }else{
-                handle.x = offset
-                checked = false
-                on = false
+//                handle.x = offset
+//                checked = false
+//                on = false
+                groove.state = "off"
                 groove.clicked()
             }
         }
     }
+
+    state: "on"
+
+    states: [
+        State {
+            name: "on"
+            PropertyChanges {
+                target: groove
+                checked : true
+                on : true
+            }
+            PropertyChanges {
+                target: handle
+                x : groove.width - width - offset
+            }
+        },
+        State {
+            name: "off"
+            PropertyChanges {
+                target: groove
+                checked : false
+                on : false
+            }
+            PropertyChanges {
+                target: handle
+                x : offset
+            }
+        }
+    ]
 
  }

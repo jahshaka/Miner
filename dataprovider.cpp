@@ -67,7 +67,7 @@ void DataProvider::addToSeries(qreal yValue, QString xValue)
 {
 
 	auto num = QString::number(yValue, 'f', 2).toDouble();
-	qDebug() << num;
+
 
 	if (first_run && num <= 0.00) return;
 	
@@ -102,9 +102,8 @@ void DataProvider::randomSeries()
 {
     int l= 3;
 
-    if(countMax > 100) l = 100;
+    if(countMax > 10) l = 100;
     float r2 = static_cast <float>( (rand()) % l);
-   // auto value = float(qrand()%100);
     addToSeries(r2);
 
 }
@@ -123,8 +122,6 @@ Q_INVOKABLE void DataProvider::setArmed(bool value)
     if(getShouldMine() && armed())
         startProcess();
 
-
-    qDebug() << getShouldMine() << value;
 }
 
 QString DataProvider::time()
@@ -148,7 +145,7 @@ Q_INVOKABLE void DataProvider::startProcess()
 
 Q_INVOKABLE void DataProvider::stopProcess()
 {
-	qDebug() << "called";
+
 
 	if (this->process->isMining()) {
 		this->process->stopMining();
