@@ -3,7 +3,6 @@ import QtQuick.Window 2.2
 import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.3
 import QtQuick.Controls.Styles 1.4
-import QtGraphicalEffects 1.0
 import "subclass"
 import MinerManager 1.0
 import DataProvider 1.0

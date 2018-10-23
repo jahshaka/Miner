@@ -30,8 +30,27 @@ Pane {
         anchors.fill: parent
 
         RowLayout{
+            spacing: 1
             Layout.fillWidth: true
+            anchors.top: parent.top
+            anchors.topMargin: -15
 
+            Item{
+                Layout.fillWidth: true
+            }
+
+            LogButton{
+                id : buttonSave
+                textValue: "save"
+                onClicked: {
+                    logPage.goback()
+                }
+            }
+        }
+        RowLayout{
+            Layout.fillWidth: true
+            anchors.top: parent.top
+            anchors.topMargin: 10
             TextArea{
                 id: textArea
                 placeholderText: "press start to begiin logging"
@@ -43,25 +62,7 @@ Pane {
                     border.color: "#99eeeeee"
                     color: "#00ffffff"
                 }
-                RowLayout{
-                    spacing: 1
-                    anchors.right: parent.right
-                    anchors.rightMargin: 5
-                    anchors.left: parent.left
-                    anchors.leftMargin: 5
-                    anchors.bottom: parent.bottom
-                    anchors.bottomMargin: 5
 
-
-
-                    LogButton{
-                        id : buttonSave
-                        textValue: tr("<- graph")
-                        onClicked: {
-                            logPage.goback()
-                        }
-                    }
-                }
             }
         }
     }

@@ -29,5 +29,13 @@
         <file>images/icon.ico</file>
         <file>subclass/LogButton.qml</file>
         <file>subclass/LogPage.qml</file>
+        <file>images/badge.png</file>
+        <file>images/lock.png</file>
+        <file>images/mailbox.png</file>
+        <file>images/wallet.png</file>
+        <file>images/help.png</file>
+        <file>HelpPage.qml</file>
+        <file>subclass/ParagraphLink.qml</file>
+        <file>images/register.png</file>
     </qresource>
 </RCC>

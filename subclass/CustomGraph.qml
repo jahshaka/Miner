@@ -31,7 +31,7 @@ Pane {
     padding: 0
 
     background: Rectangle {
-        color: "#06888888"
+        color: "#00888888"
         border.color: Literals.transparent
         border.width: Literals.borderWidth
 
@@ -95,6 +95,11 @@ Pane {
             var list = provider.getValues()
             ctx.lineWidth = .5
             ctx.clearRect(0, 0, width, height)
+
+            //fill Rectangle
+            ctx.fillStyle = "#06888888"
+            ctx.fillRect(canvasXStartPosition, 0 , width- canvasXStartPosition, canvasHeight)
+
 
             //draw outline
             ctx.strokeStyle = "#bbffffff"
