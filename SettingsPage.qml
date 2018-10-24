@@ -40,29 +40,28 @@ BasePage {
             SettingsNode {
                 id: walletNode
                 labeld: "Walled ID"
-                textfieldd: "Enter wallet ID here"
-           //     textValue: walletid
+                iconPath: "images/wallet.png"
             }
 
             SettingsNode {
                 id: poolNode
                 labeld: "Pool Address"
-                textfieldd: "Enter Pool Address"
-          //      textValue: poolurl
+                iconPath: "images/mailbox.png"
+
             }
 
             SettingsNode {
                 id: identifierNode
                 labeld: "Identifier"
-                textfieldd: "Enter Identifier"
-           //     textValue: identifier
+                iconPath: "images/badge.png"
+
             }
 
             SettingsNode {
                 id: passwordNode
-                labeld: "Password"
-                textfieldd: "Enter Password"
-           //     textValue: password
+                labeld: "Rig Name"
+                iconPath: "images/lock.png"
+
             }
 
             Item {

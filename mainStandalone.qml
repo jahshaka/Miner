@@ -81,12 +81,12 @@ ApplicationWindow {
             }
 
             ToolBarButton {
-                id: accountBtn
-                textValue: "Account"
-                imageSource: "images/lock-40.png"
-                visible: false
+                id: help1Btn
+                textValue: "Help"
+                imageSource: "images/help.png"
+                visible: true
                 onClicked: {
-
+                    swipe.state = "help"
                 }
             }
             Item {
@@ -133,6 +133,14 @@ ApplicationWindow {
 
             }
 
+            HelpPage {
+                id: help_page
+                anchors.fill: parent
+                z:0
+                scale : 0.0
+                opacity : 0.0
+            }
+
 
 
             state: "graph"
@@ -152,6 +160,15 @@ ApplicationWindow {
                     name: "graph"
                     PropertyChanges {
                         target: graph_page
+                        scale: 1.0
+                        z: 3
+                        opacity: 1.0
+                    }
+                },
+                State {
+                    name: "help"
+                    PropertyChanges {
+                        target: help_page
                         scale: 1.0
                         z: 3
                         opacity: 1.0
@@ -214,6 +231,7 @@ ApplicationWindow {
                 BlueButton {
                     id: helpBtn
                     textValue: "Help"
+                    visible: false
                     onClicked: {
                     }
                 }

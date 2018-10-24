@@ -257,10 +257,10 @@ Page {
                                 }
                                 LogButton {
                                     id: logBtn
-                                    textValue: tr("Logs")
+                                    textValue: "Logs"
                                     onClicked: {
                                         graphRowLayout.state = "back"
-                                        showLogs = true
+                                        showLogs = !showLogs
                                     }
                                 }
                             }
