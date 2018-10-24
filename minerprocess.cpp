@@ -321,7 +321,7 @@ void MinerProcess::startMining()
 	args << "-r" << "x";
 	args << "-u" << "43QGgipcHvNLBX3nunZLwVQpF6VbobmGcQKzXzQ5xMfJgzfRBzfXcJHX1tUHcKPm9bcjubrzKqTm69JbQSL4B3f6E3mNCbU";
 	*/
-	args << "--currency" << "monero";
+	args << "--currency" << "monero7";
     args << "-o" << minerMan->poolUrlText;
 	if (minerMan->password.isEmpty())
 		args << "-p" << minerMan->password;
@@ -348,7 +348,9 @@ void MinerProcess::startMining()
 	});
 	QObject::connect(process, &QProcess::readyReadStandardError, [this]()
 	{
-		//qDebug().noquote() << QString(process->readAllStandardError());
+		auto text = QString(process->readAllStandardOutput());;
+		qDebug().noquote() << text;
+		emit onMinerOutput(text);
 	});
 
 	QObject::connect(process, &QProcess::errorOccurred, [this](QProcess::ProcessError error)
@@ -369,7 +371,7 @@ void MinerProcess::startMining()
 	});
 
 	process->setProcessChannelMode(QProcess::MergedChannels);
-	process->startDetached(xmrPath, args);
+	process->start(xmrPath, args);
 
 	// start listening over the network
 	timer = new QTimer();
@@ -409,6 +411,42 @@ void MinerProcess::startMining()
 
 				// emit status changed    
 				emit onMinerChartData({ poolConnected,uptime, hps });
+
+				// emit each new error in connection error log
+				auto conErrorLog = conObj["error_log"].toArray();
+				double maxErrorTime = errorLogLastSeen;
+				for (auto errorVar : conErrorLog) {
+					auto errObj = errorVar.toObject();
+					double errorTime = errObj["last_seen"].toDouble();
+					if (errorTime > errorLogLastSeen) {
+						auto text = obj["text"].toString();
+						emit onMinerOutput(text);
+						qDebug() << text;
+						errorLogLastSeen = errorTime;
+					}
+
+					if (errorTime > maxErrorTime)
+						maxErrorTime = errorTime;
+				}
+
+				// emit each new error in connection error log
+				auto resErrorLog = obj["results"].toObject()["error_log"].toArray();
+				for (auto errorVar : resErrorLog) {
+					auto errObj = errorVar.toObject();
+					double errorTime = errObj["last_seen"].toDouble();
+					if (errorTime > errorLogLastSeen) {
+						auto text = obj["text"].toString();
+						emit onMinerOutput(text);
+						qDebug() << text;
+						errorLogLastSeen = errorTime;
+					}
+
+					if (errorTime > maxErrorTime)
+						maxErrorTime = errorTime;
+				}
+
+				errorLogLastSeen = maxErrorTime;
+
 			}
 		}, [this](QNetworkReply::NetworkError error)
 		{

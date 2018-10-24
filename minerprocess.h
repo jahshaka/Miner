@@ -137,6 +137,7 @@ public:
 	int networkPort;
 	QString networkUrl;
 	int sentRequests;
+	double errorLogLastSeen;
 
 	// number of retries after miner has crashed
 	int retries;
@@ -170,6 +171,7 @@ public:
 		netMan = new QNetworkAccessManager(nullptr);
 		sentRequests = 0;
 		retries = 0;
+		errorLogLastSeen = -1;
 	}
 
 	virtual ~MinerProcess()

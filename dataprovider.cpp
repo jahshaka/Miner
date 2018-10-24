@@ -244,7 +244,7 @@ void DataProvider::setMinerProcess(MinerProcess *process)
 		});
 	}
 
-	connect(process, MinerProcess::onMinerOutput, [this](QString text)
+	connect(process, &MinerProcess::onMinerOutput, [this](QString text)
 	{
 		emit this->minerOutput(text);
 	});
