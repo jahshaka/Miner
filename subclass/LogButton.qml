@@ -6,6 +6,7 @@ import QtQuick.Controls.Styles 1.4
 Rectangle {
     id: btn
 
+    property real textSize: 0
      property string textValue: ""
      signal clicked();
 
@@ -32,7 +33,7 @@ Rectangle {
             color: Literals.fontcolor
             horizontalAlignment: Text.AlignHCenter
             Layout.fillWidth: true
-            font.pixelSize: Qt.application.font.pixelSize * .8
+            font.pixelSize: textSize==0 ? Qt.application.font.pixelSize * .8 : Qt.application.font.pixelSize * textSize
         }
 
     }

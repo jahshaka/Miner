@@ -56,6 +56,7 @@ Pane {
             }
             LogButton{
                 textValue: linkText
+                textSize: 1.1
             }
 
         }

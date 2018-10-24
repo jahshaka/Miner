@@ -2,6 +2,7 @@ import QtQuick 2.9
 import QtQuick.Window 2.2
 import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.3
+import QtGraphicalEffects 1.0
 import "subclass"
 import MinerManager 1.0
 import DataProvider 1.0
@@ -43,14 +44,41 @@ ApplicationWindow {
         color: Literals.darkBackgroundColor
     }
 
+
+
     header: ToolBar {
         id: toolbar
+
+
+        layer.enabled: true
+           layer.effect: DropShadow {
+               transparentBorder: true
+               horizontalOffset: 0
+               verticalOffset: 8
+               color: "#44000000"
+               radius: 12.0
+           }
 
         //padding : 5
         background: Rectangle {
             color: Literals.darkBackgroundColor
             border.color: Literals.borderColor
-            border.width: Literals.borderWidth
+            border.width: 0
+
+            Rectangle{
+                id: leftRect
+                implicitHeight: parent.height
+                implicitWidth: 2
+            color: Literals.borderColor
+                anchors.left: parent.left
+            }
+            Rectangle{
+                id: rightRect
+                implicitHeight: parent.height
+                implicitWidth: 2
+                color: "#555"
+                anchors.right: parent.right
+            }
         }
         RowLayout {
             anchors.fill: parent
@@ -207,6 +235,7 @@ ApplicationWindow {
                     color: Literals.fontcolor
                     font.pixelSize: Qt.application.font.pixelSize * 1.4
                     font.weight: Literals.fontWeight
+                    visible: false
                     MouseArea{
 
                         anchors.fill: parent

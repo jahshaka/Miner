@@ -39,12 +39,28 @@ BasePage {
                 id: createAccount
                 explanation: "click the button above to create an account on xmr stak"
                 labelText: "Create Account"
+                linkText: "Register"
             }
 
             ParagraphLink{
                 id: onlineHelp
                 explanation: "click the button to get help online from jahfx"
-                labelText: "Online Assistamce"
+                labelText: "Online Assistance"
+                linkText: "Help"
+            }
+
+            ParagraphLink{
+                id: config
+                explanation: "click the button to build the configurations"
+                labelText: "Build Configuration"
+                linkText: "Configure"
+            }
+
+            ParagraphLink{
+                id: support
+                explanation: "click the button to support Jahshaka by visiting www.jahshaka.com"
+                labelText: "Support Jahshaka"
+                linkText: "Visit"
             }
 
         }

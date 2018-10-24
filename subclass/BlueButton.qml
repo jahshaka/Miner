@@ -9,40 +9,46 @@ Rectangle {
     id: btn
     property string imageSource: ""
     property string textValue: ""
+    property string col : "#33ffffff"
 
     signal clicked()
-
 
     MouseArea{
         anchors.fill: parent
     hoverEnabled: true
 
         onEntered: {
-            btn.color = Literals.blueButtonColorHovered
+            btn.color = Qt.darker(col, 1.4)
         }
 
         onExited: {
-            btn.color = Literals.blueButtonColor
+            btn.color = col
         }
 
      onPressed: {
-         btn.color = Literals.blueButtonColorPressed
+         btn.color = Qt.darker(col, 1.7)
      }
      onReleased: {
-         btn.color = Literals.blueButtonColor
+         btn.color = col
      }
         onClicked: {
             btn.clicked()
         }
     }
 
-        color: Literals.blueButtonColor
-        implicitWidth: 120
-        implicitHeight:  implicitHeight+30
-        Behavior on color {
 
+
+        color: col
+
+        implicitWidth: 90
+        implicitHeight:  width/3
+        border.width: 0
+        border.color: "#880099ee"
+        radius: .5
+
+        Behavior on color {
             ColorAnimation {
-                duration: 100
+                duration: 200
             }
         }
 
@@ -61,7 +67,32 @@ Rectangle {
             color: Literals.fontcolor
             horizontalAlignment: Text.AlignHCenter
             Layout.fillWidth: true
-            font.pixelSize: Qt.application.font.pixelSize * 1.4
+            font.pixelSize: Qt.application.font.pixelSize * 1.6
+
         }
     }
+
+    DropShadow {
+            horizontalOffset:0
+            verticalOffset: 0
+            radius: 1.0
+            samples: 17
+            color: "#80ffffff"
+            source: btn
+        }
+
+//    ColorOverlay{
+//        color: "#55ffffff"
+//        source: btn
+//        implicitHeight: 1
+//        implicitWidth: parent.width
+//        anchors.top: parent.top
+//    }
+//    ColorOverlay{
+//        color: "#55000000"
+//        source: btn
+//        implicitHeight: 1
+//        implicitWidth: parent.width
+//        anchors.bottom: parent.bottom
+//    }
 }
