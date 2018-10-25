@@ -12,7 +12,7 @@ Rectangle {
     property string bgcolor: checked ? Literals.switchOnColor : Literals.switchOffColor
     signal clicked()
 
-    implicitHeight: width/2.5
+    implicitHeight: width/2.4
     implicitWidth: widthValue
     color: bgcolor
     border.color: Literals.borderColor
@@ -36,7 +36,7 @@ Rectangle {
         radius: width/2
         x:offset
         y: offset/2
-        color: Literals.buttonColor
+        color: "#efefef"
 
         Behavior on x{
             NumberAnimation{

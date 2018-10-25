@@ -96,6 +96,10 @@ void DataProvider::addToSeries(qreal yValue, QString xValue)
     emit latestChanged(latest);
     emit dataAdded();
 	first_run = false;
+
+
+	//providerText = time() + " " + latest;
+	//emit minerOutput(providerText);
 }
 
 void DataProvider::randomSeries()
@@ -246,6 +250,7 @@ void DataProvider::setMinerProcess(MinerProcess *process)
 
 	connect(process, &MinerProcess::onMinerOutput, [this](QString text)
 	{
+		providerText = text;
 		emit this->minerOutput(text);
 	});
 }

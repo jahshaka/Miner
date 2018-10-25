@@ -5,13 +5,15 @@ import "subclass"
 
 //import "settings"
 BasePage {
+    id: page
 
     property alias walletid: walletNode.textValue
     property alias poolurl: poolNode.textValue
     property alias password: passwordNode.textValue
     property alias identifier: identifierNode.textValue
 
-
+    signal save()
+    signal cancel()
     padding: 10
 
     background: Rectangle {
@@ -66,6 +68,35 @@ BasePage {
 
             Item {
                 Layout.fillHeight: true
+                implicitHeight: 20
+            }
+
+            RowLayout{
+                Item {
+                    id: name
+                    Layout.fillWidth: true
+                }
+
+                LogButton{
+                    id: save
+                    textValue: "confirm"
+                    textSize: 1.2
+                    onClicked: {
+                        page.save()
+                    }
+                }
+                LogButton{
+                    id: cancel
+                    textValue: "cancel"
+                    textSize: 1.2
+                    onClicked: {
+                        page.cancel()
+                    }
+                }
+
+                Item {
+                    implicitWidth: 5
+                }
             }
 
         }

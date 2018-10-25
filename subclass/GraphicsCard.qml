@@ -16,12 +16,23 @@ Page {
     property bool maximized: true
     property bool showLogs : true
 
+
     property DataProvider provider: null
 
     id: page
 
+    Connections{
+        target: provider
+        onMinerOutput:{
+            log.append(text)
+        }
+    }
+
+
+
     Component.onCompleted: {
         graph.provider = provider
+
     }
 
     Component.onDestruction: {
@@ -35,6 +46,8 @@ Page {
     onShowLogsChanged: {
 
     }
+
+
 
     state: "maximize"
     states: [

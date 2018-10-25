@@ -68,4 +68,8 @@ Pane {
     }
 
 
+    function append(text){
+        textArea.append(text)
+    }
+
 }

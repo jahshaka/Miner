@@ -18,8 +18,9 @@ BasePage {
         id: scrollview
         width: parent.width
         height: parent.height
-        Layout.fillWidth: true
+       // Layout.fillWidth: true
         Layout.fillHeight: true
+
 
         clip: true
         padding: 10

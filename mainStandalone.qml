@@ -40,12 +40,56 @@ ApplicationWindow {
     }
 
 
+    color: Literals.darkBackgroundColor
     background: Rectangle {
         color: Literals.darkBackgroundColor
     }
 
 
+    ColorOverlay{
+        id: indicator
 
+        Behavior on x {
+            NumberAnimation{
+                duration: 200
+                easing: Easing.bezierCurve
+            }
+        }
+
+        implicitHeight: chartBtn.height
+        implicitWidth: chartBtn.width
+        color: Literals.chartBackgroundColor
+        opacity: 0.1
+        z: 100
+        anchors.top: toolbar.top
+
+        state: "graph"
+
+        states: [
+            State {
+                name: "graph"
+                PropertyChanges {
+                    target: indicator
+                    x : chartBtn.x
+                }
+            },
+            State {
+                name: "pool"
+                PropertyChanges {
+                    target: indicator
+                    x : poolBtn.x
+                }
+            },
+            State {
+                name: "help"
+                PropertyChanges {
+                    target: indicator
+                    x : help1Btn.x
+                }
+            }
+
+        ]
+    }
     header: ToolBar {
         id: toolbar
 
@@ -58,6 +102,8 @@ ApplicationWindow {
                color: "#44000000"
                radius: 12.0
            }
+
+
 
         //padding : 5
         background: Rectangle {
@@ -96,6 +142,7 @@ ApplicationWindow {
                 onClicked: {
                     swipe.state = "graph"
                     bottonButtonPane.state = ""
+                    indicator.state = "graph"
                 }
             }
             ToolBarButton {
@@ -105,6 +152,7 @@ ApplicationWindow {
                 onClicked: {
                     swipe.state = "settings"
                     bottonButtonPane.state = "settings"
+                    indicator.state = "pool"
                 }
             }
 
@@ -115,6 +163,7 @@ ApplicationWindow {
                 visible: true
                 onClicked: {
                     swipe.state = "help"
+                    indicator.state = "help"
                 }
             }
             Item {
@@ -122,6 +171,7 @@ ApplicationWindow {
             }
         }
     }
+
 
     ColumnLayout {
         anchors.fill: parent
@@ -135,6 +185,7 @@ ApplicationWindow {
 
             border.color: Literals.borderColor
             border.width: Literals.borderWidth
+            color: Literals.darkBackgroundColor
 
             //color: "red"
             SettingsPage {
@@ -149,6 +200,21 @@ ApplicationWindow {
                     password = manager.getPassword()
                     walletid = manager.getWalletId()
                     identifier = manager.getIdentifier()
+                }
+                onSave: {
+                   swipe.state = "graph";
+                   bottonButtonPane.state  = "";
+
+                   manager.setWalletId(settings_page.walletid);
+                   manager.setPoolUrl(settings_page.poolurl);
+                   manager.setPassword(settings_page.password)
+                   manager.setIdentifier(settings_page.identifier)
+                   manager.saveAndApplySettings();
+                }
+
+                onCancel: {
+                    manager.resetSettings();
+
                 }
             }
 
