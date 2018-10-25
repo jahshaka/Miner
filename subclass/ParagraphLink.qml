@@ -14,10 +14,19 @@ Pane {
     Layout.fillHeight: true
 
     background: Rectangle{
+        id : bg
         color: Literals.transparent
         border.width: Literals.borderWidth
         border.color: Literals.borderColor
+
+        Behavior on color {
+            ColorAnimation{
+                duration: 200
+            }
+        }
     }
+
+
 
 
 
@@ -34,11 +43,19 @@ Pane {
             }
             onEntered: {
                 cursorShape = Qt.PointingHandCursor
+                bg.color = "#99444444"
             }
 
             onExited: {
                 cursorShape = Qt.ArrowCursor
+                bg.color = Literals.transparent
+            }
 
+            onPressed: {
+               bg.color =  "#99888888"
+              }
+            onReleased: {
+               bg.color =  Literals.transparent
             }
         }
 

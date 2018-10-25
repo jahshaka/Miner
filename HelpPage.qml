@@ -20,7 +20,7 @@ BasePage {
         height: parent.height
        // Layout.fillWidth: true
         Layout.fillHeight: true
-
+        ScrollBar.horizontal.policy : ScrollBar.AlwaysOff
 
         clip: true
         padding: 10

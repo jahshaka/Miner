@@ -31,46 +31,46 @@ Page {
 
     Rectangle{
         id: leftrect
-        x:-padding
-        y:-padding
+        anchors.left: parent.left
         border.width: 55
         border.color: borderColor
-        implicitWidth: 2
+        implicitWidth: 0
         implicitHeight: parent.height
-        visible: showHorizontalBorders || showAllBorders
+        z:10
+        //visible: showHorizontalBorders || showAllBorders
 
     }
     Rectangle{
         id: rightrect
-        y:-padding
-        x:parent.width+padding-width
+        anchors.right: parent.right
         border.width: 55
         border.color: Literals.borderColor
-        implicitWidth: 2
+        implicitWidth: 0
         implicitHeight: parent.height
-        visible: showHorizontalBorders || showAllBorders
+        z:10
+        //visible: showHorizontalBorders || showAllBorders
 
     }
     Rectangle{
         id: toprect
-        x: -padding
-        y:-padding
+        anchors.top : parent.top
         border.width: 55
         border.color: borderColor
         implicitWidth: parent.width
-        implicitHeight: 2
-        visible: showVerticalBorders || showAllBorders
+        implicitHeight: 0
+        z:10
+        //visible: showVerticalBorders || showAllBorders
 
     }
     Rectangle{
         id: bottomrect
-        y:parent.height + padding - height
-        x:-padding
+        anchors.bottom: parent.bottom
         border.width: 55
-        border.color: borderColor
+        border.color: Literals.borderColor
         implicitWidth: parent.width
-        implicitHeight: 2
-        visible: showVerticalBorders || showAllBorders
+        implicitHeight: 0
+        z:10
+        //visible: showVerticalBorders || showAllBorders
 
     }
 }

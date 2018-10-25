@@ -13,7 +13,7 @@ ApplicationWindow {
     height: 480
     title: qsTr("Jahminer")
     minimumHeight: 350
-    minimumWidth: 450
+    minimumWidth: 460
     id: app
 
     property bool startMining : false
@@ -52,13 +52,12 @@ ApplicationWindow {
         Behavior on x {
             NumberAnimation{
                 duration: 200
-                easing: Easing.bezierCurve
             }
         }
 
         implicitHeight: chartBtn.height
         implicitWidth: chartBtn.width
-        color: Literals.chartBackgroundColor
+        color: "#fff"
         opacity: 0.1
         z: 100
         anchors.top: toolbar.top
@@ -114,14 +113,14 @@ ApplicationWindow {
             Rectangle{
                 id: leftRect
                 implicitHeight: parent.height
-                implicitWidth: 2
-            color: Literals.borderColor
+                implicitWidth: 0
+                color: Literals.borderColor
                 anchors.left: parent.left
             }
             Rectangle{
                 id: rightRect
                 implicitHeight: parent.height
-                implicitWidth: 2
+                implicitWidth: 0
                 color: "#555"
                 anchors.right: parent.right
             }
@@ -294,7 +293,7 @@ ApplicationWindow {
             background: Rectangle {
                 color: Literals.darkBackgroundColor
                 border.color: Literals.borderColor
-                border.width: Literals.borderWidth
+                border.width: 0
             }
 
             RowLayout {
