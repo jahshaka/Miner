@@ -183,6 +183,11 @@ ApplicationWindow {
                         z: 3
                         opacity: 1.0
                     }
+
+                    PropertyChanges{
+                        target: bottonButtonPane
+                        implicitHeight: .5
+                    }
                 },
                 State {
                     name: "graph"
@@ -201,6 +206,11 @@ ApplicationWindow {
                         z: 3
                         opacity: 1.0
                     }
+
+                    PropertyChanges{
+                        target: bottonButtonPane
+                        implicitHeight: .5
+                    }
                 }
             ]
         }
@@ -208,6 +218,13 @@ ApplicationWindow {
         Pane {
             id: bottonButtonPane
             Layout.fillWidth: true
+
+            Behavior on implicitHeight{
+                NumberAnimation{
+                    duration: 100
+                }
+            }
+
             background: Rectangle {
                 color: Literals.darkBackgroundColor
                 border.color: Literals.borderColor
@@ -266,35 +283,35 @@ ApplicationWindow {
                 }
             }
 
-            states: [
-                State {
-                    name: "settings"
-                    PropertyChanges {
-                        target: startBtn
-                        textValue: "Confirm"
-                       onClicked:{
-                           swipe.state = "graph";
-                           bottonButtonPane.state  = "";
+//            states: [
+//                State {
+//                    name: "settings"
+//                    PropertyChanges {
+//                        target: startBtn
+//                        textValue: "Confirm"
+//                       onClicked:{
+//                           swipe.state = "graph";
+//                           bottonButtonPane.state  = "";
 
-                           manager.setWalletId(settings_page.walletid);
-                           manager.setPoolUrl(settings_page.poolurl);
-                           manager.setPassword(settings_page.password)
-                           manager.setIdentifier(settings_page.identifier)
-                           manager.saveAndApplySettings();
-                       }
-                    }
+//                           manager.setWalletId(settings_page.walletid);
+//                           manager.setPoolUrl(settings_page.poolurl);
+//                           manager.setPassword(settings_page.password)
+//                           manager.setIdentifier(settings_page.identifier)
+//                           manager.saveAndApplySettings();
+//                       }
+//                    }
 
-                    PropertyChanges {
-                        target: helpBtn
-                        textValue: "Canel"
-                        onClicked:{
-                            manager.resetSettings();
-                        }
+//                    PropertyChanges {
+//                        target: helpBtn
+//                        textValue: "Canel"
+//                        onClicked:{
+//                            manager.resetSettings();
+//                        }
 
-                    }
-                }
+//                    }
+//                }
 
-            ]
+//            ]
         }
     }
 }
