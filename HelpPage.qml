@@ -38,19 +38,10 @@ BasePage {
             width: scrollview.width- scrollview.padding * 2
        //     height: scrollview.height - scrollview.padding * 2
 
-            ParagraphLink{
-                id: createAccount
-                explanation: "click the button above to create an account on xmr stak"
-                labelText: "Create Mining Account"
-                linkText: "Create"
-                onClicked: {
-                    Qt.openUrlExternally("https://www.supportxmr.com/#/home")
-                }
-            }
 
             ParagraphLink{
                 id: wallet
-                explanation: "click the button to build the configurations"
+                explanation: "Create wallet on mymonero.com"
                 labelText: "Create Wallet"
                 linkText: "Create"
                 onClicked: {
@@ -59,8 +50,19 @@ BasePage {
             }
 
             ParagraphLink{
+                id: createAccount
+                explanation: "Create an account at supportxmr"
+                labelText: "Create Mining Account"
+                linkText: "Create"
+                onClicked: {
+                    Qt.openUrlExternally("https://www.supportxmr.com/#/home")
+                }
+            }
+
+
+            ParagraphLink{
                 id: onlineHelp
-                explanation: "click the button to get help online from jahfx"
+                explanation: "Cick to get help online from jahfx"
                 labelText: "Online Assistance"
                 linkText: "Help"
                 onClicked: {
@@ -70,7 +72,7 @@ BasePage {
 
             ParagraphLink{
                 id: support
-                explanation: "click the button to support Jahshaka by visiting www.jahshaka.com"
+                explanation: "Support Jahshaka by visiting www.jahshaka.com"
                 labelText: "Support Jahshaka"
                 linkText: "Visit"
                 onClicked: {

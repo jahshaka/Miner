@@ -7,6 +7,8 @@ Pane {
 
     id: logPage
     signal goback()
+    signal copy()
+
     Behavior on opacity{
         NumberAnimation{
             duration: 300
@@ -41,11 +43,12 @@ Pane {
 
             LogButton{
                 id : buttonSave
-                textValue: "save"
+                textValue: "copy to clipboard"
                 onClicked: {
-                    logPage.goback()
+                    logPage.copy()
                 }
             }
+
         }
         RowLayout{
             Layout.fillWidth: true

@@ -180,6 +180,13 @@ bool DataProvider::getShouldMine()
  return shouldMine;
 }
 
+Q_INVOKABLE void  DataProvider::saveMinerOutput()
+{
+	QClipboard *clipboard = QApplication::clipboard();
+	clipboard->setText(providerText);
+	
+}
+
 void DataProvider::setMinerProcess(MinerProcess *process)
 {
 	this->process = process;
@@ -250,7 +257,7 @@ void DataProvider::setMinerProcess(MinerProcess *process)
 
 	connect(process, &MinerProcess::onMinerOutput, [this](QString text)
 	{
-		providerText = text;
+		providerText += text;
 		emit this->minerOutput(text);
 	});
 }

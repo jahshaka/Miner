@@ -6,6 +6,7 @@
 
 #include "minerprocess.h"
 #include <QObject>
+#include <QClipBoard>
 
 class DataProvider : public QObject
 {
@@ -52,6 +53,7 @@ public:
     Q_INVOKABLE bool getShouldMine();
     Q_INVOKABLE  int chartMaxAmount(){return chartMaxValue;}
 	Q_INVOKABLE QString providerTextValue() { return providerText;  }
+	Q_INVOKABLE void saveMinerOutput();
 private:
     QList<qreal> valueList;// y-axis
     QStringList labelList ;//x-axis;

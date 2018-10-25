@@ -14,7 +14,7 @@ Page {
     property alias latest: latest.textValue
     property int cardIndex: 0
     property bool maximized: true
-    property bool showLogs : true
+    property bool showLogs : false
 
 
     property DataProvider provider: null
@@ -272,7 +272,7 @@ Page {
                                     id: logBtn
                                     textValue: "Logs"
                                     onClicked: {
-                                        graphRowLayout.state = "back"
+                                      //  graphRowLayout.state = "back"
                                         showLogs = !showLogs
                                     }
                                 }
@@ -320,6 +320,9 @@ Page {
                         onGoback:{
                             showLogs = false;
                         }
+                        onCopy: {
+                            provider.saveMinerOutput()
+                        }
                     }
 
                     // flippable continues
@@ -331,6 +334,8 @@ Page {
                             axis.x: 0; axis.y: 1; axis.z: 0     // set axis.y to 1 to rotate around y-axis
                             angle: 0    // the default angle
                         }
+
+
 
                     states: State {
                             name: "back"
