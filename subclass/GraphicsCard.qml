@@ -147,6 +147,8 @@ Page {
             }
 
             Button {
+
+                id: minBtn
                 implicitHeight: 16
                 implicitWidth: 16
 
@@ -161,15 +163,33 @@ Page {
                 }
 
                 Text {
-                    id: name
+                    id: up
                     text: qsTr("▲")
                     anchors.centerIn: parent
                     font.pixelSize: Qt.application.font.pixelSize * .6
                     color: Literals.borderColor
+
                 }
                 onClicked: {
                     maximized = maximized==true? false:true;
                 }
+                Behavior on opacity {
+                    NumberAnimation{
+                        duration: 200
+                    }
+                }
+
+                state: showLogs ? "hide" : ""
+                states: [
+                    State {
+                        name: "hide"
+                        PropertyChanges {
+                            target: minBtn
+                            opacity: 0.0
+                            enabled : false
+                        }
+                    }
+                ]
             }
         }
 
@@ -277,7 +297,6 @@ Page {
                                     id: logBtn
                                     textValue: "Logs"
                                     onClicked: {
-                                      //  graphRowLayout.state = "back"
                                         showLogs = !showLogs
                                     }
                                 }

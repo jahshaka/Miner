@@ -56,10 +56,11 @@ Pane {
             anchors.topMargin: 10
             TextArea{
                 id: textArea
-                placeholderText: "error logs"
+                placeholderText: "If there are errors in the mining process they will show up here..."
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 color: "#99ffffff"
+                readOnly : true
                 background: Rectangle{
                     border.width: 1
                     border.color: "#99eeeeee"

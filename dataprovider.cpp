@@ -154,7 +154,7 @@ Q_INVOKABLE void DataProvider::stopProcess()
 	if (this->process->isMining()) {
 		this->process->stopMining();
 		//emit this->miningStopped();
-        emit miningStopped();
+        emit this->miningStopped();
     }
 }
 

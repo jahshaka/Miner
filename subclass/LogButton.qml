@@ -34,7 +34,7 @@ Rectangle {
             color: Literals.fontcolor
             horizontalAlignment: Text.AlignHCenter
             Layout.fillWidth: true
-            font.pixelSize: textSize==0 ? Qt.application.font.pixelSize * .8 : Qt.application.font.pixelSize * textSize
+            font.pixelSize: textSize==0 ? Qt.application.font.pixelSize * 1.1 : Qt.application.font.pixelSize * textSize
         }
 
     }

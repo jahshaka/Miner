@@ -318,6 +318,7 @@ ApplicationWindow {
                 border.width: 0
             }
 
+            leftPadding: 20
             RowLayout {
                 anchors.left: parent.left
                 anchors.right: parent.right
@@ -325,6 +326,7 @@ ApplicationWindow {
                 BlueButton {
                     id: startBtn
                     textValue: "Start"
+
                     onClicked: {
                         startMining = !startMining
                         textValue = startMining? "Stop" : "Start"
