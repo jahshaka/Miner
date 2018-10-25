@@ -46,6 +46,8 @@ ApplicationWindow {
     }
 
 
+
+
     ColorOverlay{
         id: indicator
 
@@ -101,6 +103,7 @@ ApplicationWindow {
                color: "#44000000"
                radius: 12.0
            }
+
 
 
 
@@ -173,10 +176,28 @@ ApplicationWindow {
 
 
     ColumnLayout {
+
         anchors.fill: parent
         spacing: 0
         Rectangle {
             anchors.fill: parent
+
+            MouseArea{
+                anchors.fill: parent
+                property variant previousPosition
+                    onPressed: {
+                        previousPosition = Qt.point(mouseX, mouseY)
+                        console.log(previousPosition)
+                    }
+                    onPositionChanged: {
+                        if (pressedButtons == Qt.LeftButton) {
+                            var dx = mouseX - previousPosition.x
+                            var dy = mouseY - previousPosition.y
+                            app.pos = Qt.point(viewerWidget.pos.x + dx,
+                                                        viewerWidget.pos.y + dy)
+                        }
+                    }
+            }
 
             id: swipe
             Layout.fillHeight: true
@@ -202,6 +223,7 @@ ApplicationWindow {
                 }
                 onSave: {
                    swipe.state = "graph";
+                    indicator.state = "graph"
                    bottonButtonPane.state  = "";
 
                    manager.setWalletId(settings_page.walletid);

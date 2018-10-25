@@ -33,6 +33,11 @@ Page {
     Component.onCompleted: {
         graph.provider = provider
 
+
+        high.textValue   = "High : 0.0"
+        low.textValue    = "Low : 0.0"
+        mean.textValue   = "Mean : 0.0"
+        latest.textValue = "Latest : 0.0"
     }
 
     Component.onDestruction: {

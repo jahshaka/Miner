@@ -13,12 +13,18 @@ Pane {
     Layout.fillWidth: true
     Layout.fillHeight: true
 
+
+        topPadding: 22
+        leftPadding : 28
+        rightPadding :28
+        bottomPadding : 22
+
+
     background: Rectangle{
         id : bg
         color: Literals.transparent
         border.width: Literals.borderWidth
         border.color: Literals.borderColor
-
         Behavior on color {
             ColorAnimation{
                 duration: 200
@@ -33,7 +39,6 @@ Pane {
 
     ColumnLayout{
         anchors.fill: parent
-
         MouseArea{
             id: area
             anchors.fill: parent
@@ -61,7 +66,6 @@ Pane {
 
 
         RowLayout{
-
            anchors.left: parent.left
            anchors.right: parent.right
            Label {

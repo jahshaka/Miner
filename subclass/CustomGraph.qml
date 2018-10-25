@@ -207,7 +207,6 @@ Pane {
 
                 var text = (interval * (5 - i) ).toFixed(0)
                 var fontWidth =  ctx.measureText(text ).width
-                console.log(fontWidth)
                 ctx.fillText(text , 23 - fontWidth, i * (canvasHeight) / yaxiscount +offset)
             }
 

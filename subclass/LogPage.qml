@@ -56,7 +56,7 @@ Pane {
             anchors.topMargin: 10
             TextArea{
                 id: textArea
-                placeholderText: "press start to begiin logging"
+                placeholderText: "error logs"
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 color: "#99ffffff"
