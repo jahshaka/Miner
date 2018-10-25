@@ -29,17 +29,32 @@ BasePage {
         }
 
 
-        ColumnLayout {
+        GridLayout {
 
             id: col
-            spacing:5
+            //spacing:5
+            columns: 2
             width: scrollview.width- scrollview.padding * 2
+       //     height: scrollview.height - scrollview.padding * 2
 
             ParagraphLink{
                 id: createAccount
                 explanation: "click the button above to create an account on xmr stak"
-                labelText: "Create Account"
-                linkText: "Register"
+                labelText: "Create Mining Account"
+                linkText: "Create"
+                onClicked: {
+                    Qt.openUrlExternally("https://www.supportxmr.com/#/home")
+                }
+            }
+
+            ParagraphLink{
+                id: wallet
+                explanation: "click the button to build the configurations"
+                labelText: "Create Wallet"
+                linkText: "Create"
+                onClicked: {
+                    Qt.openUrlExternally("https://mymonero.com/#/")
+                }
             }
 
             ParagraphLink{
@@ -47,13 +62,9 @@ BasePage {
                 explanation: "click the button to get help online from jahfx"
                 labelText: "Online Assistance"
                 linkText: "Help"
-            }
-
-            ParagraphLink{
-                id: config
-                explanation: "click the button to build the configurations"
-                labelText: "Build Configuration"
-                linkText: "Configure"
+                onClicked: {
+                    Qt.openUrlExternally("https://www.jahfx.com/")
+                }
             }
 
             ParagraphLink{
@@ -61,6 +72,9 @@ BasePage {
                 explanation: "click the button to support Jahshaka by visiting www.jahshaka.com"
                 labelText: "Support Jahshaka"
                 linkText: "Visit"
+                onClicked: {
+                    Qt.openUrlExternally("https://www.jahshaka.com/")
+                }
             }
 
         }

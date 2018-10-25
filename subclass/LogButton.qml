@@ -10,8 +10,9 @@ Rectangle {
      property string textValue: ""
      signal clicked();
 
-     implicitHeight: 20
-     implicitWidth: 50
+     implicitHeight: text1.height +10
+     implicitWidth: text1.width +16
+
      color: Literals.transparent
      border.width: 1
      border.color: "#88ffffff"

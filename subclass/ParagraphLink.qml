@@ -5,10 +5,13 @@ import QtQuick.Layouts 1.3
 import QtQuick.Controls.Styles 1.4
 
 Pane {
+    id:pane
     property string linkText: "value"
     property string labelText: "value"
     property string explanation: "value"
+    signal clicked()
     Layout.fillWidth: true
+    Layout.fillHeight: true
 
     background: Rectangle{
         color: Literals.transparent
@@ -16,8 +19,29 @@ Pane {
         border.color: Literals.borderColor
     }
 
+
+
+
     ColumnLayout{
         anchors.fill: parent
+
+        MouseArea{
+            id: area
+            anchors.fill: parent
+            hoverEnabled: true
+            onClicked: {
+                pane.clicked()
+            }
+            onEntered: {
+                cursorShape = Qt.PointingHandCursor
+            }
+
+            onExited: {
+                cursorShape = Qt.ArrowCursor
+
+            }
+        }
+
 
         RowLayout{
 
@@ -37,29 +61,36 @@ Pane {
             anchors.left: parent.left
             anchors.right: parent.right
             Text {
+                Layout.fillWidth: true
                 id: textExplanation
                 text: qsTr(explanation)
                 color: "#ddffffff"
                 font.pixelSize: Qt.application.font.pixelSize * 1.2
                 font.weight: Literals.fontWeight
+                wrapMode: Text.Wrap
 
             }
 
         }
 
-        RowLayout{
-            anchors.left: parent.left
-            anchors.right: parent.right
-            Item {
-                id: space
-                Layout.fillWidth: true
-            }
-            LogButton{
-                textValue: linkText
-                textSize: 1.1
-            }
-
+        Item {
+            id: name
+            Layout.fillHeight: true
         }
+
+//        RowLayout{
+//            anchors.left: parent.left
+//            anchors.right: parent.right
+//            Item {
+//                id: space
+//                Layout.fillWidth: true
+//            }
+//            LogButton{
+//                textValue: linkText
+//                textSize: 1.1
+//            }
+
+//        }
 
 
     }
