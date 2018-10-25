@@ -26,6 +26,9 @@ Page {
         onMinerOutput:{
             log.append(text)
         }
+        onMiningStopped:{
+            armedSwitch.on ? status.textValue = "Inactive" : status.textValue = "Status : Offline"
+        }
     }
 
 
