@@ -2,40 +2,34 @@ import QtQuick 2.9
 import QtQuick.Window 2.2
 import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.3
+import DataProvider 1.0
 
-Pane {
+BasePage {
 
     id: logPage
+
+    property DataProvider provider: null
+
     signal goback()
     signal copy()
 
-    Behavior on opacity{
-        NumberAnimation{
-            duration: 300
-        }
-    }
 
-    Behavior on scale{
-        NumberAnimation{
-            duration: 300
-        }
-    }
 
-    anchors.fill: parent
+    padding: 15
 
     background: Rectangle{
         color: Literals.transparent
     }
 
     ColumnLayout{
-        spacing: 1
+        spacing: 5
         anchors.fill: parent
 
         RowLayout{
             spacing: 1
             Layout.fillWidth: true
-            anchors.top: parent.top
-            anchors.topMargin: -15
+//            anchors.top: parent.top
+//            anchors.topMargin: -15
 
             Item{
                 Layout.fillWidth: true
@@ -44,16 +38,19 @@ Pane {
             LogButton{
                 id : buttonSave
                 textValue: "copy to clipboard"
+                opacity: 0.65
                 onClicked: {
-                    logPage.copy()
+
+                        provider.saveMinerOutput()
+
                 }
             }
 
         }
         RowLayout{
             Layout.fillWidth: true
-            anchors.top: parent.top
-            anchors.topMargin: 10
+         //   anchors.top: parent.top
+         //   anchors.topMargin: 10
             TextArea{
                 id: textArea
                 placeholderText: "If there are errors in the mining process they will show up here..."
@@ -63,7 +60,7 @@ Pane {
                 readOnly : true
                 background: Rectangle{
                     border.width: 1
-                    border.color: "#99eeeeee"
+                    border.color: "#39eeeeee"
                     color: "#00ffffff"
                 }
 

@@ -32,7 +32,7 @@ Page {
     Rectangle{
         id: leftrect
         anchors.left: parent.left
-        border.width: 55
+        border.width: 1
         border.color: borderColor
         implicitWidth: 0
         implicitHeight: parent.height

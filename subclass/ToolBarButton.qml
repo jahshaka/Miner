@@ -48,24 +48,23 @@ Rectangle {
 
     Rectangle {
         id: leftrect
-        x: 0
-        y: 0
         border.color: Literals.borderColor
         color: Literals.borderColor
-        implicitWidth: 1
+        implicitWidth: .5
         implicitHeight: parent.height
-        opacity: .1
+        opacity: .2
+        anchors.left: parent.left
     }
 
     Rectangle {
         anchors.fill: parent
         color: bgcolor
-        anchors.margins: {
-            left: 0
-            right: 0
-            top: 2
-            bottom: 2
-        }
+//        anchors.margins: {
+//            left: 0
+//            right: 0
+//            top: 2
+//            bottom: 2
+//        }
 
 
 
@@ -75,11 +74,7 @@ Rectangle {
             anchors.fill: parent
             spacing: 5
 
-            //        CustomBorder{
-            //            commonBorder: false
-            //            borderColor: Literals.borderColor
-            //            bBorderwidth: 12
-            //        }
+
             HorizontalSpacer {
             }
 
@@ -87,16 +82,18 @@ Rectangle {
                 id: buttonimage
                 source: "../" + imageSource
                 sourceSize.width: 20
-                verticalAlignment: Image.AlignTop
+                verticalAlignment: Image.AlignBottom
             }
             Label {
                 id: textval
                 text: textValue
                 color: Literals.fontcolor
                 font.weight: Literals.fontWeight
-                font.pixelSize: Qt.application.font.pixelSize * 1.2
+                font.pixelSize: Qt.application.font.pixelSize * 1.4
+                height: buttonimage.height
                 baselineOffset: 0
                 Layout.topMargin: 2
+                verticalAlignment: Label.AlignBottom
             }
             HorizontalSpacer {
             }

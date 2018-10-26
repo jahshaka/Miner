@@ -32,7 +32,7 @@ Page {
         }
 
         onStatusChanged:{
-            status.textValue ="Status : "+ value
+            status.textValue ="Status : "+ "<font color='#00B0E5' >" +value+"</font>"
         }
         onMiningStarted:{
             status.textValue = "Connecting"
@@ -311,6 +311,8 @@ Page {
                                 LogButton {
                                     id: logBtn
                                     textValue: "Logs"
+                                    visible: false
+                                    enabled: false
                                     onClicked: {
                                         showLogs = !showLogs
                                     }
@@ -339,8 +341,8 @@ Page {
                         myIndex: cardIndex
                         onCardnameChanged: cardName.textValue = graph.cardname
                         onStatusChanged: armedSwitch.on ? status.textValue = "Status : "
-                                                          + provider.getStatus(
-                                                              ) : status.textValue = "Status : Offline"
+                                                          +"<font color = 'blue'>"+ provider.getStatus(
+                                                              ) + " </font>" : status.textValue = "Status : <font color = 'blue'> Offline </font>"
 
     //                    onHighChanged: high.textValue = "High (" + graph.currentTime + ") : " + graph.high.toString()
     //                    onLowChanged: low.textValue = "Low (" + currentTime + ") : " + graph.low.toString()
