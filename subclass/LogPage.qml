@@ -51,19 +51,26 @@ BasePage {
             Layout.fillWidth: true
          //   anchors.top: parent.top
          //   anchors.topMargin: 10
+
+            ScrollView{
+                anchors.fill: parent
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+
             TextArea{
                 id: textArea
                 placeholderText: "If there are errors in the mining process they will show up here..."
-                Layout.fillWidth: true
-                Layout.fillHeight: true
+
                 color: "#99ffffff"
                 readOnly : true
+                selectByMouse: true
                 background: Rectangle{
                     border.width: 1
                     border.color: "#39eeeeee"
                     color: "#00ffffff"
                 }
 
+            }
             }
         }
     }
