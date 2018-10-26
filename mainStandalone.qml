@@ -331,6 +331,7 @@ ApplicationWindow {
                         startMining = !startMining
                         textValue = startMining? "Stop" : "Start"
                         manager.setShouldMining(startMining)
+                        if(!startMining) graph_page.status = "Inactive"
                     }
                 }
                 Label {

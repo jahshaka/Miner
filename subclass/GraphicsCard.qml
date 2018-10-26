@@ -23,9 +23,24 @@ Page {
 
     Connections{
         target: provider
+
         onMinerOutput:{
             log.append(text)
         }
+        onMiningStopped:{
+            armedSwitch.on ? status.textValue = "Inactive" : status.textValue = "Status : Offline"
+        }
+
+        onStatusChanged:{
+            status.textValue ="Status : "+ value
+        }
+        onMiningStarted:{
+            status.textValue = "Connecting"
+        }
+
+
+
+
     }
 
 
@@ -330,8 +345,8 @@ Page {
     //                    onHighChanged: high.textValue = "High (" + graph.currentTime + ") : " + graph.high.toString()
     //                    onLowChanged: low.textValue = "Low (" + currentTime + ") : " + graph.low.toString()
 
-                        onHighChanged: high.textValue = "High " + graph.high.toString()
-                        onLowChanged: low.textValue = "Low " + graph.low.toString()
+                        onHighChanged: high.textValue = "High :" + graph.high.toString()
+                        onLowChanged: low.textValue = "Low :" + graph.low.toString()
 
                         onMeanChanged: mean.textValue = "Mean : " + graph.mean.toString()
                         onLatestChanged: latest.textValue = "Latest : " + graph.latest.toString()

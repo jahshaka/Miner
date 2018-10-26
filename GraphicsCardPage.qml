@@ -14,6 +14,7 @@ BasePage {
     property string poolurl: manager.getPoolUrl();
     property string password: manager.getPassword();
     property string identifier: manager.getIdentifier();
+    property string status : ""
   
 
     padding: 10
@@ -57,7 +58,7 @@ BasePage {
             comp = Qt.createComponent("subclass/GraphicsCard.qml")
 
             if (comp.status == Component.Ready){
-                card = comp.createObject(col,{"cardIndex":provider.getIndex(), "provider" : provider })
+                card = comp.createObject(col,{"cardIndex":provider.getIndex(), "provider" : provider, "status" :status })
             }
             else{
                 comp.statusChanged.connect(  createGraphicsCard(provider, comp));
@@ -67,7 +68,7 @@ BasePage {
 
         function createGraphicsCard(provider, comp){
             var card
-            card = comp.createObject(col,{"cardIndex":provider.getIndex(), "provider" : provider })
+            card = comp.createObject(col,{"cardIndex":provider.getIndex(), "provider" : provider, "status" :status })
 
         }
 

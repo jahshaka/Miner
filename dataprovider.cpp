@@ -173,6 +173,12 @@ void DataProvider::restartProcesses()
 void DataProvider::setShouldMine(bool val)
 {
     shouldMine = val;
+	if (val) {
+		emit statusChanged("Disconnected");
+	}
+	else {
+		emit statusChanged("Inactive");
+	}
 }
 
 bool DataProvider::getShouldMine()
