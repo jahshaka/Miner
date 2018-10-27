@@ -9,7 +9,7 @@ import DataProvider 1.0
 
 ApplicationWindow {
     visible: true
-    width: 640
+    width: 690
     height: 480
     title: qsTr("Jahminer")
     minimumHeight: 350
@@ -31,6 +31,7 @@ ApplicationWindow {
 
         onProcessCreated: {
             graph_page.addGraphicsCard(provider);
+            log_page.provider = provider;
         }
 
         onPoolUrlChanged: {settings_page.poolurl = value}
@@ -87,6 +88,13 @@ ApplicationWindow {
                     target: indicator
                     x : help1Btn.x
                 }
+            },
+            State {
+                name: "logs"
+                PropertyChanges {
+                    target: indicator
+                    x : logsBtn.x
+                }
             }
 
         ]
@@ -103,8 +111,6 @@ ApplicationWindow {
                color: "#44000000"
                radius: 12.0
            }
-
-
 
 
         //padding : 5
@@ -126,6 +132,13 @@ ApplicationWindow {
                 implicitWidth: 0
                 color: "#555"
                 anchors.right: parent.right
+            }
+            Rectangle{
+                id: bottomRect
+                implicitHeight: 1
+                implicitWidth: parent.width
+                color: "#555"
+                anchors.bottom: parent.bottom
             }
         }
         RowLayout {
@@ -166,6 +179,16 @@ ApplicationWindow {
                 onClicked: {
                     swipe.state = "help"
                     indicator.state = "help"
+                }
+            }
+            ToolBarButton {
+                id: logsBtn
+                textValue: "Logs"
+                imageSource: "images/logs.png"
+                visible: true
+                onClicked: {
+                    swipe.state = "logs"
+                    indicator.state = "logs"
                 }
             }
             Item {
@@ -256,6 +279,17 @@ ApplicationWindow {
                 opacity : 0.0
             }
 
+            LogPage {
+                id: log_page
+                anchors.fill: parent
+                z:0
+                scale : 0.0
+                opacity : 0.0
+                onCopy: {
+                    provider.saveMinerOutput()
+                }
+            }
+
 
 
             state: "graph"
@@ -298,6 +332,20 @@ ApplicationWindow {
                         target: bottonButtonPane
                         implicitHeight: .5
                     }
+                },
+                State {
+                    name: "logs"
+                    PropertyChanges {
+                        target: log_page
+                        scale: 1.0
+                        z: 3
+                        opacity: 1.0
+                    }
+
+                    PropertyChanges{
+                        target: bottonButtonPane
+                        implicitHeight: .5
+                    }
                 }
             ]
         }
@@ -315,7 +363,7 @@ ApplicationWindow {
             background: Rectangle {
                 color: Literals.darkBackgroundColor
                 border.color: Literals.borderColor
-                border.width: 0
+                border.width: Literals.borderWidth
             }
 
             leftPadding: 20

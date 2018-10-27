@@ -10,9 +10,9 @@ Page {
     visible: true
     width: 640
     height: 480
-    title: qsTr("JahMiner")
-    Layout.minimumHeight: 350
-    Layout.minimumWidth: 450
+    title: qsTr("Jahminer")
+    minimumHeight: 350
+    minimumWidth: 460
     id: app
 
     property bool startMining : false
@@ -39,18 +39,93 @@ Page {
     }
 
 
+    color: Literals.darkBackgroundColor
     background: Rectangle {
         color: Literals.darkBackgroundColor
     }
 
+
+
+
+    ColorOverlay{
+        id: indicator
+
+        Behavior on x {
+            NumberAnimation{
+                duration: 200
+            }
+        }
+
+        implicitHeight: chartBtn.height
+        implicitWidth: chartBtn.width
+        color: "#fff"
+        opacity: 0.1
+        z: 100
+        anchors.top: toolbar.top
+
+        state: "graph"
+
+        states: [
+            State {
+                name: "graph"
+                PropertyChanges {
+                    target: indicator
+                    x : chartBtn.x
+                }
+            },
+            State {
+                name: "pool"
+                PropertyChanges {
+                    target: indicator
+                    x : poolBtn.x
+                }
+            },
+            State {
+                name: "help"
+                PropertyChanges {
+                    target: indicator
+                    x : help1Btn.x
+                }
+            }
+
+        ]
+    }
     header: ToolBar {
         id: toolbar
+
+
+        layer.enabled: true
+           layer.effect: DropShadow {
+               transparentBorder: true
+               horizontalOffset: 0
+               verticalOffset: 8
+               color: "#44000000"
+               radius: 12.0
+           }
+
+
+
 
         //padding : 5
         background: Rectangle {
             color: Literals.darkBackgroundColor
             border.color: Literals.borderColor
-            border.width: Literals.borderWidth
+            border.width: 0
+
+            Rectangle{
+                id: leftRect
+                implicitHeight: parent.height
+                implicitWidth: 0
+                color: Literals.borderColor
+                anchors.left: parent.left
+            }
+            Rectangle{
+                id: rightRect
+                implicitHeight: parent.height
+                implicitWidth: 0
+                color: "#555"
+                anchors.right: parent.right
+            }
         }
         RowLayout {
             anchors.fill: parent
@@ -68,25 +143,28 @@ Page {
                 onClicked: {
                     swipe.state = "graph"
                     bottonButtonPane.state = ""
+                    indicator.state = "graph"
                 }
             }
             ToolBarButton {
                 id: poolBtn
-                textValue: "Settings"
+                textValue: "Pool"
                 imageSource: "images/settings-40.png"
                 onClicked: {
                     swipe.state = "settings"
                     bottonButtonPane.state = "settings"
+                    indicator.state = "pool"
                 }
             }
 
             ToolBarButton {
-                id: accountBtn
-                textValue: "Account"
-                imageSource: "images/lock-40.png"
-                visible: false
+                id: help1Btn
+                textValue: "Help"
+                imageSource: "images/help.png"
+                visible: true
                 onClicked: {
-
+                    swipe.state = "help"
+                    indicator.state = "help"
                 }
             }
             Item {
@@ -95,11 +173,30 @@ Page {
         }
     }
 
+
     ColumnLayout {
+
         anchors.fill: parent
         spacing: 0
         Rectangle {
             anchors.fill: parent
+
+            MouseArea{
+                anchors.fill: parent
+                property variant previousPosition
+                    onPressed: {
+                        previousPosition = Qt.point(mouseX, mouseY)
+                        console.log(previousPosition)
+                    }
+                    onPositionChanged: {
+                        if (pressedButtons == Qt.LeftButton) {
+                            var dx = mouseX - previousPosition.x
+                            var dy = mouseY - previousPosition.y
+                            app.pos = Qt.point(viewerWidget.pos.x + dx,
+                                                        viewerWidget.pos.y + dy)
+                        }
+                    }
+            }
 
             id: swipe
             Layout.fillHeight: true
@@ -107,6 +204,7 @@ Page {
 
             border.color: Literals.borderColor
             border.width: Literals.borderWidth
+            color: Literals.darkBackgroundColor
 
             //color: "red"
             SettingsPage {
@@ -122,6 +220,22 @@ Page {
                     walletid = manager.getWalletId()
                     identifier = manager.getIdentifier()
                 }
+                onSave: {
+                   swipe.state = "graph";
+                    indicator.state = "graph"
+                   bottonButtonPane.state  = "";
+
+                   manager.setWalletId(settings_page.walletid);
+                   manager.setPoolUrl(settings_page.poolurl);
+                   manager.setPassword(settings_page.password)
+                   manager.setIdentifier(settings_page.identifier)
+                   manager.saveAndApplySettings();
+                }
+
+                onCancel: {
+                    manager.resetSettings();
+
+                }
             }
 
             GraphicsCardPage {
@@ -131,6 +245,14 @@ Page {
                 scale: 0.0
                 opacity: 0.0
 
+            }
+
+            HelpPage {
+                id: help_page
+                anchors.fill: parent
+                z:0
+                scale : 0.0
+                opacity : 0.0
             }
 
 
@@ -147,6 +269,11 @@ Page {
                         z: 3
                         opacity: 1.0
                     }
+
+                    PropertyChanges{
+                        target: bottonButtonPane
+                        implicitHeight: .5
+                    }
                 },
                 State {
                     name: "graph"
@@ -156,6 +283,20 @@ Page {
                         z: 3
                         opacity: 1.0
                     }
+                },
+                State {
+                    name: "help"
+                    PropertyChanges {
+                        target: help_page
+                        scale: 1.0
+                        z: 3
+                        opacity: 1.0
+                    }
+
+                    PropertyChanges{
+                        target: bottonButtonPane
+                        implicitHeight: .5
+                    }
                 }
             ]
         }
@@ -163,12 +304,20 @@ Page {
         Pane {
             id: bottonButtonPane
             Layout.fillWidth: true
+
+            Behavior on implicitHeight{
+                NumberAnimation{
+                    duration: 100
+                }
+            }
+
             background: Rectangle {
                 color: Literals.darkBackgroundColor
                 border.color: Literals.borderColor
-                border.width: Literals.borderWidth
+                border.width: 0
             }
 
+            leftPadding: 20
             RowLayout {
                 anchors.left: parent.left
                 anchors.right: parent.right
@@ -176,10 +325,12 @@ Page {
                 BlueButton {
                     id: startBtn
                     textValue: "Start"
+
                     onClicked: {
                         startMining = !startMining
                         textValue = startMining? "Stop" : "Start"
                         manager.setShouldMining(startMining)
+                        if(!startMining) graph_page.status = "Inactive"
                     }
                 }
                 Label {
@@ -190,6 +341,7 @@ Page {
                     color: Literals.fontcolor
                     font.pixelSize: Qt.application.font.pixelSize * 1.4
                     font.weight: Literals.fontWeight
+                    visible: false
                     MouseArea{
 
                         anchors.fill: parent
@@ -214,40 +366,41 @@ Page {
                 BlueButton {
                     id: helpBtn
                     textValue: "Help"
+                    visible: false
                     onClicked: {
                     }
                 }
             }
 
-            states: [
-                State {
-                    name: "settings"
-                    PropertyChanges {
-                        target: startBtn
-                        textValue: "Confirm"
-                       onClicked:{
-                           swipe.state = "graph";
-                           bottonButtonPane.state  = "";
+//            states: [
+//                State {
+//                    name: "settings"
+//                    PropertyChanges {
+//                        target: startBtn
+//                        textValue: "Confirm"
+//                       onClicked:{
+//                           swipe.state = "graph";
+//                           bottonButtonPane.state  = "";
 
-                           manager.setWalletId(settings_page.walletid);
-                           manager.setPoolUrl(settings_page.poolurl);
-                           manager.setPassword(settings_page.password)
-                           manager.setIdentifier(settings_page.identifier)
-                           manager.saveAndApplySettings();
-                       }
-                    }
+//                           manager.setWalletId(settings_page.walletid);
+//                           manager.setPoolUrl(settings_page.poolurl);
+//                           manager.setPassword(settings_page.password)
+//                           manager.setIdentifier(settings_page.identifier)
+//                           manager.saveAndApplySettings();
+//                       }
+//                    }
 
-                    PropertyChanges {
-                        target: helpBtn
-                        textValue: "Canel"
-                        onClicked:{
-                            manager.resetSettings();
-                        }
+//                    PropertyChanges {
+//                        target: helpBtn
+//                        textValue: "Canel"
+//                        onClicked:{
+//                            manager.resetSettings();
+//                        }
 
-                    }
-                }
+//                    }
+//                }
 
-            ]
+//            ]
         }
     }
 }

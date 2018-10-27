@@ -37,5 +37,6 @@
         <file>HelpPage.qml</file>
         <file>subclass/ParagraphLink.qml</file>
         <file>images/register.png</file>
+        <file>images/logs.png</file>
     </qresource>
 </RCC>

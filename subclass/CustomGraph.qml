@@ -10,7 +10,7 @@ Pane {
     property int xaxiscount: 15
     property int yaxiscount: 5
     property int numOfValues: 0
-    property string graphAxisColor: "#22ffffff"
+    property string graphAxisColor: "#32ffffff"
     property string graphFillColor: "#33ffffff"
     property string graphLineColor: "#66ffffff"
     property int xAxisMaxMultiplier: 2
@@ -97,7 +97,7 @@ Pane {
             ctx.clearRect(0, 0, width, height)
 
             //fill Rectangle
-            ctx.fillStyle = "#06888888"
+            ctx.fillStyle = "#16888888"
             ctx.fillRect(canvasXStartPosition, 0 , width- canvasXStartPosition, canvasHeight)
 
 
@@ -138,7 +138,7 @@ Pane {
                 ctx.stroke()
             }
 
-            if(false) animate += 2;
+            if(true) animate += 2;
             if(animate>=(width/xaxiscount)+canvasXStartPosition) animate =0;
             ctx.strokeStyle = graphAxisColor
 
@@ -156,7 +156,7 @@ Pane {
             var max = provider.getHigh() //* control.xAxisMaxMultiplier
             var diff = max - min
             var offset = 3
-            if(diff <.5) diff = .5;
+            if(diff <.01) diff = .01;
 
             for (var i = 0; i < list.length; i++) {
                 var d1 = list[i]
