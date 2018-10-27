@@ -321,7 +321,7 @@ void MinerProcess::startMining()
 	args << "-r" << "x";
 	args << "-u" << "43QGgipcHvNLBX3nunZLwVQpF6VbobmGcQKzXzQ5xMfJgzfRBzfXcJHX1tUHcKPm9bcjubrzKqTm69JbQSL4B3f6E3mNCbU";
 	*/
-	args << "--currency" << "monero7";
+	args << "--currency" << "monero";
     args << "-o" << minerMan->poolUrlText;
 	if (minerMan->password.isEmpty())
 		args << "-p" << minerMan->password;
