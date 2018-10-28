@@ -14,6 +14,13 @@ BasePage {
     signal copy()
 
 
+    Connections{
+        target: provider
+
+        onMinerOutput:{
+            logPage.append(text)
+        }
+    }
 
     padding: 15
 
