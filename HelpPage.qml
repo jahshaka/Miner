@@ -10,9 +10,7 @@ import "subclass"
 BasePage {
 
     padding: 10
-    background: Rectangle {
-        color: Literals.darkBackgroundColor
-    }
+
 
     ScrollView {
         id: scrollview
@@ -24,11 +22,6 @@ BasePage {
 
         clip: true
         padding: 10
-
-        background: Rectangle {
-            color: Literals.darkBackgroundColor
-        }
-
 
         GridLayout {
 

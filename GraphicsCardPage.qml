@@ -18,11 +18,6 @@ BasePage {
   
 
     padding: 10
-    background: Rectangle {
-        color: Literals.darkBackgroundColor
-    }
-
-
 
         ScrollView {
             id: scrollview
