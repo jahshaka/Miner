@@ -24,10 +24,6 @@ BasePage {
 
     padding: 15
 
-    background: Rectangle{
-        color: Literals.transparent
-    }
-
     ColumnLayout{
         spacing: 5
         anchors.fill: parent

@@ -13,7 +13,7 @@ ApplicationWindow {
     height: 480
     title: qsTr("Jahminer")
     minimumHeight: 350
-    minimumWidth: 460
+    minimumWidth: 600
     id: app
 
     property bool startMining : false

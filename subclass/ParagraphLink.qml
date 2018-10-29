@@ -11,7 +11,8 @@ Pane {
     property string explanation: "value"
     signal clicked()
     Layout.fillWidth: true
-    Layout.fillHeight: true
+    implicitWidth: 120
+    implicitHeight: 120
 
 
         topPadding: 22

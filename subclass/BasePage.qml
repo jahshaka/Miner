@@ -13,7 +13,13 @@ Page {
     property bool showAllBorders: showHorizontalBorders && showVerticalBorders
     property int borderWidth: Literals.borderWidth + 19
     property string borderColor: Literals.borderColor
+    property real commonWidth : 0
 
+    background: Rectangle {
+        color: Literals.darkBackgroundColor
+        border.width: Literals.borderWidth
+        border.color: Literals.borderColor
+    }
 
     Behavior on opacity {
         PropertyAnimation {
@@ -32,9 +38,9 @@ Page {
     Rectangle{
         id: leftrect
         anchors.left: parent.left
-        border.width: 1
-        border.color: borderColor
-        implicitWidth: 0
+
+        color: borderColor
+        implicitWidth: commonWidth
         implicitHeight: parent.height
         z:10
         //visible: showHorizontalBorders || showAllBorders
@@ -43,9 +49,8 @@ Page {
     Rectangle{
         id: rightrect
         anchors.right: parent.right
-        border.width: 55
-        border.color: Literals.borderColor
-        implicitWidth: 0
+        color: Literals.borderColor
+        implicitWidth: commonWidth
         implicitHeight: parent.height
         z:10
         //visible: showHorizontalBorders || showAllBorders
@@ -54,10 +59,9 @@ Page {
     Rectangle{
         id: toprect
         anchors.top : parent.top
-        border.width: 55
-        border.color: borderColor
+        color: borderColor
         implicitWidth: parent.width
-        implicitHeight: 0
+        implicitHeight: commonWidth
         z:10
         //visible: showVerticalBorders || showAllBorders
 
@@ -65,10 +69,9 @@ Page {
     Rectangle{
         id: bottomrect
         anchors.bottom: parent.bottom
-        border.width: 55
-        border.color: Literals.borderColor
+        color: Literals.borderColor
         implicitWidth: parent.width
-        implicitHeight: 0
+        implicitHeight: commonWidth
         z:10
         //visible: showVerticalBorders || showAllBorders
 
