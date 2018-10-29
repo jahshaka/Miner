@@ -38,5 +38,6 @@
         <file>subclass/ParagraphLink.qml</file>
         <file>images/register.png</file>
         <file>images/logs.png</file>
+        <file>subclass/LogItem.qml</file>
     </qresource>
 </RCC>

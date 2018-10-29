@@ -32,52 +32,59 @@ BasePage {
         spacing: 5
         anchors.fill: parent
 
-        RowLayout{
-            spacing: 1
-            Layout.fillWidth: true
-//            anchors.top: parent.top
-//            anchors.topMargin: -15
+//        RowLayout{
+//            spacing: 1
+//            Layout.fillWidth: true
+////            anchors.top: parent.top
+////            anchors.topMargin: -15
 
-            Item{
-                Layout.fillWidth: true
-            }
+//            Item{
+//                Layout.fillWidth: true
+//            }
 
-            LogButton{
-                id : buttonSave
-                textValue: "copy to clipboard"
-                opacity: 0.65
-                onClicked: {
+//            LogButton{
+//                id : buttonSave
+//                textValue: "copy to clipboard"
+//                opacity: 0.65
+//                onClicked: {
 
-                        provider.saveMinerOutput()
+//                        provider.saveMinerOutput()
 
-                }
-            }
+//                }
+//            }
 
-        }
+//        }
         RowLayout{
             Layout.fillWidth: true
          //   anchors.top: parent.top
          //   anchors.topMargin: 10
 
             ScrollView{
+                id : scroll
                 anchors.fill: parent
                 Layout.fillWidth: true
                 Layout.fillHeight: true
 
-            TextArea{
-                id: textArea
-                placeholderText: "If there are errors in the mining process they will show up here..."
+                ColumnLayout{
+                    id : col
+                    width: scroll.width
 
-                color: "#99ffffff"
-                readOnly : true
-                selectByMouse: true
-                background: Rectangle{
-                    border.width: 1
-                    border.color: "#39eeeeee"
-                    color: "#00ffffff"
                 }
 
-            }
+//            TextArea{
+//                id: textArea
+//                placeholderText: "If there are errors in the mining process they will show up here..."
+
+//                color: "#99ffffff"
+//                readOnly : true
+//                selectByMouse: true
+//                background: Rectangle{
+//                    border.width: 1
+//                    border.color: "#39eeeeee"
+//                    color: "#00ffffff"
+//                }
+
+//            }
             }
         }
     }
@@ -86,5 +93,28 @@ BasePage {
     function append(text){
         textArea.append(text)
     }
+
+    function addProvider(provider){
+        var comp;
+        var card;
+
+        //create cards and pass info
+        comp = Qt.createComponent("LogItem.qml")
+
+        if (comp.status == Component.Ready){
+            card = comp.createObject(col,{"provider" : provider })
+        }
+        else{
+            comp.statusChanged.connect(  createProvider(provider, comp));
+        }
+
+    }
+
+    function createProvider(provider, comp){
+        var card
+        card = comp.createObject(col,{"provider" : provider })
+
+    }
+
 
 }

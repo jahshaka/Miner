@@ -31,7 +31,8 @@ ApplicationWindow {
 
         onProcessCreated: {
             graph_page.addGraphicsCard(provider);
-            log_page.provider = provider;
+            //log_page.provider = provider;
+            log_page.addProvider(provider)
         }
 
         onPoolUrlChanged: {settings_page.poolurl = value}
