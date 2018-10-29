@@ -67,11 +67,11 @@ public:
     QString poolUrl = "pool.supportxmr.com:3333";
     QString identifier = "x";
     QString password = "jahminer";
-    QString walletId = "43QGgipcHvNLBX3nunZLwVQpF6VbobmGcQKzXzQ5xMfJgzfRBzfXcJHX1tUHcKPm9bcjubrzKqTm69JbQSL4B3f6E3mNCbU";
+    QString walletId = "4GdoN7NCTi8a5gZug7PrwZNKjvHFmKeV11L6pNJPgj5QNEHsN6eeX3DaAQFwZ1ufD4LYCZKArktt113W7QjWvQ7CW8vFDWrAWxJ315gEGp";
     QString poolUrlText = "pool.supportxmr.com:3333";
     QString identifierText = "x";
     QString passwordText = "jahminer";
-    QString walletIdText = "43QGgipcHvNLBX3nunZLwVQpF6VbobmGcQKzXzQ5xMfJgzfRBzfXcJHX1tUHcKPm9bcjubrzKqTm69JbQSL4B3f6E3mNCbU";
+    QString walletIdText = "4GdoN7NCTi8a5gZug7PrwZNKjvHFmKeV11L6pNJPgj5QNEHsN6eeX3DaAQFwZ1ufD4LYCZKArktt113W7QjWvQ7CW8vFDWrAWxJ315gEGp";
 
 	QVector<MinerProcess*> processes;
 
