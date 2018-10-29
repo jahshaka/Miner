@@ -10,65 +10,105 @@ BasePage {
 
     property DataProvider provider: null
 
-    signal goback()
-    signal copy()
+    signal goback
+    signal copy
 
-
-    Connections{
+    Connections {
         target: provider
 
-        onMinerOutput:{
+        onMinerOutput: {
             logPage.append(text)
         }
     }
 
     padding: 15
 
-    ColumnLayout{
+    ColumnLayout {
         spacing: 5
         anchors.fill: parent
 
         TabBar {
             id: bar
             width: parent.width
-            Component{
+
+            background: Rectangle{
+                color: Literals.transparent
+            }
+
+            Component {
                 id: tabbtn
-                LogButton{
+
+
+
+                TabButton {
+                    property int index: 0
+                  background: Rectangle {
+                        id: btn
+                        color: Literals.transparent
+                        border.width: 1
+                        border.color: "#88ffffff"
+                        Behavior on color {
+                            ColorAnimation {
+                                duration: 400
+                            }
+                        }
+                    }
+
+                    MouseArea{
+                        anchors.fill: parent
+                        hoverEnabled: true
+                        onEntered: {
+                            btn.color = "#99444444"
+                        }
+
+                        onExited: {
+                            btn.color =  Literals.transparent
+                        }
+
+                       onPressed: {
+                          btn.color =  "#99888888"
+                         }
+                       onReleased: {
+                             btn.color =  Literals.transparent
+                       }
+                       onClicked: {
+                           bar.currentIndex = index - 1
+                       }
 
                     }
                 }
             }
-
+        }
 
         StackLayout {
-            id:stack
+            id: stack
             width: parent.width
             currentIndex: bar.currentIndex
-
         }
-}
-    function addProvider(provider){
-        var comp;
-        var card;
+    }
+    function addProvider(provider) {
+        var comp
+        var card
 
         //create cards and pass info
         comp = Qt.createComponent("LogItem.qml")
 
-        if (comp.status == Component.Ready){
-            card = comp.createObject(stack,{"provider" : provider })
-            var btn = tabbtn.createObject(bar, {"textValue": "Miner "+provider.getIndex() })
+        if (comp.status == Component.Ready) {
+            card = comp.createObject(stack, {
+                                         provider: provider
+                                     })
+            var btn = tabbtn.createObject(bar, {
+                                              text: "Miner " + provider.getIndex(), "index" : provider.getIndex()
+                                          })
+        } else {
+            comp.statusChanged.connect(createProvider(provider, comp))
         }
-        else{
-            comp.statusChanged.connect(  createProvider(provider, comp));
-        }
-
     }
 
-    function createProvider(provider, comp){
+    function createProvider(provider, comp) {
         var card
-        card = comp.createObject(stack,{"provider" : provider })
-
+        card = comp.createObject(stack, {
+                                     provider: provider
+                                 })
     }
-
-
 }
