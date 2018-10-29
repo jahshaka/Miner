@@ -21,6 +21,7 @@ Pane {
     }
 
     Layout.fillWidth: true
+    Layout.fillHeight: true
     background: Rectangle{
         color: Literals.transparent
     }
@@ -49,13 +50,14 @@ Pane {
             Layout.fillWidth: true
             ScrollView{
                 Layout.fillWidth: true
-                implicitHeight: 120
+                Layout.fillHeight: true
+                //implicitHeight: 120
 
 
                 TextArea {
                     id: textArea
                     Layout.fillWidth: true
-                    implicitHeight: 100
+                    //implicitHeight: 100
                     placeholderText: "If there are errors in the mining process they will show up here for Miner " + provider.getIndex() +"..."
 
                     color: "#99ffffff"
