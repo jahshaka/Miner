@@ -153,7 +153,7 @@ ApplicationWindow {
 
             ToolBarButton {
                 id: chartBtn
-                textValue: "Charts"
+                textValue: "Mining"
                 imageSource: "images/chart-40.png"
                 onClicked: {
                     swipe.state = "graph"
@@ -163,12 +163,24 @@ ApplicationWindow {
             }
             ToolBarButton {
                 id: poolBtn
-                textValue: "Pool"
+                textValue: "Settings"
                 imageSource: "images/settings-40.png"
                 onClicked: {
                     swipe.state = "settings"
                     bottonButtonPane.state = "settings"
                     indicator.state = "pool"
+                }
+            }
+
+
+            ToolBarButton {
+                id: logsBtn
+                textValue: "Logs"
+                imageSource: "images/logs.png"
+                visible: true
+                onClicked: {
+                    swipe.state = "logs"
+                    indicator.state = "logs"
                 }
             }
 
@@ -182,16 +194,7 @@ ApplicationWindow {
                     indicator.state = "help"
                 }
             }
-            ToolBarButton {
-                id: logsBtn
-                textValue: "Logs"
-                imageSource: "images/logs.png"
-                visible: true
-                onClicked: {
-                    swipe.state = "logs"
-                    indicator.state = "logs"
-                }
-            }
+
             Item {
                 //width: 15
             }
@@ -308,7 +311,7 @@ ApplicationWindow {
 
                     PropertyChanges{
                         target: bottonButtonPane
-                        implicitHeight: .5
+                     //   implicitHeight: .5
                     }
                 },
                 State {
@@ -331,7 +334,7 @@ ApplicationWindow {
 
                     PropertyChanges{
                         target: bottonButtonPane
-                        implicitHeight: .5
+                     //   implicitHeight: .5
                     }
                 },
                 State {
@@ -345,7 +348,7 @@ ApplicationWindow {
 
                     PropertyChanges{
                         target: bottonButtonPane
-                        implicitHeight: .5
+                      //  implicitHeight: .5
                     }
                 }
             ]

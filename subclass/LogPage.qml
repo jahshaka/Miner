@@ -30,6 +30,7 @@ BasePage {
         TabBar {
             id: bar
             width: parent.width
+            anchors.leftMargin: 10
 
             background: Rectangle{
                 color: Literals.transparent
@@ -84,6 +85,12 @@ BasePage {
             id: stack
             width: parent.width
             currentIndex: bar.currentIndex
+
+        }
+
+        Item {
+            //width: 15
+            implicitHeight: 25
         }
     }
     function addProvider(provider) {
