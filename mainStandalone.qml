@@ -386,15 +386,20 @@ ApplicationWindow {
                         if(!startMining) graph_page.status = "Inactive"
                     }
                 }
+                Item {
+                    Layout.fillWidth: true
+                    implicitWidth: 50
+                }
                 Label {
                     id: jahshakaLabel
                     Layout.fillWidth: true
-                    text: "Support Jahshaka\nwww.jahshaka.com"
+                    text: "Find out more at \n Jahshaka.com"
                     horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
                     color: Literals.fontcolor
                     font.pixelSize: Qt.application.font.pixelSize * 1.4
                     font.weight: Literals.fontWeight
-                    visible: false
+                    visible: true
                     MouseArea{
 
                         anchors.fill: parent
@@ -404,8 +409,10 @@ ApplicationWindow {
                         }
                         onEntered: {
                             jahshakaLabel.color = Literals.blueButtonColor
+                            cursorShape = Qt.PointingHandCursor
                         }
                         onExited: {
+                            cursorShape = Qt.ArrowCursor
                             jahshakaLabel.color = "#eeffffff"
                         }
 
@@ -416,11 +423,18 @@ ApplicationWindow {
                         }
                     }
                 }
+                Item {
+                    Layout.fillWidth: true
+                    implicitWidth: 50
+
+                }
                 BlueButton {
                     id: helpBtn
-                    textValue: "Help"
-                    visible: false
+                    textValue: "Donate"
+                    visible: true
                     onClicked: {
+                        Qt.openUrlExternally("https://www.jahshaka.com/donate/")
+
                     }
                 }
             }

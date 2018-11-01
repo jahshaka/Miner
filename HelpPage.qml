@@ -23,14 +23,38 @@ BasePage {
         clip: true
         padding: 10
 
+
+
         GridLayout {
 
             id: col
             //spacing:5
-            columns: 2
+            columns: 1
             width: scrollview.width- scrollview.padding * 2
        //     height: scrollview.height - scrollview.padding * 2
 
+            Rectangle{
+                implicitWidth: parent.width
+                implicitHeight: 60
+                color: Literals.transparent
+                RowLayout{
+                    anchors.fill: parent
+                    Text {
+                        id: name
+                        Layout.fillWidth: true
+                        color: "#eeffffff"
+                        text: qsTr("Get started with mining monero! \n 1. Create a Monero wallet at MyMonero if you dont have one \n 2. Sign up for a mining account on the SupportXMR mining pool\n 3. Enter your data on the settings page")
+                        wrapMode: Text.WordWrap
+                        font.pixelSize: Qt.application.font.pixelSize * 1.4
+
+                    }
+                }
+            }
+
+            Item {
+
+                implicitHeight: 25
+            }
 
             ParagraphLink{
                 id: wallet
@@ -58,6 +82,8 @@ BasePage {
                 explanation: "Cick to get help online from jahfx"
                 labelText: "Online Assistance"
                 linkText: "Help"
+                enabled: false
+                visible : false
                 onClicked: {
                     Qt.openUrlExternally("https://www.jahfx.com/")
                 }
@@ -65,12 +91,18 @@ BasePage {
 
             ParagraphLink{
                 id: support
-                explanation: "Support Jahshaka by visiting www.jahshaka.com"
+                explanation: "Support our developement by visiting Jahshaka.com"
                 labelText: "Support Jahshaka"
                 linkText: "Visit"
+                enabled: true
+                visible: true
                 onClicked: {
-                    Qt.openUrlExternally("https://www.jahshaka.com/")
+                    Qt.openUrlExternally("https://www.jahshaka.com/miner/")
                 }
+            }
+            Item {
+                //width: 15
+                implicitHeight: 45
             }
 
         }

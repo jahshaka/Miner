@@ -29,22 +29,7 @@ Pane {
     ColumnLayout {
         anchors.fill: parent
 
-        RowLayout {
-            Layout.fillWidth: true
 
-            Item {
-                id: space1
-                Layout.fillWidth: true
-            }
-            LogButton {
-                id: buttonSave
-                textValue: "copy to clipboard"
-                opacity: 0.65
-                onClicked: {
-                    provider.saveMinerOutput()
-                }
-            }
-        }
 
         RowLayout {
             Layout.fillWidth: true
@@ -68,6 +53,22 @@ Pane {
                         border.color: "#39eeeeee"
                         color: "#00ffffff"
                     }
+                }
+            }
+        }
+        RowLayout {
+            Layout.fillWidth: true
+
+            Item {
+                id: space1
+                Layout.fillWidth: true
+            }
+            LogButton {
+                id: buttonSave
+                textValue: "copy to clipboard"
+                opacity: 0.65
+                onClicked: {
+                    provider.saveMinerOutput()
                 }
             }
         }
