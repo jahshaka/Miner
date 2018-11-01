@@ -9,7 +9,7 @@ Rectangle {
     id: btn
     property string imageSource: ""
     property string textValue: ""
-    property string col : "#33ffffff"
+    property string col : Literals.blueButtonColor
 
     signal clicked()
 

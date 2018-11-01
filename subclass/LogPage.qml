@@ -90,7 +90,7 @@ BasePage {
 
         Item {
             //width: 15
-            implicitHeight: 25
+            implicitHeight: 45
         }
     }
     function addProvider(provider) {

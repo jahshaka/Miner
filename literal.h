@@ -47,7 +47,7 @@ public:
     Q_INVOKABLE QVariant buttonColor(){return   QColor( 76,76,76)  ;}
     Q_INVOKABLE QVariant buttonColorHovered(){return   buttonColor().value<QColor>().darker(105)  ;}
     Q_INVOKABLE QVariant buttonColorPressed(){return   buttonColor().value<QColor>().darker(250)  ;}
-    Q_INVOKABLE QVariant blueButtonColor(){return QColor(0,176,229);}
+    Q_INVOKABLE QVariant blueButtonColor(){ return QColor(72, 152, 255); }
     Q_INVOKABLE QVariant blueButtonColorHovered(){return   blueButtonColor().value<QColor>().darker(105) ;}
     Q_INVOKABLE QVariant blueButtonColorPressed(){return   blueButtonColor().value<QColor>().darker(250)  ;}
     Q_INVOKABLE QVariant switchOffColor(){return   QColor(90,90,90) ;}
@@ -55,6 +55,7 @@ public:
     Q_INVOKABLE QVariant animationLengthShort(){return   150  ;}
     Q_INVOKABLE QVariant animationLengthMedium(){return   500  ;}
     Q_INVOKABLE QVariant animationLengthLong(){return   750 ;}
+	Q_INVOKABLE QVariant JahshakaBlue(){ return QColor(72, 152, 255); }
 signals:
 
 public slots:

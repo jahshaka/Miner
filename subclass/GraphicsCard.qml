@@ -31,7 +31,7 @@ Page {
             armedSwitch.on ? status.textValue = "Inactive" : status.textValue = "Status : Offline"
         }
         onStatusChanged:{
-            status.textValue ="Status : "+ "<font color='#00B0E5' >" +value+"</font>"
+            status.textValue ="Status : "+ "<font color='#4898FF' >" +value+"</font>"
         }
         onMiningStarted:{
             status.textValue = "Connecting"
