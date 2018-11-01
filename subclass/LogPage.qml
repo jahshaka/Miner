@@ -13,24 +13,18 @@ BasePage {
     signal goback
     signal copy
 
-    Connections {
-        target: provider
-
-        onMinerOutput: {
-            logPage.append(text)
-        }
-    }
-
     padding: 15
 
     ColumnLayout {
-        spacing: 5
+        spacing: 0
         anchors.fill: parent
 
         TabBar {
             id: bar
-            width: parent.width
-            anchors.leftMargin: 10
+            //Layout.fillWidth: true
+            //width: parent.width
+            //anchors.leftMargin: 30
+            Layout.leftMargin: 11
 
             background: Rectangle{
                 color: Literals.transparent
@@ -55,7 +49,7 @@ BasePage {
                         }
                     }
 
-                    MouseArea{
+                 MouseArea{
                         anchors.fill: parent
                         hoverEnabled: true
                         onEntered: {
@@ -85,6 +79,7 @@ BasePage {
             id: stack
             width: parent.width
             currentIndex: bar.currentIndex
+
 
         }
 
@@ -117,5 +112,8 @@ BasePage {
         card = comp.createObject(stack, {
                                      provider: provider
                                  })
+        var btn = tabbtn.createObject(bar, {
+                                          text: "Miner " + provider.getIndex(), "index" : provider.getIndex()
+                                      })
     }
 }
