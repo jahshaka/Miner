@@ -58,7 +58,7 @@ BasePage {
 
             ParagraphLink{
                 id: wallet
-                explanation: "Create wallet on mymonero.com"
+                explanation: "Create a monero wallet at MyMonero if you don't have one"
                 labelText: "Create Wallet"
                 linkText: "Create"
                 onClicked: {
@@ -68,7 +68,7 @@ BasePage {
 
             ParagraphLink{
                 id: createAccount
-                explanation: "Create an account at supportxmr"
+                explanation: "Sign up for a mining account on the Support XMR mining pool"
                 labelText: "Create Mining Account"
                 linkText: "Create"
                 onClicked: {
@@ -91,9 +91,9 @@ BasePage {
 
             ParagraphLink{
                 id: support
-                explanation: "Support our developement by visiting Jahshaka.com"
-                labelText: "Support Jahshaka"
-                linkText: "Visit"
+                explanation: "Get assistance with using the Jahshaka Miner online"
+                labelText: "Online Assistance"
+                linkText: "help"
                 enabled: true
                 visible: true
                 onClicked: {

@@ -54,14 +54,14 @@ BasePage {
 
             SettingsNode {
                 id: passwordNode
-                labeld: "Identifier"
+                labeld: "Worker Name"
                 iconPath: "images/badge.png"
 
             }
 
             SettingsNode {
                 id: identifierNode
-                labeld: "Rig Name"
+                labeld: "Email Address"
                 iconPath: "images/lock.png"
 
             }
