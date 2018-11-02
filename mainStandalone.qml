@@ -7,6 +7,7 @@ import "subclass"
 import MinerManager 1.0
 import DataProvider 1.0
 
+
 ApplicationWindow {
     visible: true
     width: 690
@@ -102,17 +103,6 @@ ApplicationWindow {
     }
     header: ToolBar {
         id: toolbar
-
-
-        layer.enabled: true
-           layer.effect: DropShadow {
-               transparentBorder: true
-               horizontalOffset: 0
-               verticalOffset: 8
-               color: "#44000000"
-               radius: 12.0
-           }
-
 
         //padding : 5
         background: Rectangle {

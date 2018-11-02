@@ -11,8 +11,9 @@ Pane {
     property string explanation: "value"
     signal clicked()
     Layout.fillWidth: true
+
     //implicitWidth: 120
-    implicitHeight: 90
+    implicitHeight: 100
 
 
       //  topPadding: 12
@@ -37,24 +38,25 @@ Pane {
             id: btnLink
             implicitHeight: parent.height
             implicitWidth: parent.height
-            color: Literals.transparent
+            color: "#22aaaaaa"
             radius: 2
             border.color: Literals.borderColor
             border.width: Literals.borderWidth
 
             Behavior on color {
                 ColorAnimation{
-                    duration: 200
+                    duration: 400
                 }
             }
             RowLayout{
                anchors.fill: parent
                Label {
                    id: lab
+                   padding: 5
                    Layout.fillWidth: true
                    Layout.fillHeight: true
                    text : labelText
-                   font.pixelSize: Qt.application.font.pixelSize * 1
+                   font.pixelSize: Qt.application.font.pixelSize * 1.4
                    font.weight: Literals.fontWeightLarger
                    color: "#eeffffff"
                    wrapMode: Text.WordWrap
@@ -63,7 +65,7 @@ Pane {
 
                    Behavior on color {
                        ColorAnimation{
-                           duration: 200
+                           duration: 400
                        }
                    }
                }
@@ -88,7 +90,7 @@ Pane {
 
                 onExited: {
                     cursorShape = Qt.ArrowCursor
-                    btnLink.color = Literals.transparent
+                    btnLink.color = "#22aaaaaa"
 
                   //  lab.color = "#eeffffff"
 
@@ -100,7 +102,7 @@ Pane {
                   //  lab.color = "#aaffffff"
                   }
                 onReleased: {
-                    btnLink.color =  Literals.transparent
+                    btnLink.color =  "#22aaaaaa"
 
                    // lab.color = "#eeffffff"
                 }
@@ -133,7 +135,7 @@ Pane {
                id: textExplanation
                text: qsTr(explanation)
                color: "#ddffffff"
-               font.pixelSize: Qt.application.font.pixelSize * 1.6
+               font.pixelSize: Qt.application.font.pixelSize * 1.3
                font.weight: Literals.fontWeight
                wrapMode: Text.Wrap
                verticalAlignment: Text.AlignVCenter
