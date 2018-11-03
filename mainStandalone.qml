@@ -196,8 +196,55 @@ ApplicationWindow {
 
         anchors.fill: parent
         spacing: 0
+
+        Rectangle{
+            id: running_date
+
+            Layout.fillWidth: true
+            implicitHeight: toolbar.height
+            implicitWidth: app.width
+            color: Literals.transparent
+            RowLayout{
+                anchors.fill: parent
+                Text {
+                    property var locale: Qt.locale()
+                   property date currentDate: new Date()
+                   property string dateString
+                    property string timeString
+
+                    Timer {
+                        id: timer
+                        interval: 1000
+                        repeat: true
+                        running: true
+
+                        onTriggered:
+                        {
+                            //dateString = currentDate.toLocaleDateString();
+                            //timeString = currentDate.toLocaleTimeString();
+                           // date.text =  Qt.formatTime(new Date(),"hh:mm")
+                            date.text = qsTr("Today - " + Qt.formatDate(new Date(),"dddd, MMM. d   ") + Qt.formatTime(new Date(),"h:mm:ss ap"))
+                        }
+                    }
+
+                    id: date
+                    leftPadding: 15
+                    //text: qsTr("Today - " + dateString +" "+ timeString)
+                    font.pixelSize: Qt.application.font.pixelSize * 1.4
+                    font.weight: Literals.fontWeightLarger
+                    color: "#99ffffff"
+
+                }
+            }
+        }
+
         Rectangle {
-            anchors.fill: parent
+            anchors{
+                top: running_date.bottom
+                left : parent.left
+                right: parent.right
+                bottom: parent.bottom
+            }
 
             MouseArea{
                 anchors.fill: parent
