@@ -3,7 +3,6 @@ import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.1
 import "subclass"
 
-//import "settings"
 BasePage {
     id: page
 
@@ -32,12 +31,9 @@ BasePage {
 
         ColumnLayout {
             id: col
-            spacing: 1
+            spacing: 10
             width: scroll.width
-
-            Item {
-                Layout.fillHeight: true
-            }
+            height: parent.height*2
 
             SettingsNode {
                 id: walletNode
@@ -68,11 +64,13 @@ BasePage {
             }
 
             Item {
+                id: space
                 Layout.fillHeight: true
-                implicitHeight: 20
             }
 
+
             RowLayout{
+
                 Item {
                     id: name
                     Layout.fillWidth: true
@@ -96,7 +94,7 @@ BasePage {
                 }
 
                 Item {
-                    implicitWidth: 5
+                    implicitWidth: 9
                 }
             }
 

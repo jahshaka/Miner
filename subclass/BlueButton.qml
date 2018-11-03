@@ -55,8 +55,7 @@ Rectangle {
 
     Layout.fillHeight: true
     Layout.fillWidth: false
-    RowLayout {
-        anchors.fill: parent
+
         Image {
             id: name
             source: imageSource == "" ? "" : "../" + imageSource
@@ -70,9 +69,9 @@ Rectangle {
             horizontalAlignment: Text.AlignHCenter
             Layout.fillWidth: true
             font.pixelSize: Qt.application.font.pixelSize * 1.6
-
+            anchors.centerIn: parent
         }
-    }
+
 
     DropShadow {
             horizontalOffset:0

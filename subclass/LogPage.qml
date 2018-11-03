@@ -27,7 +27,7 @@ BasePage {
             id: bar
             anchors.right: parent.right
             anchors.rightMargin: 12
-            anchors.bottom: swipe.top
+           // anchors.bottom: swipe.top
             anchors.bottomMargin: -5
 
             background: Rectangle{

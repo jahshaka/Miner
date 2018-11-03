@@ -20,19 +20,12 @@ Pane {
     }
 
 
-        RowLayout {
-            spacing: 0
-            anchors.fill: parent
-
-            Rectangle {
-                implicitWidth: 5
-            }
-
             Label {
                 id: label
-              //  Layout.fillWidth: shouldFillWidth
                 leftPadding: 0
                 bottomPadding: 5
+                anchors.left: parent.left
+                anchors.top: parent.top
                 text: "wallet id "
                 font.pixelSize: Qt.application.font.pixelSize * 1.2
                 font.weight: Literals.fontWeightLarger
@@ -44,7 +37,10 @@ Pane {
 
             Rectangle{
                 id: space
-                implicitWidth: shouldFillWidth? parent.width * .4 : 30
+                implicitWidth: shouldFillWidth? parent.width * .4 : 40
+                anchors.left: label.right
+                anchors.top: parent.top
+
             }
 
             Rectangle {
@@ -53,23 +49,24 @@ Pane {
                 Layout.minimumWidth: parent.width * .7
                 anchors.right: parent.right
                 anchors.left: space.right
+                anchors.top: parent.top
+                anchors.topMargin: -6
                 color: "#0addddff"
                 radius: 2
                 clip: true
 
-                RowLayout {
-                    id: rowLayout
-                    anchors.fill: parent
+
 
                     TextInput {
                         anchors.fill: parent
                         anchors.leftMargin: 10
                         anchors.topMargin: 5
                         autoScroll: false
+                        anchors.centerIn: parent
                         id: textfield
                         y: 0
                         height: 50
-                        font.pixelSize: Qt.application.font.pixelSize * 1.1
+                        font.pixelSize: Qt.application.font.pixelSize * 1.3
                         color: "#eeffffff"
                         selectionColor: "#468aab"
                         Layout.fillHeight: true
@@ -77,8 +74,8 @@ Pane {
                         selectByMouse: true
                     }
                 }
-            }
-        }
+
+
 
 
 
