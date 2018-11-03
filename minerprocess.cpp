@@ -297,6 +297,29 @@ bool MinerManager::initialize()
 		portNum += 1;
 	}
 
+	auto proc = new MinerProcess(this);
+	auto dataprovider = new DataProvider();
+	GPU gpu;
+	i++;
+	proc->setGpu(gpu);
+	proc->setNetworkPort(portNum);
+	dataprovider->setMinerProcess(proc);
+	dataprovider->setIndex(i);
+	emit processCreated(dataprovider);
+	processes.append(proc);
+	dataProviderList.append(dataprovider);
+
+	auto proc1 = new MinerProcess(this);
+	auto dataprovider1 = new DataProvider();
+	i++;
+	proc->setGpu(gpu);
+	proc->setNetworkPort(portNum);
+	dataprovider1->setMinerProcess(proc1);
+	dataprovider1->setIndex(i);
+	emit processCreated(dataprovider1);
+	processes.append(proc1);
+	dataProviderList.append(dataprovider1);
+
 	return true;
 
 }

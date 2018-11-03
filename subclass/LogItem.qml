@@ -7,10 +7,8 @@ import DataProvider 1.0
 Pane {
 
     property DataProvider provider: null
-    onProviderChanged: {
-        console.log(provider + " changed")
-    }
 
+     anchors.topMargin: -55
 
     Connections {
         target: provider
@@ -28,21 +26,22 @@ Pane {
 
     ColumnLayout {
         anchors.fill: parent
-
+        spacing: 5
 
 
         RowLayout {
             Layout.fillWidth: true
+            spacing: 0
+
             ScrollView{
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                //implicitHeight: 120
-
+                padding: 0
 
                 TextArea {
                     id: textArea
+
                     Layout.fillWidth: true
-                    //implicitHeight: 100
                     placeholderText: "If there are errors in the mining process they will show up here for Miner " + provider.getIndex() +"..."
 
                     color: "#99ffffff"
@@ -51,14 +50,14 @@ Pane {
                     background: Rectangle {
                         border.width: 1
                         border.color: "#39eeeeee"
-                        color: "#00ffffff"
+                        color: "#000"
                     }
                 }
             }
         }
         RowLayout {
             Layout.fillWidth: true
-
+            spacing: 0
             Item {
                 id: space1
                 Layout.fillWidth: true
