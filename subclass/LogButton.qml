@@ -23,12 +23,10 @@ Rectangle {
          }
      }
 
-    RowLayout{
-        anchors.fill: parent
-
 
         Text {
             id:text1
+            anchors.centerIn: parent
             text: textValue
             font.weight: Literals.fontWeight
             color: Literals.fontcolor
@@ -37,7 +35,7 @@ Rectangle {
             font.pixelSize: textSize==0 ? Qt.application.font.pixelSize * 1.1 : Qt.application.font.pixelSize * textSize
         }
 
-    }
+
     MouseArea{
         anchors.fill: parent
         hoverEnabled: true
