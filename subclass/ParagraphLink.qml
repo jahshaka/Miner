@@ -13,7 +13,7 @@ Pane {
     Layout.fillWidth: true
 
     //implicitWidth: 120
-    implicitHeight: 100
+    implicitHeight: 80
 
 
       //  topPadding: 12
@@ -25,19 +25,57 @@ Pane {
     background: Rectangle{
         id : bg
         color: Literals.transparent
-        border.width: Literals.borderWidth
-        border.color: Literals.borderColor
+     //   border.width: Literals.borderWidth
+    //    border.color: Literals.borderColor
 
     }
-
 
     RowLayout{
         anchors.fill: parent
 
+        ColumnLayout{
+             Layout.fillHeight: true
+             Layout.fillWidth: true
+
+
+             Text {
+                 leftPadding: 12
+                 Layout.fillWidth: true
+                 id: textExplanation
+                 text: qsTr(labelText)
+                 color: "#ddffffff"
+                 font.pixelSize: Qt.application.font.pixelSize * 1.3
+                 font.weight: Literals.fontWeight
+                 wrapMode: Text.Wrap
+                 verticalAlignment: Text.AlignVCenter
+              //   horizontalAlignment: Text.AlignHCenter
+
+             }
+
+             Text {
+                 leftPadding: 12
+                 Layout.fillWidth: true
+               //  id: textExplanation
+                 text: qsTr(explanation)
+                 color: "#ddffffff"
+                 font.pixelSize: Qt.application.font.pixelSize * 1.3
+                 font.weight: Literals.fontWeight
+                 wrapMode: Text.Wrap
+                 verticalAlignment: Text.AlignVCenter
+               //  horizontalAlignment: Text.AlignHCenter
+
+             }
+
+
+
+
+        }
+
+
         Rectangle{
             id: btnLink
             implicitHeight: parent.height
-            implicitWidth: parent.height
+            implicitWidth: parent.height * 1.2
             color: "#22aaaaaa"
             radius: 2
             border.color: Literals.borderColor
@@ -110,63 +148,11 @@ Pane {
 
         }
 
-   ColumnLayout{
-        Layout.fillHeight: true
-        Layout.fillWidth: true
-//       RowLayout{
-//          anchors.left: parent.left
-//          anchors.right: parent.right
-//          Label {
-//              text : labelText
-//              font.pixelSize: Qt.application.font.pixelSize * 1.6
-//              font.weight: Literals.fontWeightLarger
-//              color: "#eeffffff"
-//          }
-
-
-
-//      }
-       RowLayout{
-           anchors.left: parent.left
-           anchors.right: parent.right
-           Text {
-               leftPadding: 12
-               Layout.fillWidth: true
-               id: textExplanation
-               text: qsTr(explanation)
-               color: "#ddffffff"
-               font.pixelSize: Qt.application.font.pixelSize * 1.3
-               font.weight: Literals.fontWeight
-               wrapMode: Text.Wrap
-               verticalAlignment: Text.AlignVCenter
-               horizontalAlignment: Text.AlignHCenter
-
-           }
-
-       }
-
-
-   }
 
         Item {
             id: name
             Layout.fillHeight: true
         }
-
-//        RowLayout{
-//            anchors.left: parent.left
-//            anchors.right: parent.right
-//            Item {
-//                id: space
-//                Layout.fillWidth: true
-//            }
-//            LogButton{
-//                textValue: linkText
-//                textSize: 1.1
-//            }
-
-//        }
-
 
     }
 

@@ -9,61 +9,50 @@ Pane {
     //    property alias textfieldd: textfield.placeholderText
     property alias textValue: textfield.text
     property string iconPath: ""
-    property bool isPassword: false
+    property bool shouldFillWidth: true
+
     Layout.fillWidth: true
     height: 155
-    property alias rowLayout: rowLayout
+
     background: Rectangle {
         radius: 3
         color: "#00ffffff"
     }
 
-    ColumnLayout {
-        anchors.fill: parent
-        spacing: 0
-        Label {
-            id: label
-            leftPadding: 0
-            bottomPadding: 5
-            text: "walled id "
-            font.pixelSize: Qt.application.font.pixelSize * 1.2
-            font.weight: Literals.fontWeightLarger
-            color: "#99ffffff"
-            background: Rectangle {
-                color: Literals.transparent
-            }
-        }
+
         RowLayout {
             spacing: 0
-            Layout.fillWidth: true
+            anchors.fill: parent
 
-            //            Rectangle{
-            //                color: "#11ddddff"
-            //                implicitWidth:  textfield.height+ 6
-            //                implicitHeight:  textfield.height
-            //                RowLayout{
-            //                    anchors.fill: parent
-            //                    Image {
-            //                        id: name
-            //                        Layout.margins :{
-            //                            left: 6
-            //                            top : 1
-            //                        }
-
-            //                        source: "../" + iconPath
-            //                        sourceSize.height: textfield.height
-            //                        sourceSize.width: textfield.height
-
-            //                    }
-            //                }
-            //            }
             Rectangle {
                 implicitWidth: 5
+            }
+
+            Label {
+                id: label
+              //  Layout.fillWidth: shouldFillWidth
+                leftPadding: 0
+                bottomPadding: 5
+                text: "wallet id "
+                font.pixelSize: Qt.application.font.pixelSize * 1.2
+                font.weight: Literals.fontWeightLarger
+                color: "#99ffffff"
+                background: Rectangle {
+                    color: Literals.transparent
+                }
+            }
+
+            Rectangle{
+                id: space
+                implicitWidth: shouldFillWidth? parent.width * .4 : 30
             }
 
             Rectangle {
                 implicitHeight: 25
                 Layout.fillWidth: true
+                Layout.minimumWidth: parent.width * .7
+                anchors.right: parent.right
+                anchors.left: space.right
                 color: "#0addddff"
                 radius: 2
                 clip: true
@@ -85,11 +74,12 @@ Pane {
                         selectionColor: "#468aab"
                         Layout.fillHeight: true
                         Layout.fillWidth: true
-                        echoMode: isPassword ? TextInput.Password : TextInput.Normal
                         selectByMouse: true
                     }
                 }
             }
         }
-    }
+
+
+
 }

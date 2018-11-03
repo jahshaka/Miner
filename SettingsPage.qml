@@ -41,13 +41,14 @@ BasePage {
 
             SettingsNode {
                 id: walletNode
-                labeld: "Walled ID"
+                shouldFillWidth: false
+                labeld: "Wallet ID"
                 iconPath: "images/wallet.png"
             }
 
             SettingsNode {
                 id: poolNode
-                labeld: "Pool Address"
+                labeld: "Pool Address "
                 iconPath: "images/mailbox.png"
 
             }
