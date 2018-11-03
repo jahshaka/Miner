@@ -40,11 +40,12 @@ Rectangle {
 
         color: col
 
-        implicitWidth: 90
+        implicitWidth: buttonText.width + 20
         implicitHeight:  width/3
         border.width: 0
         border.color: "#880099ee"
         radius: .5
+
 
         Behavior on color {
             ColorAnimation {
@@ -62,6 +63,7 @@ Rectangle {
             sourceSize.width: imageSource == "" ? 0 : 20
         }
         Text {
+            id: buttonText
             text: textValue
             font.weight: Literals.fontWeight
             color: Literals.fontcolor

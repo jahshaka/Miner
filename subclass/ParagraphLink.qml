@@ -13,21 +13,12 @@ Pane {
     Layout.fillWidth: true
 
     //implicitWidth: 120
-    implicitHeight: 80
-
-
-      //  topPadding: 12
-       // leftPadding : 28
-      //  rightPadding :28
-      //  bottomPadding : 12
+    implicitHeight: 60
 
 
     background: Rectangle{
         id : bg
         color: Literals.transparent
-     //   border.width: Literals.borderWidth
-    //    border.color: Literals.borderColor
-
     }
 
     RowLayout{
@@ -65,88 +56,93 @@ Pane {
                //  horizontalAlignment: Text.AlignHCenter
 
              }
+        }
 
-
-
-
+        BlueButton{
+            id: btn
+            textValue: labelText
+            implicitWidth: 150
+            onClicked: {
+                pane.clicked()
+            }
         }
 
 
-        Rectangle{
-            id: btnLink
-            implicitHeight: parent.height
-            implicitWidth: parent.height * 1.2
-            color: "#22aaaaaa"
-            radius: 2
-            border.color: Literals.borderColor
-            border.width: Literals.borderWidth
+//        Rectangle{
+//            id: btnLink
+//            implicitHeight: parent.height
+//            implicitWidth: parent.height * 1.2
+//            color: "#22aaaaaa"
+//            radius: 2
+//            border.color: Literals.borderColor
+//            border.width: Literals.borderWidth
 
-            Behavior on color {
-                ColorAnimation{
-                    duration: 400
-                }
-            }
-            RowLayout{
-               anchors.fill: parent
-               Label {
-                   id: lab
-                   padding: 5
-                   Layout.fillWidth: true
-                   Layout.fillHeight: true
-                   text : labelText
-                   font.pixelSize: Qt.application.font.pixelSize * 1.4
-                   font.weight: Literals.fontWeightLarger
-                   color: "#eeffffff"
-                   wrapMode: Text.WordWrap
-                   verticalAlignment: Text.AlignVCenter
-                   horizontalAlignment: Text.AlignHCenter
+//            Behavior on color {
+//                ColorAnimation{
+//                    duration: 400
+//                }
+//            }
+//            RowLayout{
+//               anchors.fill: parent
+//               Label {
+//                   id: lab
+//                   padding: 5
+//                   Layout.fillWidth: true
+//                   Layout.fillHeight: true
+//                   text : labelText
+//                   font.pixelSize: Qt.application.font.pixelSize * 1.4
+//                   font.weight: Literals.fontWeightLarger
+//                   color: "#eeffffff"
+//                   wrapMode: Text.WordWrap
+//                   verticalAlignment: Text.AlignVCenter
+//                   horizontalAlignment: Text.AlignHCenter
 
-                   Behavior on color {
-                       ColorAnimation{
-                           duration: 400
-                       }
-                   }
-               }
+//                   Behavior on color {
+//                       ColorAnimation{
+//                           duration: 400
+//                       }
+//                   }
+//               }
 
 
 
-           }
+//           }
 
-            MouseArea{
-                id: area
-                anchors.fill: btnLink
-                hoverEnabled: true
-                onClicked: {
-                    pane.clicked()
-                }
-                onEntered: {
-                    cursorShape = Qt.PointingHandCursor
-                    btnLink.color = "#99444444"
-                    btnLink.color =  Literals.blueButtonColor
-                 //   lab.color = Literals.blueButtonColor
-                }
+//            MouseArea{
+//                id: area
+//                anchors.fill: btnLink
+//                hoverEnabled: true
+//                onClicked: {
+//                    pane.clicked()
+//                }
+//                onEntered: {
+//                    cursorShape = Qt.PointingHandCursor
+//                    btnLink.color = "#99444444"
+//                    btnLink.color =  Literals.blueButtonColor
+//                 //   lab.color = Literals.blueButtonColor
+//                }
 
-                onExited: {
-                    cursorShape = Qt.ArrowCursor
-                    btnLink.color = "#22aaaaaa"
+//                onExited: {
+//                    cursorShape = Qt.ArrowCursor
+//                    btnLink.color = "#22aaaaaa"
 
-                  //  lab.color = "#eeffffff"
+//                  //  lab.color = "#eeffffff"
 
-                }
+//                }
 
-                onPressed: {
-                    btnLink.color =  "#99888888"
-                    btnLink.color = Literals.blueButtonColorHovered
-                  //  lab.color = "#aaffffff"
-                  }
-                onReleased: {
-                    btnLink.color =  "#22aaaaaa"
+//                onPressed: {
+//                    btnLink.color =  "#99888888"
+//                    btnLink.color = Literals.blueButtonColorHovered
+//                  //  lab.color = "#aaffffff"
+//                  }
+//                onReleased: {
+//                    btnLink.color =  "#22aaaaaa"
 
-                   // lab.color = "#eeffffff"
-                }
-            }
+//                   // lab.color = "#eeffffff"
+//                }
+//            }
 
-        }
+//        }
 
 
         Item {
