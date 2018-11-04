@@ -51,7 +51,7 @@ Pane {
                 anchors.left: space.right
                 anchors.top: parent.top
                 anchors.topMargin: -6
-                color: "#0addddff"
+                color: "#eee"
                 radius: 2
                 clip: true
 
@@ -67,7 +67,7 @@ Pane {
                         y: 0
                         height: 50
                         font.pixelSize: Qt.application.font.pixelSize * 1.3
-                        color: "#eeffffff"
+                        color: "#000"
                         selectionColor: "#468aab"
                         Layout.fillHeight: true
                         Layout.fillWidth: true

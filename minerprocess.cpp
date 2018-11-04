@@ -297,7 +297,7 @@ bool MinerManager::initialize()
 		portNum += 1;
 	}
 
-	/*auto proc = new MinerProcess(this);
+	auto proc = new MinerProcess(this);
 	auto dataprovider = new DataProvider();
 	GPU gpu;
 	i++;
@@ -318,7 +318,7 @@ bool MinerManager::initialize()
 	dataprovider1->setIndex(i);
 	emit processCreated(dataprovider1);
 	processes.append(proc1);
-	dataProviderList.append(dataprovider1);*/
+	dataProviderList.append(dataprovider1);
 
 	return true;
 

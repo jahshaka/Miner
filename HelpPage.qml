@@ -31,11 +31,13 @@ BasePage {
             }
         }
     }
+
     ScrollView {
         id: scrollview
         width: parent.width
         anchors.top: rect.bottom
-        height: parent.height - 55 - rect.height
+        anchors.topMargin: 15
+        height: parent.height - 70 - rect.height
        // Layout.fillWidth: true
         Layout.fillHeight: true
         ScrollBar.horizontal.policy : ScrollBar.AlwaysOff

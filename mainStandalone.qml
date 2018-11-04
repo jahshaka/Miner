@@ -13,8 +13,8 @@ ApplicationWindow {
     width: 690
     height: 480
     title: qsTr("Jahminer")
-    minimumHeight: 350
-    minimumWidth: 600
+    minimumHeight: 400
+    minimumWidth: 750
     id: app
 
     property bool startMining : false
@@ -48,7 +48,22 @@ ApplicationWindow {
         color: Literals.darkBackgroundColor
     }
 
-
+    //            MouseArea{
+    //                anchors.fill: parent
+    //                property variant previousPosition
+    //                    onPressed: {
+    //                        previousPosition = Qt.point(mouseX, mouseY)
+    //                        console.log(previousPosition)
+    //                    }
+    //                    onPositionChanged: {
+    //                        if (pressedButtons == Qt.LeftButton) {
+    //                            var dx = mouseX - previousPosition.x
+    //                            var dy = mouseY - previousPosition.y
+    //                            app.pos = Qt.point(viewerWidget.pos.x + dx,
+    //                                                        viewerWidget.pos.y + dy)
+    //                        }
+    //                    }
+    //            }
 
 
     ColorOverlay{
@@ -149,6 +164,7 @@ ApplicationWindow {
                     swipe.state = "graph"
                     bottonButtonPane.state = ""
                     indicator.state = "graph"
+                    swipe.currentIndex =0
                 }
             }
             ToolBarButton {
@@ -159,6 +175,7 @@ ApplicationWindow {
                     swipe.state = "settings"
                     bottonButtonPane.state = "settings"
                     indicator.state = "pool"
+                    swipe.currentIndex =1
                 }
             }
 
@@ -171,6 +188,7 @@ ApplicationWindow {
                 onClicked: {
                     swipe.state = "logs"
                     indicator.state = "logs"
+                    swipe.currentIndex =3
                 }
             }
 
@@ -182,6 +200,7 @@ ApplicationWindow {
                 onClicked: {
                     swipe.state = "help"
                     indicator.state = "help"
+                    swipe.currentIndex =2
                 }
             }
 
@@ -238,7 +257,7 @@ ApplicationWindow {
             }
         }
 
-        Rectangle {
+        StackLayout {
             anchors{
                 top: running_date.bottom
                 left : parent.left
@@ -246,32 +265,27 @@ ApplicationWindow {
                 bottom: parent.bottom
             }
 
-            MouseArea{
-                anchors.fill: parent
-                property variant previousPosition
-                    onPressed: {
-                        previousPosition = Qt.point(mouseX, mouseY)
-                        console.log(previousPosition)
-                    }
-                    onPositionChanged: {
-                        if (pressedButtons == Qt.LeftButton) {
-                            var dx = mouseX - previousPosition.x
-                            var dy = mouseY - previousPosition.y
-                            app.pos = Qt.point(viewerWidget.pos.x + dx,
-                                                        viewerWidget.pos.y + dy)
-                        }
-                    }
-            }
+
 
             id: swipe
             Layout.fillHeight: true
             Layout.fillWidth: true
+            currentIndex: 0
 
-            border.color: Literals.borderColor
-            border.width: Literals.borderWidth
-            color: Literals.darkBackgroundColor
+         //   border.color: Literals.borderColor
+         //   border.width: Literals.borderWidth
+         //   color: Literals.darkBackgroundColor
 
             //color: "red"
+
+            GraphicsCardPage {
+                id: graph_page
+
+                z: 0
+                scale: 0.0
+                opacity: 0.0
+
+            }
             SettingsPage {
                 id: settings_page
                 anchors.fill: parent
@@ -303,32 +317,26 @@ ApplicationWindow {
                 }
             }
 
-            GraphicsCardPage {
-                id: graph_page
-                anchors.fill: parent
-                z: 0
-                scale: 0.0
-                opacity: 0.0
 
-            }
 
             HelpPage {
                 id: help_page
                 anchors.fill: parent
-                z:0
-                scale : 0.0
-                opacity : 0.0
+                z: 0
+                scale: 0.0
+                opacity: 0.0
             }
 
             LogPage {
                 id: log_page
                 anchors.fill: parent
-                z:0
-                scale : 0.0
-                opacity : 0.0
+                z: 0
+                scale: 0.0
+                opacity: 0.0
                 onCopy: {
                     provider.saveMinerOutput()
                 }
+
             }
 
 
@@ -475,36 +483,6 @@ ApplicationWindow {
                     }
                 }
             }
-
-//            states: [
-//                State {
-//                    name: "settings"
-//                    PropertyChanges {
-//                        target: startBtn
-//                        textValue: "Confirm"
-//                       onClicked:{
-//                           swipe.state = "graph";
-//                           bottonButtonPane.state  = "";
-
-//                           manager.setWalletId(settings_page.walletid);
-//                           manager.setPoolUrl(settings_page.poolurl);
-//                           manager.setPassword(settings_page.password)
-//                           manager.setIdentifier(settings_page.identifier)
-//                           manager.saveAndApplySettings();
-//                       }
-//                    }
-
-//                    PropertyChanges {
-//                        target: helpBtn
-//                        textValue: "Canel"
-//                        onClicked:{
-//                            manager.resetSettings();
-//                        }
-
-//                    }
-//                }
-
-//            ]
         }
     }
 }

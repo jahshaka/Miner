@@ -21,10 +21,7 @@ BasePage {
 
     ScrollView {
         id: scroll
-        width: parent.width
-        height: parent.height
-        Layout.fillWidth: true
-        Layout.fillHeight: true
+        anchors.fill: parent
         background: Rectangle {
             color: Literals.darkBackgroundColor
         }
@@ -33,7 +30,7 @@ BasePage {
             id: col
             spacing: 10
             width: scroll.width
-            height: parent.height*2
+       //     height: scroll.height - 20
 
             SettingsNode {
                 id: walletNode
@@ -63,13 +60,18 @@ BasePage {
 
             }
 
-            Item {
-                id: space
-                Layout.fillHeight: true
+            Rectangle{
+               implicitHeight: 40
+               implicitWidth: parent.width
+               color: Literals.transparent
+               Layout.fillHeight: true
             }
 
 
+
+
             RowLayout{
+                Layout.fillWidth: true
 
                 Item {
                     id: name
