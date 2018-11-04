@@ -164,7 +164,7 @@ ApplicationWindow {
                     swipe.state = "graph"
                     bottonButtonPane.state = ""
                     indicator.state = "graph"
-                    swipe.currentIndex =0
+                 //   swipe.currentIndex =0
                 }
             }
             ToolBarButton {
@@ -175,7 +175,7 @@ ApplicationWindow {
                     swipe.state = "settings"
                     bottonButtonPane.state = "settings"
                     indicator.state = "pool"
-                    swipe.currentIndex =1
+                  //  swipe.currentIndex =1
                 }
             }
 
@@ -188,7 +188,7 @@ ApplicationWindow {
                 onClicked: {
                     swipe.state = "logs"
                     indicator.state = "logs"
-                    swipe.currentIndex =3
+                 //   swipe.currentIndex =3
                 }
             }
 
@@ -200,7 +200,7 @@ ApplicationWindow {
                 onClicked: {
                     swipe.state = "help"
                     indicator.state = "help"
-                    swipe.currentIndex =2
+                  //  swipe.currentIndex =2
                 }
             }
 
@@ -257,7 +257,7 @@ ApplicationWindow {
             }
         }
 
-        StackLayout {
+        Rectangle {
             anchors{
                 top: running_date.bottom
                 left : parent.left
@@ -270,7 +270,7 @@ ApplicationWindow {
             id: swipe
             Layout.fillHeight: true
             Layout.fillWidth: true
-            currentIndex: 0
+          //  currentIndex: 0
 
          //   border.color: Literals.borderColor
          //   border.width: Literals.borderWidth
@@ -280,6 +280,7 @@ ApplicationWindow {
 
             GraphicsCardPage {
                 id: graph_page
+                anchors.fill: parent
 
                 z: 0
                 scale: 0.0
