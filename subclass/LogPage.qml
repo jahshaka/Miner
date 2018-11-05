@@ -17,22 +17,24 @@ BasePage {
 
     topPadding: 15
 
+    Component.onCompleted: {
+        bar.itemAt(0).textColor = "#fff"
+
+    }
+
     ColumnLayout {
         spacing: 0
         anchors.fill: parent
-
-
 
         TabBar {
             id: bar
             anchors.right: parent.right
             anchors.rightMargin: 12
            // anchors.bottom: swipe.top
-            anchors.bottomMargin: -5
+           // anchors.bottomMargin: -15
 
             background: Rectangle{
                 color: Literals.transparent
-
             }
 
             Component {
@@ -46,12 +48,9 @@ BasePage {
                 }
             }
 
-
-
             function getBtn(btn){
                 for (var i = 0; i < bar.children.length; i++){
                     bar.itemAt(i).textColor = "#777"
-
                 }
                 btn.textColor = "#fff"
             }
@@ -63,12 +62,12 @@ BasePage {
             width: parent.width
             currentIndex: bar.currentIndex
             anchors.top: bar.bottom
-
+            anchors.topMargin: -20
         }
 
         Item {
             //width: 15
-            implicitHeight: 45
+            implicitHeight: 5
         }
     }
 

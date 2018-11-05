@@ -13,24 +13,35 @@ BasePage {
 
     signal save()
     signal cancel()
-    padding: 10
+    leftPadding: 10
+    rightPadding: 10
+    bottomPadding : 10
 
     background: Rectangle {
         color: Literals.darkBackgroundColor
     }
+
+
 
     ScrollView {
         id: scroll
         anchors.fill: parent
         background: Rectangle {
             color: Literals.darkBackgroundColor
+            border.width: 1
+            border.color: Literals.borderColor
         }
+
 
         ColumnLayout {
             id: col
             spacing: 10
             width: scroll.width
        //     height: scroll.height - 20
+            Item {
+                id: space
+                implicitHeight: 10
+            }
 
             SettingsNode {
                 id: walletNode

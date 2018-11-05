@@ -11,7 +11,7 @@ Page {
     property bool showHorizontalBorders: true
     property bool showVerticalBorders: false
     property bool showAllBorders: showHorizontalBorders && showVerticalBorders
-    property int borderWidth: Literals.borderWidth + 19
+    property int borderWidth: Literals.borderWidth
     property string borderColor: Literals.borderColor
     property real commonWidth : 0
 
@@ -43,7 +43,6 @@ Page {
         implicitWidth: commonWidth
         implicitHeight: parent.height
         z:10
-        //visible: showHorizontalBorders || showAllBorders
 
     }
     Rectangle{
@@ -53,7 +52,6 @@ Page {
         implicitWidth: commonWidth
         implicitHeight: parent.height
         z:10
-        //visible: showHorizontalBorders || showAllBorders
 
     }
     Rectangle{
@@ -63,7 +61,6 @@ Page {
         implicitWidth: parent.width
         implicitHeight: commonWidth
         z:10
-        //visible: showVerticalBorders || showAllBorders
 
     }
     Rectangle{
@@ -73,12 +70,8 @@ Page {
         implicitWidth: parent.width
         implicitHeight: commonWidth
         z:10
-        //visible: showVerticalBorders || showAllBorders
 
     }
 }
-/*##^## Designer {
-    D{i:0;autoSize:true;height:480;width:640}
-}
- ##^##*/
+
 

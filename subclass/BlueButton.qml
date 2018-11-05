@@ -40,7 +40,7 @@ Rectangle {
 
         color: col
 
-        implicitWidth: buttonText.width + 20
+        implicitWidth: buttonText.width + 60
         implicitHeight:  width/3
         border.width: 0
         border.color: "#880099ee"
@@ -73,27 +73,4 @@ Rectangle {
         }
 
 
-    DropShadow {
-            horizontalOffset:0
-            verticalOffset: 0
-            radius: 1.0
-            samples: 17
-            color: "#80ffffff"
-            source: btn
-        }
-
-//    ColorOverlay{
-//        color: "#55ffffff"
-//        source: btn
-//        implicitHeight: 1
-//        implicitWidth: parent.width
-//        anchors.top: parent.top
-//    }
-//    ColorOverlay{
-//        color: "#55000000"
-//        source: btn
-//        implicitHeight: 1
-//        implicitWidth: parent.width
-//        anchors.bottom: parent.bottom
-//    }
 }

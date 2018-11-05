@@ -121,7 +121,7 @@ ApplicationWindow {
 
         //padding : 5
         background: Rectangle {
-            color: Literals.darkBackgroundColor
+            color: Qt.lighter( Literals.darkBackgroundColor, 1.4)
             border.color: Literals.borderColor
             border.width: 0
 
@@ -226,10 +226,6 @@ ApplicationWindow {
             RowLayout{
                 anchors.fill: parent
                 Text {
-                    property var locale: Qt.locale()
-                   property date currentDate: new Date()
-                   property string dateString
-                    property string timeString
 
                     Timer {
                         id: timer
@@ -239,19 +235,14 @@ ApplicationWindow {
 
                         onTriggered:
                         {
-                            //dateString = currentDate.toLocaleDateString();
-                            //timeString = currentDate.toLocaleTimeString();
-                           // date.text =  Qt.formatTime(new Date(),"hh:mm")
-                            date.text = qsTr("Today - " + Qt.formatDate(new Date(),"dddd, MMM. d   ") + Qt.formatTime(new Date(),"h:mm:ss ap"))
+                            date.text = qsTr(Qt.formatDate(new Date(),"<b>dddd</b> - MMM d  ") +"   "+ Qt.formatTime(new Date(),"   h:mm:ss ap"))
                         }
                     }
 
                     id: date
                     leftPadding: 15
-                    //text: qsTr("Today - " + dateString +" "+ timeString)
-                    font.pixelSize: Qt.application.font.pixelSize * 1.4
-                    font.weight: Literals.fontWeightLarger
-                    color: "#99ffffff"
+                    font.pixelSize: Qt.application.font.pixelSize * 1
+                    color: "#eeffffff"
 
                 }
             }
@@ -262,30 +253,23 @@ ApplicationWindow {
                 top: running_date.bottom
                 left : parent.left
                 right: parent.right
-                bottom: parent.bottom
+                bottom: bottonButtonPane.top
             }
-
-
 
             id: swipe
             Layout.fillHeight: true
             Layout.fillWidth: true
-          //  currentIndex: 0
 
          //   border.color: Literals.borderColor
          //   border.width: Literals.borderWidth
-         //   color: Literals.darkBackgroundColor
-
-            //color: "red"
+            color: Literals.darkBackgroundColor
 
             GraphicsCardPage {
                 id: graph_page
                 anchors.fill: parent
-
                 z: 0
                 scale: 0.0
                 opacity: 0.0
-
             }
             SettingsPage {
                 id: settings_page

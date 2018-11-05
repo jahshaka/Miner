@@ -36,8 +36,9 @@ BasePage {
         id: scrollview
         width: parent.width
         anchors.top: rect.bottom
+        anchors.bottom: parent.bottom
         anchors.topMargin: 15
-        height: parent.height - 70 - rect.height
+      //  height: parent.height - 70 - rect.height
        // Layout.fillWidth: true
         Layout.fillHeight: true
         ScrollBar.horizontal.policy : ScrollBar.AlwaysOff
@@ -78,7 +79,7 @@ BasePage {
             ParagraphLink{
                 id: createAccount
                 explanation: "Sign up for a mining account on the Support XMR mining pool"
-                labelText: "Create Mining Account"
+                labelText: "Create Account"
                 linkText: "Create"
                 onClicked: {
                     Qt.openUrlExternally("https://www.supportxmr.com/#/home")
@@ -111,7 +112,7 @@ BasePage {
             }
             Item {
                 //width: 15
-                implicitHeight: 45
+                implicitHeight: 5
             }
 
         }
