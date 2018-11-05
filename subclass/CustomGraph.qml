@@ -149,7 +149,7 @@ Pane {
             ctx.moveTo(canvasXStartPosition, canvasHeight)
 
 
-            var ytop = canvasHeight/2 + graphHeightOffset
+            var ytop = 0 + graphHeightOffset
             var ybottom = canvasHeight + 2
             var ydiff = ytop - ybottom;
             var min = provider.getLow()
@@ -162,8 +162,8 @@ Pane {
                 var d1 = list[i]
                 var x1 = (i * (width - canvasXStartPosition) / (numOfValues + 1 )) + canvasXStartPosition
 
-                var yr = ((d1 - min) / diff);
-                var y1 =ybottom + yr * ydiff;
+                var yr = ((d1 - min) / diff); 
+                var y1 =ybottom + yr * ydiff * 0.50;// reduce lines to just 40% of the graph
 
                 ctx.lineTo(x1,y1 - offset)
 

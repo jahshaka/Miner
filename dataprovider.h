@@ -62,7 +62,7 @@ private:
     qreal maxValue_ = 0.00;
 	MinerProcess* process;
     ulong countMax =0;
-    int chartMaxValue = 120;
+    int chartMaxValue = 120 * 3;
 
 
     qreal high = 10.0;
