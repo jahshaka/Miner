@@ -19,10 +19,13 @@ Rectangle {
 
         onEntered: {
             btn.color = Qt.darker(col, 1.4)
+            cursorShape = Qt.PointingHandCursor
+
         }
 
         onExited: {
             btn.color = col
+            cursorShape = Qt.ArrowCursor
         }
 
      onPressed: {
@@ -41,7 +44,7 @@ Rectangle {
         color: col
 
         implicitWidth: buttonText.width + 60
-        implicitHeight:  width/3
+        implicitHeight:  width/3.4
         border.width: 0
         border.color: "#880099ee"
         radius: .5

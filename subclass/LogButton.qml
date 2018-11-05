@@ -41,10 +41,13 @@ Rectangle {
         hoverEnabled: true
         onEntered: {
             btn.color = "#99444444"
+            cursorShape = Qt.PointingHandCursor
         }
 
         onExited: {
             btn.color =  Literals.transparent
+            cursorShape = Qt.ArrowCursor
+
         }
 
        onPressed: {

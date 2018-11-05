@@ -164,8 +164,8 @@ Page {
 
                 Layout.rightMargin: -1
                 Layout.topMargin: -5
-                background: Rectangle {
 
+                background: Rectangle {
                     color: Literals.transparent
                     border.color: Literals.borderColor
                     border.width: Literals.borderWidth
@@ -180,6 +180,7 @@ Page {
                     color: Literals.borderColor
 
                 }
+
                 onClicked: {
                     maximized = maximized==true? false:true;
                 }

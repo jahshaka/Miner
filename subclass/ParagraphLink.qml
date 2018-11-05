@@ -61,7 +61,7 @@ Pane {
         BlueButton{
             id: btn
             textValue: labelText
-           // implicitWidth: 150
+            implicitWidth: parent.width * .3
             onClicked: {
                 pane.clicked()
             }

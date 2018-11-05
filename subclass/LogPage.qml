@@ -14,12 +14,12 @@ BasePage {
 
     signal goback
     signal copy
+    signal added
 
     topPadding: 15
 
-    Component.onCompleted: {
+    onAdded: {
         bar.itemAt(0).textColor = "#fff"
-
     }
 
     ColumnLayout {
@@ -85,6 +85,8 @@ BasePage {
             var btn = tabbtn.createObject(bar, {
                                               textValue: "Miner " + provider.getIndex(), "index" : provider.getIndex()
                                           })
+
+            logPage.added();
         } else {
             comp.statusChanged.connect(createProvider(provider, comp))
         }
@@ -98,6 +100,8 @@ BasePage {
         var btn = tabbtn.createObject(bar, {
                                           textValue: "Miner " + provider.getIndex(), "index" : provider.getIndex()
                                       })
+        logPage.added();
+
     }
 
 

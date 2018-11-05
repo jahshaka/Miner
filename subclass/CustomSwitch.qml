@@ -13,7 +13,7 @@ Rectangle {
     signal clicked()
 
     implicitHeight: width/2.4
-    implicitWidth: widthValue
+    implicitWidth: widthValue  * 1.1
     color: bgcolor
     border.color: Literals.borderColor
     border.width: 1
@@ -44,6 +44,11 @@ Rectangle {
             }
         }
 
+        Behavior on color {
+            ColorAnimation {
+                duration: 200
+            }
+        }
     }
 
     MouseArea{
@@ -52,18 +57,23 @@ Rectangle {
 
         onClicked: {
             if(!on){
-//                handle.x = groove.width - handle.width - offset
-//                checked = true
-//                on = true
                 groove.state = "on"
                 groove.clicked()
             }else{
-//                handle.x = offset
-//                checked = false
-//                on = false
                 groove.state = "off"
                 groove.clicked()
             }
+        }
+
+        onEntered: {
+            handle.color = Qt.darker("#efefef", 1.05)
+            cursorShape = Qt.PointingHandCursor
+
+        }
+
+        onExited: {
+            handle.color = "#efefef"
+            cursorShape = Qt.ArrowCursor
         }
     }
 

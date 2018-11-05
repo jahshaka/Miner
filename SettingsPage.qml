@@ -78,9 +78,6 @@ BasePage {
                Layout.fillHeight: true
             }
 
-
-
-
             RowLayout{
                 Layout.fillWidth: true
 
