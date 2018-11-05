@@ -3,7 +3,6 @@ import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.1
 import "subclass"
 
-//import "settings"
 BasePage {
     id: page
 
@@ -22,32 +21,27 @@ BasePage {
 
     ScrollView {
         id: scroll
-        width: parent.width
-        height: parent.height
-        Layout.fillWidth: true
-        Layout.fillHeight: true
+        anchors.fill: parent
         background: Rectangle {
             color: Literals.darkBackgroundColor
         }
 
         ColumnLayout {
             id: col
-            spacing: 1
+            spacing: 10
             width: scroll.width
-
-            Item {
-                Layout.fillHeight: true
-            }
+       //     height: scroll.height - 20
 
             SettingsNode {
                 id: walletNode
-                labeld: "Walled ID"
+                shouldFillWidth: false
+                labeld: "Wallet ID"
                 iconPath: "images/wallet.png"
             }
 
             SettingsNode {
                 id: poolNode
-                labeld: "Pool Address"
+                labeld: "Pool Address "
                 iconPath: "images/mailbox.png"
 
             }
@@ -66,12 +60,19 @@ BasePage {
 
             }
 
-            Item {
-                Layout.fillHeight: true
-                implicitHeight: 20
+            Rectangle{
+               implicitHeight: 40
+               implicitWidth: parent.width
+               color: Literals.transparent
+               Layout.fillHeight: true
             }
 
+
+
+
             RowLayout{
+                Layout.fillWidth: true
+
                 Item {
                     id: name
                     Layout.fillWidth: true
@@ -95,7 +96,7 @@ BasePage {
                 }
 
                 Item {
-                    implicitWidth: 5
+                    implicitWidth: 9
                 }
             }
 

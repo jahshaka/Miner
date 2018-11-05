@@ -39,5 +39,6 @@
         <file>images/register.png</file>
         <file>images/logs.png</file>
         <file>subclass/LogItem.qml</file>
+        <file>subclass/CustomTabBbutton.qml</file>
     </qresource>
 </RCC>

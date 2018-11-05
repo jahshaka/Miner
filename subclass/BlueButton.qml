@@ -40,11 +40,12 @@ Rectangle {
 
         color: col
 
-        implicitWidth: 90
+        implicitWidth: buttonText.width + 20
         implicitHeight:  width/3
         border.width: 0
         border.color: "#880099ee"
         radius: .5
+
 
         Behavior on color {
             ColorAnimation {
@@ -54,23 +55,23 @@ Rectangle {
 
     Layout.fillHeight: true
     Layout.fillWidth: false
-    RowLayout {
-        anchors.fill: parent
+
         Image {
             id: name
             source: imageSource == "" ? "" : "../" + imageSource
             sourceSize.width: imageSource == "" ? 0 : 20
         }
         Text {
+            id: buttonText
             text: textValue
             font.weight: Literals.fontWeight
             color: Literals.fontcolor
             horizontalAlignment: Text.AlignHCenter
             Layout.fillWidth: true
             font.pixelSize: Qt.application.font.pixelSize * 1.6
-
+            anchors.centerIn: parent
         }
-    }
+
 
     DropShadow {
             horizontalOffset:0

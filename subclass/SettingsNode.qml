@@ -9,87 +9,74 @@ Pane {
     //    property alias textfieldd: textfield.placeholderText
     property alias textValue: textfield.text
     property string iconPath: ""
-    property bool isPassword: false
+    property bool shouldFillWidth: true
+
     Layout.fillWidth: true
     height: 155
-    property alias rowLayout: rowLayout
+
     background: Rectangle {
         radius: 3
         color: "#00ffffff"
     }
 
-    ColumnLayout {
-        anchors.fill: parent
-        spacing: 0
-        Label {
-            id: label
-            leftPadding: 0
-            bottomPadding: 5
-            text: "walled id "
-            font.pixelSize: Qt.application.font.pixelSize * 1.2
-            font.weight: Literals.fontWeightLarger
-            color: "#99ffffff"
-            background: Rectangle {
-                color: Literals.transparent
+
+            Label {
+                id: label
+                leftPadding: 0
+                bottomPadding: 5
+                anchors.left: parent.left
+                anchors.top: parent.top
+                text: "wallet id "
+                font.pixelSize: Qt.application.font.pixelSize * 1.2
+                font.weight: Literals.fontWeightLarger
+                color: "#99ffffff"
+                background: Rectangle {
+                    color: Literals.transparent
+                }
             }
-        }
-        RowLayout {
-            spacing: 0
-            Layout.fillWidth: true
 
-            //            Rectangle{
-            //                color: "#11ddddff"
-            //                implicitWidth:  textfield.height+ 6
-            //                implicitHeight:  textfield.height
-            //                RowLayout{
-            //                    anchors.fill: parent
-            //                    Image {
-            //                        id: name
-            //                        Layout.margins :{
-            //                            left: 6
-            //                            top : 1
-            //                        }
+            Rectangle{
+                id: space
+                implicitWidth: shouldFillWidth? parent.width * .4 : 40
+                anchors.left: label.right
+                anchors.top: parent.top
 
-            //                        source: "../" + iconPath
-            //                        sourceSize.height: textfield.height
-            //                        sourceSize.width: textfield.height
-
-            //                    }
-            //                }
-            //            }
-            Rectangle {
-                implicitWidth: 5
             }
 
             Rectangle {
                 implicitHeight: 25
                 Layout.fillWidth: true
-                color: "#0addddff"
+                Layout.minimumWidth: parent.width * .7
+                anchors.right: parent.right
+                anchors.left: space.right
+                anchors.top: parent.top
+                anchors.topMargin: -6
+                color: "#eee"
                 radius: 2
                 clip: true
 
-                RowLayout {
-                    id: rowLayout
-                    anchors.fill: parent
+
 
                     TextInput {
                         anchors.fill: parent
                         anchors.leftMargin: 10
                         anchors.topMargin: 5
                         autoScroll: false
+                        anchors.centerIn: parent
                         id: textfield
                         y: 0
                         height: 50
-                        font.pixelSize: Qt.application.font.pixelSize * 1.1
-                        color: "#eeffffff"
+                        font.pixelSize: Qt.application.font.pixelSize * 1.3
+                        color: "#000"
                         selectionColor: "#468aab"
                         Layout.fillHeight: true
                         Layout.fillWidth: true
-                        echoMode: isPassword ? TextInput.Password : TextInput.Normal
                         selectByMouse: true
                     }
                 }
-            }
-        }
-    }
+
+
+
+
+
 }

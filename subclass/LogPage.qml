@@ -2,6 +2,8 @@ import QtQuick 2.9
 import QtQuick.Window 2.2
 import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.3
+import QtGraphicalEffects 1.0
+
 import DataProvider 1.0
 
 BasePage {
@@ -13,73 +15,54 @@ BasePage {
     signal goback
     signal copy
 
-    padding: 15
+    topPadding: 15
 
     ColumnLayout {
         spacing: 0
         anchors.fill: parent
 
+
+
         TabBar {
             id: bar
-            //Layout.fillWidth: true
-            //width: parent.width
-            //anchors.leftMargin: 30
-            Layout.leftMargin: 11
+            anchors.right: parent.right
+            anchors.rightMargin: 12
+           // anchors.bottom: swipe.top
+            anchors.bottomMargin: -5
 
             background: Rectangle{
                 color: Literals.transparent
+
             }
 
             Component {
                 id: tabbtn
 
-
-
-                TabButton {
-                    property int index: 0
-                  background: Rectangle {
-                        id: btn
-                        color: Literals.transparent
-                        border.width: 1
-                        border.color: "#88ffffff"
-                        Behavior on color {
-                            ColorAnimation {
-                                duration: 400
-                            }
-                        }
-                    }
-
-                 MouseArea{
-                        anchors.fill: parent
-                        hoverEnabled: true
-                        onEntered: {
-                            btn.color = "#99444444"
-                        }
-
-                        onExited: {
-                            btn.color =  Literals.transparent
-                        }
-
-                       onPressed: {
-                          btn.color =  "#99888888"
-                         }
-                       onReleased: {
-                             btn.color =  Literals.transparent
-                       }
-                       onClicked: {
-                           bar.currentIndex = index - 1
-                       }
-
+                CustomTabBbutton{
+                    id: btn
+                    onAdditional: {
+                        bar.getBtn(btn)
                     }
                 }
             }
+
+
+
+            function getBtn(btn){
+                for (var i = 0; i < bar.children.length; i++){
+                    bar.itemAt(i).textColor = "#777"
+
+                }
+                btn.textColor = "#fff"
+            }
+
         }
 
         StackLayout {
             id: stack
             width: parent.width
             currentIndex: bar.currentIndex
-
+            anchors.top: bar.bottom
 
         }
 
@@ -88,6 +71,7 @@ BasePage {
             implicitHeight: 45
         }
     }
+
     function addProvider(provider) {
         var comp
         var card
@@ -100,7 +84,7 @@ BasePage {
                                          provider: provider
                                      })
             var btn = tabbtn.createObject(bar, {
-                                              text: "Miner " + provider.getIndex(), "index" : provider.getIndex()
+                                              textValue: "Miner " + provider.getIndex(), "index" : provider.getIndex()
                                           })
         } else {
             comp.statusChanged.connect(createProvider(provider, comp))
@@ -113,7 +97,10 @@ BasePage {
                                      provider: provider
                                  })
         var btn = tabbtn.createObject(bar, {
-                                          text: "Miner " + provider.getIndex(), "index" : provider.getIndex()
+                                          textValue: "Miner " + provider.getIndex(), "index" : provider.getIndex()
                                       })
     }
+
+
 }
+

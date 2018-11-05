@@ -23,8 +23,7 @@ BasePage {
             id: scrollview
             width: parent.width
             height: parent.height
-            Layout.fillWidth: true
-            Layout.fillHeight: true
+
 
             clip: true
             padding: 10
@@ -39,16 +38,14 @@ BasePage {
                 id: col
                 spacing:5
                 width: scrollview.width- scrollview.padding * 2
-
-
-
-
             }
-            Item {
-                //width: 15
-                implicitHeight: 25
-            }
+
+
         }
+//        Item {
+//            id: space
+//            implicitHeight:
+//        }
 
         function addGraphicsCard(provider){
             var comp;

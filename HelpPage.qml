@@ -12,18 +12,43 @@ BasePage {
     padding: 10
 
 
+    Rectangle{
+        id: rect
+        implicitWidth: parent.width
+        implicitHeight: 75
+        visible: true
+        color: Literals.transparent
+        RowLayout{
+            anchors.fill: parent
+            Text {
+                id: name
+                Layout.fillWidth: true
+                color: "#eeffffff"
+                text: qsTr("Get started with mining monero! \n 1. Create a Monero wallet at MyMonero if you dont have one \n 2. Sign up for a mining account on the SupportXMR mining pool\n 3. Enter your data on the settings page")
+                wrapMode: Text.WordWrap
+                font.pixelSize: Qt.application.font.pixelSize * 1.4
+
+            }
+        }
+    }
+
     ScrollView {
         id: scrollview
         width: parent.width
-        height: parent.height
+        anchors.top: rect.bottom
+        anchors.topMargin: 15
+        height: parent.height - 70 - rect.height
        // Layout.fillWidth: true
         Layout.fillHeight: true
         ScrollBar.horizontal.policy : ScrollBar.AlwaysOff
+        background: Rectangle{
+            border.width: Literals.borderWidth
+            border.color: Literals.borderColor
+            color : Literals.transparent
+        }
 
         clip: true
         padding: 10
-
-
 
         GridLayout {
 
@@ -33,27 +58,11 @@ BasePage {
             width: scrollview.width- scrollview.padding * 2
        //     height: scrollview.height - scrollview.padding * 2
 
-            Rectangle{
-                implicitWidth: parent.width
-                implicitHeight: 60
-                color: Literals.transparent
-                RowLayout{
-                    anchors.fill: parent
-                    Text {
-                        id: name
-                        Layout.fillWidth: true
-                        color: "#eeffffff"
-                        text: qsTr("Get started with mining monero! \n 1. Create a Monero wallet at MyMonero if you dont have one \n 2. Sign up for a mining account on the SupportXMR mining pool\n 3. Enter your data on the settings page")
-                        wrapMode: Text.WordWrap
-                        font.pixelSize: Qt.application.font.pixelSize * 1.4
 
-                    }
-                }
-            }
 
             Item {
 
-                implicitHeight: 25
+                implicitHeight: 9
             }
 
             ParagraphLink{
