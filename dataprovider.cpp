@@ -104,10 +104,10 @@ void DataProvider::addToSeries(qreal yValue, QString xValue)
 
 void DataProvider::randomSeries()
 {
-    int l= 3;
+    int l= 31;
 
-    if(countMax > 10) l = 100;
-    float r2 = static_cast <float>( (rand()) % l);
+    //if(countMax > 10) l = 100;
+    float r2 = static_cast <float>( 120 + (rand()) % l);
     addToSeries(r2);
 
 }

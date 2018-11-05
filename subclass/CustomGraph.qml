@@ -155,6 +155,8 @@ Pane {
             var min = provider.getLow()
             var max = provider.getHigh() //* control.xAxisMaxMultiplier
             var diff = max - min
+            max = min + diff * 2;
+            diff = diff * 2;
             var offset = 3
             if(diff <.01) diff = .01;
 
@@ -163,7 +165,7 @@ Pane {
                 var x1 = (i * (width - canvasXStartPosition) / (numOfValues + 1 )) + canvasXStartPosition
 
                 var yr = ((d1 - min) / diff); 
-                var y1 =ybottom + yr * ydiff * 0.50;// reduce lines to just 40% of the graph
+                var y1 =ybottom + yr * ydiff;// * 0.50;// reduce lines to just 40% of the graph
 
                 ctx.lineTo(x1,y1 - offset)
 
@@ -199,15 +201,36 @@ Pane {
             var ctx = canvas.getContext("2d")
             var offset = 3
             var max = provider.getHigh()
-            var interval = max / 2
+            var min = provider.getLow()
+            var diff = max - min;
+            max = min + diff * 2;
+            diff = diff * 2;
+            var yIncrement = diff/yaxiscount;
+            var interval = diff
                 ctx.font = "9px arial"
             ctx.fillStyle = "#99ffffff"
+
+            /*
             for (var i = 1; i <= yaxiscount ; i++)
             {
-
-                var text = (interval * (5 - i) ).toFixed(0)
+                var text = (yIncrement * (yaxiscount - i) ).toFixed(0)
                 var fontWidth =  ctx.measureText(text ).width
                 ctx.fillText(text , 23 - fontWidth, i * (canvasHeight) / yaxiscount +offset)
+            }*/
+
+            var ytop = 0 + graphHeightOffset
+            var ybottom = canvasHeight + 2
+            var ydiff = ytop - ybottom;
+
+            for (var i = 0; i < yaxiscount ; i++) {
+                var d1 = i / yaxiscount;
+
+                var y1 =ybottom + (d1) * ydiff;// * 0.50;// reduce lines to just 40% of the graph
+
+                var text = (min + (d1 * diff) ).toFixed(0)
+                var fontWidth =  ctx.measureText(text ).width
+                ctx.fillText(text , 23-fontWidth, y1 - offset);
+
             }
 
         }

@@ -180,7 +180,8 @@ Pane {
                     onImplicitHeightChanged: {
 
                     }
-                    implicitHeight: (parent.height - Literals.borderWidth * 2) * average / 2
+                    //implicitHeight: (parent.height - Literals.borderWidth * 2) * average / 2
+                    implicitHeight: averageBar.height/2 * (mean - low)/(high-low)
                     implicitWidth: 21
                     x: Literals.borderWidth + 1
                     y: Literals.borderWidth
