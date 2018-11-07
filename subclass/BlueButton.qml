@@ -10,6 +10,7 @@ Rectangle {
     property string imageSource: ""
     property string textValue: ""
     property string col : Literals.blueButtonColor
+    property real buttonSize: Qt.application.font.pixelSize * 1.6
 
     signal clicked()
 
@@ -71,7 +72,7 @@ Rectangle {
             color: Literals.fontcolor
             horizontalAlignment: Text.AlignHCenter
             Layout.fillWidth: true
-            font.pixelSize: Qt.application.font.pixelSize * 1.6
+            font.pixelSize: buttonSize
             anchors.centerIn: parent
         }
 

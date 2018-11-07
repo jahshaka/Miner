@@ -9,7 +9,7 @@ import "subclass"
 
 BasePage {
 
-    padding: 10
+    padding: 0
 
 
     Rectangle{
@@ -27,6 +27,9 @@ BasePage {
                 text: qsTr("Get started with mining monero! \n 1. Create a Monero wallet at MyMonero if you dont have one \n 2. Sign up for a mining account on the SupportXMR mining pool\n 3. Enter your data on the settings page")
                 wrapMode: Text.WordWrap
                 font.pixelSize: Qt.application.font.pixelSize * 1.4
+                Layout.leftMargin: 20
+                Layout.topMargin: 10
+
 
             }
         }
@@ -37,7 +40,9 @@ BasePage {
         width: parent.width
         anchors.top: rect.bottom
         anchors.bottom: parent.bottom
-        anchors.topMargin: 15
+        anchors.topMargin: 10
+        anchors.leftMargin: -5
+        anchors.rightMargin: -5
       //  height: parent.height - 70 - rect.height
        // Layout.fillWidth: true
         Layout.fillHeight: true
@@ -49,7 +54,7 @@ BasePage {
         }
 
         clip: true
-        padding: 10
+        topPadding: 10
 
         GridLayout {
 
@@ -63,7 +68,7 @@ BasePage {
 
             Item {
 
-                implicitHeight: 9
+                implicitHeight: 4
             }
 
             ParagraphLink{

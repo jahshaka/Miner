@@ -240,10 +240,29 @@ ApplicationWindow {
                     }
 
                     id: date
-                    leftPadding: 15
-                    font.pixelSize: Qt.application.font.pixelSize * 1
+                    leftPadding: 25
+                    font.pixelSize: Qt.application.font.pixelSize * 1.4
                     color: "#eeffffff"
 
+                }
+                Item {
+                    id: space
+                    Layout.fillWidth: true
+                }
+                BlueButton {
+                    id: startBtn
+                    textValue: "Start"
+                    buttonSize: Qt.application.font.pixelSize * 1.5
+                  //  implicitWidth: parent.width/6
+                    implicitHeight: parent.height/1.7
+                    Layout.fillHeight: false
+                    Layout.rightMargin: 20
+                    onClicked: {
+                        startMining = !startMining
+                        textValue = startMining? "Stop" : "Start"
+                        manager.setShouldMining(startMining)
+                        if(!startMining) graph_page.status = "Inactive"
+                    }
                 }
             }
         }
@@ -395,25 +414,61 @@ ApplicationWindow {
             }
 
             background: Rectangle {
-                color: Literals.darkBackgroundColor
-                border.color: Literals.borderColor
-                border.width: Literals.borderWidth
+                color: Qt.darker(Literals.darkBackgroundColor, 1.5)
+               // border.color: Literals.borderColor
+               // border.width: Literals.borderWidth
             }
 
-            leftPadding: 20
+            leftPadding: 10
+            rightPadding: 10
             RowLayout {
                 anchors.left: parent.left
                 anchors.right: parent.right
 
-                BlueButton {
-                    id: startBtn
-                    textValue: "Start"
+//                BlueButton {
+//                    id: startBtn
+//                    textValue: "Start"
+//
+//                    onClicked: {
+//                        startMining = !startMining
+//                        textValue = startMining? "Stop" : "Start"
+//                        manager.setShouldMining(startMining)
+//                        if(!startMining) graph_page.status = "Inactive"
+//                    }
+//                }
 
-                    onClicked: {
-                        startMining = !startMining
-                        textValue = startMining? "Stop" : "Start"
-                        manager.setShouldMining(startMining)
-                        if(!startMining) graph_page.status = "Inactive"
+                Label {
+                    id: donateLabel
+                  //  Layout.fillWidth: true
+                    text: "Like our Miner? <font color='#2288ff'>Please donate </font>"
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignBottom
+                    Layout.topMargin: 15
+                    color: Literals.fontcolor
+                    font.pixelSize: Qt.application.font.pixelSize * 1.2
+                    font.weight: Literals.fontWeight
+                    visible: true
+                    MouseArea{
+
+                        anchors.fill: parent
+                        hoverEnabled:  true
+                        onClicked: {
+                            Qt.openUrlExternally("https://www.jahshaka.com/donate/")
+                        }
+                        onEntered: {
+                            donateLabel.color = Literals.blueButtonColor
+                            cursorShape = Qt.PointingHandCursor
+                        }
+                        onExited: {
+                            cursorShape = Qt.ArrowCursor
+                            donateLabel.color = "#eeffffff"
+                        }
+
+                    }
+                    Behavior on color {
+                        ColorAnimation {
+                            duration: 200
+                        }
                     }
                 }
                 Item {
@@ -422,17 +477,44 @@ ApplicationWindow {
                 }
                 Label {
                     id: jahshakaLabel
-                    Layout.fillWidth: true
-                    text: "Find out more at \n Jahshaka.com"
+                   // Layout.fillWidth: true
+                   // text: " For comments and suggestions, please <font color='#3388ff'>visit our forums</font>"
+                   ColumnLayout{
+                    anchors.fill: jahshakaLabel
+
+                    Text {
+                        id: jahshakaMinerLabel
+                        text: qsTr("Jahshaka Miner v0.3")
+                        color: "#3388ff";
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                        Layout.fillWidth: true
+
+                    }
+                    Text {
+                        id: jahshakaVisitLabel
+                        text: qsTr("For comments and suggestions, please <font color='#3388ff'>visit our forums</font>")
+                        color: "#fff";
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                        Layout.fillWidth: true
+
+                    }
+                    Item {
+                        implicitHeight: jahshakaVisitLabel.height
+                    }
+
+                   }
+
                     horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
+                   // verticalAlignment: Text.AlignVCenter
                     color: Literals.fontcolor
                     font.pixelSize: Qt.application.font.pixelSize * 1.4
                     font.weight: Literals.fontWeight
                     visible: true
                     MouseArea{
 
-                        anchors.fill: parent
+                        anchors.fill: jahshakaLabel
                         hoverEnabled:  true
                         onClicked: {
                             Qt.openUrlExternally("https://www.jahshaka.com/")
@@ -461,13 +543,53 @@ ApplicationWindow {
                 BlueButton {
                     id: helpBtn
                     textValue: "Donate"
-                    visible: true
+                    visible: false
+                    enabled: visible
                     onClicked: {
                         Qt.openUrlExternally("https://www.jahshaka.com/donate/")
 
                     }
                 }
+                Label {
+                    id: updateLabel
+                  //  Layout.fillWidth: true
+                    text: "Check for updates"
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignBottom
+                    Layout.topMargin: 15
+                    color: Literals.fontcolor
+                    font.pixelSize: Qt.application.font.pixelSize * 1.2
+                    font.weight: Literals.fontWeight
+                    visible: true
+                    MouseArea{
+
+                        anchors.fill: parent
+                        hoverEnabled:  true
+                        onClicked: {
+                            Qt.openUrlExternally("")
+                        }
+                        onEntered: {
+                            updateLabel.color = Literals.blueButtonColor
+                            cursorShape = Qt.PointingHandCursor
+                        }
+                        onExited: {
+                            cursorShape = Qt.ArrowCursor
+                            updateLabel.color = "#eeffffff"
+                        }
+
+                    }
+                    Behavior on color {
+                        ColorAnimation {
+                            duration: 200
+                        }
+                    }
+                }
             }
+        }
+        Rectangle {
+            Layout.fillWidth: true
+            implicitHeight: 10
+            color: Qt.darker(Literals.darkBackgroundColor, 1.5)
         }
     }
 }

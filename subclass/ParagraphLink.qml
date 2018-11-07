@@ -34,9 +34,9 @@ Pane {
                  Layout.fillWidth: true
                  id: textExplanation
                  text: qsTr(labelText)
-                 color: "#ddffffff"
-                 font.pixelSize: Qt.application.font.pixelSize * 1.3
-                 font.weight: Literals.fontWeight
+                 color: "#ffffff"
+                 font.pixelSize: Qt.application.font.pixelSize * 1.4
+                 font.weight: Literals.fontWeightLarger
                  wrapMode: Text.Wrap
                  verticalAlignment: Text.AlignVCenter
               //   horizontalAlignment: Text.AlignHCenter

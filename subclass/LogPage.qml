@@ -16,6 +16,7 @@ BasePage {
     signal copy
     signal added
 
+    padding: 10
     topPadding: 15
 
     onAdded: {
@@ -62,7 +63,7 @@ BasePage {
             width: parent.width
             currentIndex: bar.currentIndex
             anchors.top: bar.bottom
-            anchors.topMargin: -20
+           // anchors.topMargin: -20
         }
 
         Item {

@@ -16,10 +16,14 @@ BasePage {
     leftPadding: 10
     rightPadding: 10
     bottomPadding : 10
+    topPadding: 10
 
-    background: Rectangle {
-        color: Literals.darkBackgroundColor
+    background: Rectangle{
+        border.width: Literals.borderWidth
+        border.color: Literals.borderColor
+        color : Literals.transparent
     }
+
 
 
 
