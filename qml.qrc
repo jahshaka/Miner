@@ -40,5 +40,6 @@
         <file>images/logs.png</file>
         <file>subclass/LogItem.qml</file>
         <file>subclass/CustomTabBbutton.qml</file>
+        <file>images/minerIcon.png</file>
     </qresource>
 </RCC>

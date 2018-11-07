@@ -11,34 +11,42 @@ BasePage {
 
     padding: 0
 
+    Label{
+        id: label
+        anchors.top: parent.top
+        anchors.left: parent.left
+        text: qsTr("Help")
+        padding: 7
+        leftPadding: 10
+        bottomPadding: 11
+        color: "#fff"
+        font.pixelSize: Qt.application.font.pixelSize * 1.8
+        font.weight: Literals.fontWeightLarger
+    }
 
-    Rectangle{
-        id: rect
-        implicitWidth: parent.width
-        implicitHeight: 75
-        visible: true
-        color: Literals.transparent
-        RowLayout{
-            anchors.fill: parent
             Text {
+                anchors{
+                    left: parent.left
+                    right: parent.right
+                    top: label.bottom
+                }
+                padding: 7
+                leftPadding: 12
                 id: name
                 Layout.fillWidth: true
                 color: "#eeffffff"
                 text: qsTr("Get started with mining monero! \n 1. Create a Monero wallet at MyMonero if you dont have one \n 2. Sign up for a mining account on the SupportXMR mining pool\n 3. Enter your data on the settings page")
                 wrapMode: Text.WordWrap
                 font.pixelSize: Qt.application.font.pixelSize * 1.4
-                Layout.leftMargin: 20
-                Layout.topMargin: 10
+
 
 
             }
-        }
-    }
 
     ScrollView {
         id: scrollview
         width: parent.width
-        anchors.top: rect.bottom
+        anchors.top: name.bottom
         anchors.bottom: parent.bottom
         anchors.topMargin: 10
         anchors.leftMargin: -5
@@ -46,7 +54,7 @@ BasePage {
       //  height: parent.height - 70 - rect.height
        // Layout.fillWidth: true
         Layout.fillHeight: true
-        ScrollBar.horizontal.policy : ScrollBar.AlwaysOff
+        ScrollBar.horizontal.policy : ScrollBar.AsNeeded
         background: Rectangle{
             border.width: Literals.borderWidth
             border.color: Literals.borderColor

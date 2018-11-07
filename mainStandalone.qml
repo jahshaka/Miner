@@ -240,7 +240,7 @@ ApplicationWindow {
                     }
 
                     id: date
-                    leftPadding: 25
+                    leftPadding: 15
                     font.pixelSize: Qt.application.font.pixelSize * 1.4
                     color: "#eeffffff"
 
@@ -256,7 +256,7 @@ ApplicationWindow {
                   //  implicitWidth: parent.width/6
                     implicitHeight: parent.height/1.7
                     Layout.fillHeight: false
-                    Layout.rightMargin: 20
+                    Layout.rightMargin: 15
                     onClicked: {
                         startMining = !startMining
                         textValue = startMining? "Stop" : "Start"
@@ -440,7 +440,7 @@ ApplicationWindow {
                 Label {
                     id: donateLabel
                   //  Layout.fillWidth: true
-                    text: "Like our Miner? <font color='#2288ff'>Please donate </font>"
+                    text: "Like our Miner? <font color='#4898ff'>Please donate </font>"
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignBottom
                     Layout.topMargin: 15
@@ -485,7 +485,7 @@ ApplicationWindow {
                     Text {
                         id: jahshakaMinerLabel
                         text: qsTr("Jahshaka Miner v0.3")
-                        color: "#3388ff";
+                        color: "#4898ff";
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
                         Layout.fillWidth: true
@@ -493,7 +493,7 @@ ApplicationWindow {
                     }
                     Text {
                         id: jahshakaVisitLabel
-                        text: qsTr("For comments and suggestions, please <font color='#3388ff'>visit our forums</font>")
+                        text: qsTr("For comments and suggestions, please <font color='#4898ff'>visit our forums</font>")
                         color: "#fff";
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter

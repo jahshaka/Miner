@@ -8,12 +8,8 @@ import QtGraphicalEffects 1.0
 Page {
     antialiasing: true
 
-    property bool showHorizontalBorders: true
-    property bool showVerticalBorders: false
-    property bool showAllBorders: showHorizontalBorders && showVerticalBorders
-    property int borderWidth: Literals.borderWidth
-    property string borderColor: Literals.borderColor
-    property real commonWidth : 0
+    property string heading: ""
+
 
     background: Rectangle {
         color: Literals.darkBackgroundColor
@@ -35,43 +31,48 @@ Page {
         }
     }
 
-    Rectangle{
-        id: leftrect
-        anchors.left: parent.left
 
-        color: borderColor
-        implicitWidth: commonWidth
-        implicitHeight: parent.height
-        z:10
 
-    }
-    Rectangle{
-        id: rightrect
-        anchors.right: parent.right
-        color: Literals.borderColor
-        implicitWidth: commonWidth
-        implicitHeight: parent.height
-        z:10
 
-    }
-    Rectangle{
-        id: toprect
-        anchors.top : parent.top
-        color: borderColor
-        implicitWidth: parent.width
-        implicitHeight: commonWidth
-        z:10
 
-    }
-    Rectangle{
-        id: bottomrect
-        anchors.bottom: parent.bottom
-        color: Literals.borderColor
-        implicitWidth: parent.width
-        implicitHeight: commonWidth
-        z:10
 
-    }
+//    Rectangle{
+//        id: leftrect
+//        anchors.left: parent.left
+
+//        color: borderColor
+//        implicitWidth: commonWidth
+//        implicitHeight: parent.height
+//        z:10
+
+//    }
+//    Rectangle{
+//        id: rightrect
+//        anchors.right: parent.right
+//        color: Literals.borderColor
+//        implicitWidth: commonWidth
+//        implicitHeight: parent.height
+//        z:10
+
+//    }
+//    Rectangle{
+//        id: toprect
+//        anchors.top : parent.top
+//        color: borderColor
+//        implicitWidth: parent.width
+//        implicitHeight: commonWidth
+//        z:10
+
+//    }
+//    Rectangle{
+//        id: bottomrect
+//        anchors.bottom: parent.bottom
+//        color: Literals.borderColor
+//        implicitWidth: parent.width
+//        implicitHeight: commonWidth
+//        z:10
+
+//    }
 }
 
 

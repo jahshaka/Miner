@@ -13,10 +13,10 @@ BasePage {
 
     signal save()
     signal cancel()
-    leftPadding: 10
-    rightPadding: 10
+    leftPadding: 15
+    rightPadding: 15
     bottomPadding : 10
-    topPadding: 10
+    topPadding: 0
 
     background: Rectangle{
         border.width: Literals.borderWidth
@@ -25,11 +25,29 @@ BasePage {
     }
 
 
-
+    Label{
+        id: label
+        anchors.top: parent.top
+        anchors.left: parent.left
+        text: qsTr("Settings")
+        padding: 7
+        leftPadding: 0
+        bottomPadding: 11
+        color: "#fff"
+        font.pixelSize: Qt.application.font.pixelSize * 1.8
+        font.weight: Literals.fontWeightLarger
+    }
 
     ScrollView {
         id: scroll
-        anchors.fill: parent
+       // anchors.fill: parent
+        anchors{
+            left: parent.left
+            right: parent.right
+            bottom: parent.bottom
+            top: label.bottom
+        }
+
         background: Rectangle {
             color: Literals.darkBackgroundColor
             border.width: 1

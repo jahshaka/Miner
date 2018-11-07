@@ -16,23 +16,47 @@ BasePage {
     signal copy
     signal added
 
-    padding: 10
-    topPadding: 15
+  //  padding: 10
+  //  topPadding: 15
 
     onAdded: {
         bar.itemAt(0).textColor = "#fff"
     }
 
-    ColumnLayout {
-        spacing: 0
-        anchors.fill: parent
+    Label{
+        id: label
+        anchors.top: parent.top
+        anchors.left: parent.left
+        anchors.leftMargin: 8
+        text: qsTr("Logs")
+        padding: 7
+        bottomPadding: 11
+        color: "#fff"
+        font.pixelSize: Qt.application.font.pixelSize * 1.8
+        font.weight: Literals.fontWeightLarger
+    }
 
+
+//    ColumnLayout {
+//        spacing: 0
+//        anchors{
+//            left: parent.left
+//            right: parent.right
+//            bottom: parent.bottom
+//            top: label.bottom
+//            topMargin: -label.height
+//        }
         TabBar {
             id: bar
+            padding: 0
             anchors.right: parent.right
-            anchors.rightMargin: 12
-           // anchors.bottom: swipe.top
-           // anchors.bottomMargin: -15
+            anchors.rightMargin: 15
+            anchors.top: parent.top
+            anchors.topMargin: 14
+         //   anchors.bottomMargin: -10
+        //    anchors.bottom: stack.top
+
+            implicitHeight: 25
 
             background: Rectangle{
                 color: Literals.transparent
@@ -63,14 +87,20 @@ BasePage {
             width: parent.width
             currentIndex: bar.currentIndex
             anchors.top: bar.bottom
-           // anchors.topMargin: -20
+            anchors.topMargin: 2
+
+            anchors.bottom: space.bottom
+
         }
 
         Item {
             //width: 15
+            id:space
+            anchors.top: stack.bottom
+            anchors.bottom: parent.bottom
             implicitHeight: 5
         }
-    }
+    //}
 
     function addProvider(provider) {
         var comp

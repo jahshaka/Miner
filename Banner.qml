@@ -19,9 +19,9 @@ Pane {
         Image {
             id: bannerImage
             //    source: "images/jahminer icon.png"
-            source: "images/icon.ico"
-            sourceSize.width: parent.height
-            sourceSize.height: parent.height
+            source: "images/minerIcon.png"
+            sourceSize.width: 42
+            sourceSize.height: 42
         //    width: 130; height: 100
             fillMode: Image.PreserveAspectFit
 

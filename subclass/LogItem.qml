@@ -7,8 +7,12 @@ import DataProvider 1.0
 Pane {
 
     property DataProvider provider: null
+    padding: 0
+    leftPadding: 15
+    rightPadding: 15
+    bottomPadding: 8
 
-     anchors.topMargin: -55
+   //  anchors.topMargin: -55
 
     Connections {
         target: provider
