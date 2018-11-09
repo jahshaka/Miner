@@ -12,6 +12,7 @@ TabButton {
     property string textColor: "#777"
     signal additional()
     implicitWidth: text.width + 20
+    implicitHeight: text.height + 16
 
     checkable: false
 

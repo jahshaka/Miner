@@ -54,7 +54,7 @@ BasePage {
       //  height: parent.height - 70 - rect.height
        // Layout.fillWidth: true
         Layout.fillHeight: true
-        ScrollBar.horizontal.policy : ScrollBar.AsNeeded
+        ScrollBar.vertical.policy : ScrollBar.AsNeeded
         background: Rectangle{
             border.width: Literals.borderWidth
             border.color: Literals.borderColor

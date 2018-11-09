@@ -41,6 +41,9 @@ BasePage {
     ScrollView {
         id: scroll
        // anchors.fill: parent
+        bottomPadding: 15
+        clip: true
+        ScrollBar.vertical.policy : ScrollBar.AsNeeded
         anchors{
             left: parent.left
             right: parent.right

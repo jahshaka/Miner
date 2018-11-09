@@ -13,7 +13,7 @@ ApplicationWindow {
     width: 690
     height: 480
     title: qsTr("Jahminer")
-    minimumHeight: 400
+    minimumHeight: 460
     minimumWidth: 750
     id: app
 

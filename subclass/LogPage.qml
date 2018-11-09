@@ -51,10 +51,10 @@ BasePage {
             padding: 0
             anchors.right: parent.right
             anchors.rightMargin: 15
-            anchors.top: parent.top
-            anchors.topMargin: 14
-         //   anchors.bottomMargin: -10
-        //    anchors.bottom: stack.top
+         //   anchors.top: parent.top
+         //   anchors.topMargin: 10
+            anchors.bottom: stack.top
+            anchors.bottomMargin: 10
 
             implicitHeight: 25
 
@@ -84,22 +84,24 @@ BasePage {
 
         StackLayout {
             id: stack
-            width: parent.width
+         //   width: parent.width
             currentIndex: bar.currentIndex
-            anchors.top: bar.bottom
+            anchors.top: label.bottom
             anchors.topMargin: 2
-
-            anchors.bottom: space.bottom
-
-        }
-
-        Item {
-            //width: 15
-            id:space
-            anchors.top: stack.bottom
+            anchors.left: parent.left
+            anchors.right: parent.right
             anchors.bottom: parent.bottom
-            implicitHeight: 5
+
+
         }
+
+       // Item {
+       //     //width: 15
+       //     id:space
+       //     anchors.top: stack.bottom
+       //     anchors.bottom: parent.bottom
+       //     implicitHeight: 5
+       // }
     //}
 
     function addProvider(provider) {

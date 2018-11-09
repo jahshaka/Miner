@@ -22,8 +22,9 @@ Pane {
         }
     }
 
-    Layout.fillWidth: true
-    Layout.fillHeight: true
+
+   // Layout.fillWidth: true
+   // Layout.fillHeight: true
     background: Rectangle{
         color: Literals.transparent
     }
