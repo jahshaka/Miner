@@ -147,8 +147,20 @@ ApplicationWindow {
                 anchors.bottom: parent.bottom
             }
         }
+
+        ColumnLayout{
+
+
+            anchors{
+                top: parent.top
+                left : parent.left
+                right: parent.right
+                bottom: swipe.top
+            }
+
         RowLayout {
-            anchors.fill: parent
+            //anchors.fill: parent
+            Layout.fillWidth: true;
             spacing: 0
             Banner {
             }
@@ -208,20 +220,13 @@ ApplicationWindow {
                 //width: 15
             }
         }
-    }
-
-
-    ColumnLayout {
-
-        anchors.fill: parent
-        spacing: 0
 
         Rectangle{
             id: running_date
 
             Layout.fillWidth: true
             implicitHeight: toolbar.height
-            implicitWidth: app.width
+            implicitWidth: parent.width
             color: Literals.transparent
             RowLayout{
                 anchors.fill: parent
@@ -266,6 +271,20 @@ ApplicationWindow {
                 }
             }
         }
+
+
+        }
+    }
+
+
+    ColumnLayout {
+        anchors.topMargin: 66
+
+        anchors.fill: parent
+
+        spacing: 0
+
+
 
         Rectangle {
             anchors{
